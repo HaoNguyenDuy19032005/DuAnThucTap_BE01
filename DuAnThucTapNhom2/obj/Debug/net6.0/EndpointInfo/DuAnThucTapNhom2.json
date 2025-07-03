@@ -1,0 +1,3913 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DuAnThucTapNhom2",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Students": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Students"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Students/{id}": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Student"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Campus": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "campusid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolinfoid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "campusname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "imageurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "contactpersonname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "contactpersonmobile": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "contactpersonemail": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolinfo": {
+            "$ref": "#/components/schemas/Schoolinformation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Class": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "classid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "classname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "maxstudents": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkGradelevelid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClasstypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkHomeroomteacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClasstype": {
+            "$ref": "#/components/schemas/Classtype"
+          },
+          "fkGradelevel": {
+            "$ref": "#/components/schemas/Gradelevel"
+          },
+          "fkHomeroomteacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "classtransferhistoryFkToclasses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtransferhistory"
+            },
+            "nullable": true
+          },
+          "classtransferhistoryFromclasses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtransferhistory"
+            },
+            "nullable": true
+          },
+          "enrollments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Enrollment"
+            },
+            "nullable": true
+          },
+          "examschedules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Examschedule"
+            },
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            },
+            "nullable": true
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            },
+            "nullable": true
+          },
+          "schooltransferhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Schooltransferhistory"
+            },
+            "nullable": true
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            },
+            "nullable": true
+          },
+          "testassignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Testassignment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Classtransferhistory": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transferid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "transferdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "reason": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fromclassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkToclassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "fkToclass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fromclass": {
+            "$ref": "#/components/schemas/Class"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Classtype": {
+        "required": [
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "classtypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "classname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "maxstudents": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkGradelevelid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkHomeroomteacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkGradelevel": {
+            "$ref": "#/components/schemas/Gradelevel"
+          },
+          "fkHomeroomteacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Class"
+            },
+            "nullable": true
+          },
+          "teachingassignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teachingassignment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "contactid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fullname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "teachers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "courseid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "coursename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "teacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnailurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "enddate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "maxstudents": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "teacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Lesson"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Department": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "departmentname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "departmentleaders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Departmentleader"
+            },
+            "nullable": true
+          },
+          "subjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subject"
+            },
+            "nullable": true
+          },
+          "subjecttypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subjecttype"
+            },
+            "nullable": true
+          },
+          "teachers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            },
+            "nullable": true
+          },
+          "teacherworkhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherworkhistory"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Departmentleader": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "departmentleaderid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkDepartmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "enddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fkDepartment": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Enrollment": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "enrollmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "enrollmentdate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "durationinminutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "starttime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endtime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "classification": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "allowedfiletypes": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "maxfilesizemb": {
+            "type": "number",
+            "format": "double"
+          },
+          "fkClass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Exam": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "examid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkGradelevelid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "examname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "examdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "durationminutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkGradelevel": {
+            "$ref": "#/components/schemas/Gradelevel"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          },
+          "examschedules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Examschedule"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Examgrader": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "examgraderid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkExamscheduleid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkExamschedule": {
+            "$ref": "#/components/schemas/Examschedule"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Examschedule": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "examscheduleid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkExamid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fkExam": {
+            "$ref": "#/components/schemas/Exam"
+          },
+          "examgraders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Examgrader"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "File": {
+        "required": [
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fileid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "originalfilename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "storedfilepath": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkUploadedbyuserid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "filetype": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "filesizekb": {
+            "type": "number",
+            "format": "double"
+          },
+          "uploadtimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkClass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "fkUploadedbyuser": {
+            "$ref": "#/components/schemas/User"
+          },
+          "themes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Theme"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Grade": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gradeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkGradetypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "type": "number",
+            "format": "double"
+          },
+          "instance": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gradeddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fkGradetype": {
+            "$ref": "#/components/schemas/Gradetype"
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Gradelevel": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gradelevelid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "gradelevelname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "codegradelevel": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Class"
+            },
+            "nullable": true
+          },
+          "classtypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtype"
+            },
+            "nullable": true
+          },
+          "exams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Exam"
+            },
+            "nullable": true
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Gradetype": {
+        "required": [
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gradetypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "gradetypename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "weightingfactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "mininstancessemester1": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mininstancessemester2": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "grades": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Grade"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Incomingtransferhistory": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "incomingtransferid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "arrivaldate": {
+            "type": "string",
+            "format": "date"
+          },
+          "previousschoolname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "previousschoolprovince": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "previousschooldistrict": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Lesson": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lessonid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "starttime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endtime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "durationinminutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "password": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "autostartontime": {
+            "type": "boolean"
+          },
+          "isrecordingenabled": {
+            "type": "boolean"
+          },
+          "allowstudentsharing": {
+            "type": "boolean"
+          },
+          "shareablelink": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "meetingid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkCourseid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkCourse": {
+            "$ref": "#/components/schemas/Course"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "notificationid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkUserid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "subject": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fkUser": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Operationunit": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationunitid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "organizationname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "teacherworkhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherworkhistory"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Permission": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "permissionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "module": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "permissioncode": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "rolepermissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rolepermission"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roleid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "rolename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "rolepermissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rolepermission"
+            },
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Rolepermission": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fkRoleid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkPermissionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkPermission": {
+            "$ref": "#/components/schemas/Permission"
+          },
+          "fkRole": {
+            "$ref": "#/components/schemas/Role"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Schoolinformation": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "schoolinfoid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "schoolname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "standardcode": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "province": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "ward": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "district": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "schooltype": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "faxnumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "establishmentdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "trainingmodel": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "websiteurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "principalname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "principalphone": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "logourl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "campuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Campus"
+            },
+            "nullable": true
+          },
+          "schoolyears": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Schoolyear"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Schooltransferhistory": {
+        "required": [
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "schooltransferid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fromclassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "toschoolname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "toschooladdress": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "fromclass": {
+            "$ref": "#/components/schemas/Class"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Schoolyear": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "schoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "schoolyearname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "startyear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endyear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSchoolinfoid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolinfo": {
+            "$ref": "#/components/schemas/Schoolinformation"
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Class"
+            },
+            "nullable": true
+          },
+          "classtypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtype"
+            },
+            "nullable": true
+          },
+          "departmentleaders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Departmentleader"
+            },
+            "nullable": true
+          },
+          "exams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Exam"
+            },
+            "nullable": true
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            },
+            "nullable": true
+          },
+          "studentsemestersummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentsemestersummary"
+            },
+            "nullable": true
+          },
+          "subjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subject"
+            },
+            "nullable": true
+          },
+          "teacherconcurrentsubjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherconcurrentsubject"
+            },
+            "nullable": true
+          },
+          "teachers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Semester": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "semesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "semestername": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "enddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "classtransferhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtransferhistory"
+            },
+            "nullable": true
+          },
+          "exams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Exam"
+            },
+            "nullable": true
+          },
+          "grades": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Grade"
+            },
+            "nullable": true
+          },
+          "incomingtransferhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Incomingtransferhistory"
+            },
+            "nullable": true
+          },
+          "studentsemestersummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentsemestersummary"
+            },
+            "nullable": true
+          },
+          "studentsubjectsummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentsubjectsummary"
+            },
+            "nullable": true
+          },
+          "subjectsofexemptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subjectsofexemption"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fullname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "dateofbirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "studentcode": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "birthplace": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "enrollmentdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "ethnicity": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "admissiontype": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "religion": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressProvincecity": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressDistrict": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressWard": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressStreet": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fathername": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fatherbirthyear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fatheroccupation": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "mothername": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "motherbirthyear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "motheroccupation": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "guardianname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "guardianbirthyear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "guardianoccupation": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumberfather": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumbermother": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumberguardian": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "profileimageurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "gradelevelid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "gradelevel": {
+            "$ref": "#/components/schemas/Gradelevel"
+          },
+          "classtransferhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtransferhistory"
+            },
+            "nullable": true
+          },
+          "enrollments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Enrollment"
+            },
+            "nullable": true
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            },
+            "nullable": true
+          },
+          "grades": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Grade"
+            },
+            "nullable": true
+          },
+          "incomingtransferhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Incomingtransferhistory"
+            },
+            "nullable": true
+          },
+          "schooltransferhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Schooltransferhistory"
+            },
+            "nullable": true
+          },
+          "studentcommendations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentcommendation"
+            },
+            "nullable": true
+          },
+          "studentdisciplines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentdiscipline"
+            },
+            "nullable": true
+          },
+          "studentexemptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentexemption"
+            },
+            "nullable": true
+          },
+          "studentsemestersummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentsemestersummary"
+            },
+            "nullable": true
+          },
+          "studentsubjectsummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentsubjectsummary"
+            },
+            "nullable": true
+          },
+          "studenttestsubmissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studenttestsubmission"
+            },
+            "nullable": true
+          },
+          "subjectsofexemptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subjectsofexemption"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentcommendation": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "commendationid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "commendationdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentdiscipline": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "disciplineid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentexemption": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentexemptionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentsemestersummary": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "summaryid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "schoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "averagescore": {
+            "type": "number",
+            "format": "double"
+          },
+          "performancerating": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "conductrating": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "schoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentsubjectsummary": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentsubjectsummaryid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "averagescore": {
+            "type": "number",
+            "format": "double"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studenttestanswer": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answerid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubmissionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "filename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fileurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "filesizekb": {
+            "type": "number",
+            "format": "double"
+          },
+          "answercontent": {
+            "type": "string",
+            "nullable": true
+          },
+          "selectedoption": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "iscorrect": {
+            "type": "boolean"
+          },
+          "fkSubmission": {
+            "$ref": "#/components/schemas/Studenttestsubmission"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studenttestsubmission": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "submissionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkAssignmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "starttime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submissiontime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "type": "number",
+            "format": "double"
+          },
+          "fkAssignment": {
+            "$ref": "#/components/schemas/Testassignment"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "studenttestanswers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studenttestanswer"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subject": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "subjectname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "subjectcode": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "defaultperiodssem1": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "defaultperiodssem2": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkDepartmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjecttypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkDepartment": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "fkSubjecttype": {
+            "$ref": "#/components/schemas/Subjecttype"
+          },
+          "classtypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtype"
+            },
+            "nullable": true
+          },
+          "exams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Exam"
+            },
+            "nullable": true
+          },
+          "studentsubjectsummaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studentsubjectsummary"
+            },
+            "nullable": true
+          },
+          "subjectsofexemptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subjectsofexemption"
+            },
+            "nullable": true
+          },
+          "teacherconcurrentsubjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherconcurrentsubject"
+            },
+            "nullable": true
+          },
+          "teachers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacher"
+            },
+            "nullable": true
+          },
+          "teachingassignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teachingassignment"
+            },
+            "nullable": true
+          },
+          "topiclists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Topiclist"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subjectsofexemption": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exemptionname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkStudentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "commendationdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fkSemesterid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkSemester": {
+            "$ref": "#/components/schemas/Semester"
+          },
+          "fkStudent": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subjecttype": {
+        "required": [
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subjecttypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "subjecttypename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkDepartmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkDepartment": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "subjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subject"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Submissionfile": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fkQuestionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "answercontent": {
+            "type": "string",
+            "nullable": true
+          },
+          "selectedoption": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "iscorrect": {
+            "type": "boolean"
+          },
+          "fkQuestion": {
+            "$ref": "#/components/schemas/Testquestion"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Systemsetting": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "settingkey": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "settingvalue": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkUserid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkUser": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Teacher": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "teacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "teachercode": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fullname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "dateofbirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "gender": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "ethnicity": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "hiredate": {
+            "type": "string",
+            "format": "date"
+          },
+          "nationality": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "religion": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "alias": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressProvincecity": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressWard": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressDistrict": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "addressStreet": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "phonenumber": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "dateofjoiningtheparty": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "dateofjoininggroup": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "ispartymember": {
+            "type": "boolean"
+          },
+          "fkDepartmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkContactid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkContact": {
+            "$ref": "#/components/schemas/Contact"
+          },
+          "fkDepartment": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Class"
+            },
+            "nullable": true
+          },
+          "classtypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Classtype"
+            },
+            "nullable": true
+          },
+          "courses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Course"
+            },
+            "nullable": true
+          },
+          "departmentleaders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Departmentleader"
+            },
+            "nullable": true
+          },
+          "examgraders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Examgrader"
+            },
+            "nullable": true
+          },
+          "gradelevels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Gradelevel"
+            },
+            "nullable": true
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Lesson"
+            },
+            "nullable": true
+          },
+          "semesters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Semester"
+            },
+            "nullable": true
+          },
+          "studenttestsubmissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studenttestsubmission"
+            },
+            "nullable": true
+          },
+          "teacherconcurrentsubjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherconcurrentsubject"
+            },
+            "nullable": true
+          },
+          "teachertraininghistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teachertraininghistory"
+            },
+            "nullable": true
+          },
+          "teacherworkhistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherworkhistory"
+            },
+            "nullable": true
+          },
+          "teacherworkstatushistories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teacherworkstatushistory"
+            },
+            "nullable": true
+          },
+          "teachingassignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Teachingassignment"
+            },
+            "nullable": true
+          },
+          "tests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Test"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Teacherconcurrentsubject": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolyearid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSchoolyear": {
+            "$ref": "#/components/schemas/Schoolyear"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Teachertraininghistory": {
+        "required": [
+          "active"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trainingid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "traininginstitutionname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "majororspecialization": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "enddateorgraduationyear": {
+            "type": "string",
+            "format": "date"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "trainingtype": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "certificatediplomaname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "decisionfileurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Teacherworkhistory": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workhistoryid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "organizationname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "iscurrentschool": {
+            "type": "boolean"
+          },
+          "positionheld": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "enddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fkDepartmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkOperationunitid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkDepartment": {
+            "$ref": "#/components/schemas/Department"
+          },
+          "fkOperationunit": {
+            "$ref": "#/components/schemas/Operationunit"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Teacherworkstatushistory": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "historyid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "statustype": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "enddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "note": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "decisionfileurl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Teachingassignment": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "assignmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClasstypeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "teachingstartdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "teachingenddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "notes": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClasstype": {
+            "$ref": "#/components/schemas/Classtype"
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Test": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "testid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTeacherid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "testformat": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "durationinminutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "starttime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endtime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "classification": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "allowedfiletypes": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "maxfilesizemb": {
+            "type": "number",
+            "format": "double"
+          },
+          "fkTeacher": {
+            "$ref": "#/components/schemas/Teacher"
+          },
+          "testassignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Testassignment"
+            },
+            "nullable": true
+          },
+          "testquestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Testquestion"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Testassignment": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "assignmentid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTestid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkClassid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "sentat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "attachmenturl": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "displayorder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "optiona": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "optionb": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "optionc": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "optiond": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "correctoption": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "points": {
+            "type": "number",
+            "format": "double"
+          },
+          "fkClass": {
+            "$ref": "#/components/schemas/Class"
+          },
+          "fkTest": {
+            "$ref": "#/components/schemas/Test"
+          },
+          "studenttestsubmissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Studenttestsubmission"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Testquestion": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "questionid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTestid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkTest": {
+            "$ref": "#/components/schemas/Test"
+          },
+          "submissionfile": {
+            "$ref": "#/components/schemas/Submissionfile"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Theme": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "themeid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "themename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnailid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail": {
+            "$ref": "#/components/schemas/File"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Topiclist": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "topicid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "topicname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "teachingenddate": {
+            "type": "string",
+            "format": "date"
+          },
+          "fkSubjectid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fkSubject": {
+            "$ref": "#/components/schemas/Subject"
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "required": [
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "fullname": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "passwordhash": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "roleid": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "isactive": {
+            "type": "boolean"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            },
+            "nullable": true
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            },
+            "nullable": true
+          },
+          "systemsettings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Systemsetting"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
