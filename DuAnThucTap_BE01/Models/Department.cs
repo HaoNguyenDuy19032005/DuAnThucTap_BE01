@@ -1,15 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using DuAnThucTap_BE01.Models;
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-namespace DuAnThucTap_BE01.Models
+namespace DuAnThucTapNhom3.Models
 {
-    public class Department
+    public partial class Department
     {
-        [Key]
-        public int DepartmentID { get; set; }
+        public Department()
+        {
+            Subjects = new HashSet<Subject>();
+        }
 
-        public string DepartmentName { get; set; } = null!;
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public int Departmentid { get; set; }
+        public string Departmentname { get; set; } = null!;
+        public DateTime? Createdat { get; set; }
+        public DateTime? Updatedat { get; set; }
+        public int? Headteacherid { get; set; }
+        [JsonIgnore]
+
+        public virtual Teacher? Headteacher { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

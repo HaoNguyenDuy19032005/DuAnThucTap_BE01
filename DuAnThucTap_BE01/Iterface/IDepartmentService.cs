@@ -1,13 +1,14 @@
-﻿using DuAnThucTap_BE01.Models;
+﻿using DuAnThucTapNhom3.Models;
 
-namespace DuAnThucTap_BE01.Iterface
+namespace DuAnThucTapNhom3.Iterface
 {
     public interface IDepartmentService
     {
         Task<IEnumerable<Department>> GetAllAsync();
-        Task<Department?> GetByIdAsync(int id);
-        Task<Department> CreateAsync(Department newDepartment);
-        Task<Department?> UpdateAsync(int id, Department updatedDepartment);
+        Task<Department> GetByIdAsync(int id);
+        Task<Department> CreateAsync(Department department);
+        Task<Department> UpdateAsync(int id, Department department);
         Task<bool> DeleteAsync(int id);
     }
+
 }

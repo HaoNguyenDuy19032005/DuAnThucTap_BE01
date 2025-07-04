@@ -1,6 +1,6 @@
-﻿using DuAnThucTap_BE01.Models;
-using Microsoft.AspNetCore.Mvc;
-using DuAnThucTap_BE01.Iterface;
+﻿using Microsoft.AspNetCore.Mvc;
+using DuAnThucTapNhom3.Iterface;
+using DuAnThucTapNhom3.Models;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -35,13 +35,13 @@ namespace DuAnThucTap_BE01.Controllers
         {
             if (newDepartment == null) return BadRequest();
             var created = await _service.CreateAsync(newDepartment);
-            return CreatedAtAction(nameof(GetById), new { id = created.DepartmentID }, created);
+            return CreatedAtAction(nameof(GetById), new { id = created.Departmentid }, created);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Department>> Update(int id, Department updatedDepartment)
         {
-            if (updatedDepartment == null || id != updatedDepartment.DepartmentID) return BadRequest();
+            if (updatedDepartment == null || id != updatedDepartment.Departmentid) return BadRequest();
             var result = await _service.UpdateAsync(id, updatedDepartment);
             if (result == null) return NotFound();
             return Ok(result);

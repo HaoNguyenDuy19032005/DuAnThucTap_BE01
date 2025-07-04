@@ -1,12 +1,16 @@
 ﻿using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTapNhom3.Iterface;
+using DuAnThucTapNhom3.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace DuAnThucTap_BE01.Service
+
+namespace DuAnThucTapNhom3.Service
 {
     public class DepartmentService : IDepartmentService
     {
         private readonly AppDbContext _context;
-
         public DepartmentService(AppDbContext context)
         {
             _context = context;
@@ -17,27 +21,28 @@ namespace DuAnThucTap_BE01.Service
             return await _context.Departments.ToListAsync();
         }
 
-        public async Task<Department?> GetByIdAsync(int id)
+        public async Task<Department> GetByIdAsync(int id)
         {
             return await _context.Departments.FindAsync(id);
         }
 
-        public async Task<Department> CreateAsync(Department newDepartment)
+        public async Task<Department> CreateAsync(Department department)
         {
-            newDepartment.CreatedAt = DateTime.UtcNow;
-
-            _context.Departments.Add(newDepartment);
+            department.Createdat = DateTime.UtcNow;
+            department.Updatedat = DateTime.UtcNow;
+            _context.Departments.Add(department);
             await _context.SaveChangesAsync();
-            return newDepartment;
+            return department;
         }
 
-        public async Task<Department?> UpdateAsync(int id, Department updatedDepartment)
+        public async Task<Department> UpdateAsync(int id, Department department)
         {
             var existing = await _context.Departments.FindAsync(id);
             if (existing == null) return null;
 
-            existing.DepartmentName = updatedDepartment.DepartmentName;
-            existing.UpdatedAt = DateTime.UtcNow;
+            existing.Departmentname = department.Departmentname;
+            existing.Headteacherid = department.Headteacherid;
+            existing.Updatedat = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
             return existing;
@@ -45,12 +50,13 @@ namespace DuAnThucTap_BE01.Service
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var entity = await _context.Departments.FindAsync(id);
-            if (entity == null) return false;
+            var department = await _context.Departments.FindAsync(id);
+            if (department == null) return false;
 
-            _context.Departments.Remove(entity);
+            _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
             return true;
         }
     }
+
 }
