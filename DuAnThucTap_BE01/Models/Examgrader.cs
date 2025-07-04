@@ -1,4 +1,5 @@
-﻿using System;
+@ -0,0 + 1,28 @@
+?using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
