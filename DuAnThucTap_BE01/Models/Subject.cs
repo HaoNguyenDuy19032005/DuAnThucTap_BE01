@@ -1,30 +1,72 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
 {
+    [Table("subjects")]
+    [Index("Subjectcode", Name = "subjects_subjectcode_key", IsUnique = true)]
     public partial class Subject
-{
-    public Subject()
     {
-        Classes = new HashSet<Class>();
-    }
+        public Subject()
+        {
+            Classes = new HashSet<Class>();
+            Exams = new HashSet<Exam>();
+            Grades = new HashSet<Grade>();
+            Studentsubjectsummaries = new HashSet<Studentsubjectsummary>();
+            Teacherconcurrentsubjects = new HashSet<Teacherconcurrentsubject>();
+            Teachers = new HashSet<Teacher>();
+            Teachingassignments = new HashSet<Teachingassignment>();
+        }
 
-    public int Subjectid { get; set; }
-    public string Subjectname { get; set; } = null!;
-    public string? Subjectcode { get; set; }
-    public int? Defaultperiodssem1 { get; set; }
-    public int? Defaultperiodssem2 { get; set; }
-    public DateTime? Createdat { get; set; }
-    public DateTime? Updatedat { get; set; }
-    public int? Departmentid { get; set; }
-    public int? Subjecttypeid { get; set; }
-    [JsonIgnore]
-    public virtual Department? Department { get; set; }
-    [JsonIgnore]
-    public virtual Subjecttype? Subjecttype { get; set; }
-    [JsonIgnore]
-    public virtual ICollection<Class> Classes { get; set; }
-}
+        [Key]
+        [Column("subjectid")]
+        public Guid Subjectid { get; set; }
+        [Column("subjectname")]
+        [StringLength(255)]
+        public string Subjectname { get; set; } = null!;
+        [Column("subjectcode")]
+        [StringLength(50)]
+        public string? Subjectcode { get; set; }
+        [Column("defaultperiodssem1")]
+        public int? Defaultperiodssem1 { get; set; }
+        [Column("defaultperiodssem2")]
+        public int? Defaultperiodssem2 { get; set; }
+        [Column("departmentid")]
+        public Guid? Departmentid { get; set; }
+        [Column("subjecttypeid")]
+        public Guid? Subjecttypeid { get; set; }
+        [Column("schoolyearid")]
+        public Guid Schoolyearid { get; set; }
+        [Column("createdat")]
+        public DateTime? Createdat { get; set; }
+        [Column("updatedat")]
+        public DateTime? Updatedat { get; set; }
+
+        [ForeignKey("Departmentid")]
+        [InverseProperty("Subjects")]
+        public virtual Department? Department { get; set; }
+        [ForeignKey("Schoolyearid")]
+        [InverseProperty("Subjects")]
+        public virtual Schoolyear Schoolyear { get; set; } = null!;
+        [ForeignKey("Subjecttypeid")]
+        [InverseProperty("Subjects")]
+        public virtual Subjecttype? Subjecttype { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Class> Classes { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Exam> Exams { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Grade> Grades { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Studentsubjectsummary> Studentsubjectsummaries { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Teacherconcurrentsubject> Teacherconcurrentsubjects { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Teacher> Teachers { get; set; }
+        [InverseProperty("Subject")]
+        public virtual ICollection<Teachingassignment> Teachingassignments { get; set; }
+    }
 }
