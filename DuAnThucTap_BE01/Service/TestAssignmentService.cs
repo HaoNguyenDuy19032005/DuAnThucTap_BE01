@@ -1,52 +1,97 @@
-﻿using DuAnThucTap_BE01.Models;
-using DuAnThucTap_BE01.Interface; // Sửa "Iterface" thành "Interface" nếu đây là lỗi đánh máy
+﻿using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DuAnThucTap_BE01.Service
+namespace DuAnThucTap_BE01.Services
 {
     public class TestAssignmentService : ITestAssignment
     {
-        private static List<Testassignment> _testAssignments = new List<Testassignment>();
-        private static int _nextAssignmentId = 1;
+        private readonly ISCDbContext _context;
 
-        public Task<IEnumerable<Testassignment>> GetAllAsync()
+        public TestAssignmentService(ISCDbContext context)
         {
-            return Task.FromResult(_testAssignments.AsEnumerable());
+            _context = context;
         }
 
-        public Task<Testassignment> GetByIdAsync(int id)
+        public async Task<IEnumerable<Testassignment>> GetAllAsync()
         {
-            return Task.FromResult(_testAssignments.FirstOrDefault(ta => ta.Assignmentid == id));
+            return await _context.Testassignments.ToListAsync();
         }
 
-        public Task<Testassignment> CreateAsync(Testassignment testAssignment)
+        public async Task<Testassignment?> GetByIdAsync(int id)
         {
-            testAssignment.Assignmentid = _nextAssignmentId++;
-            _testAssignments.Add(testAssignment);
-            return Task.FromResult(testAssignment);
+            return await _context.Testassignments.FindAsync(id);
         }
 
-        public Task<Testassignment> UpdateAsync(int id, Testassignment testAssignment)
+        public async Task<Testassignment> CreateAsync(Testassignment testAssignment)
         {
-            var existing = _testAssignments.FirstOrDefault(ta => ta.Assignmentid == id);
-            if (existing == null) return Task.FromResult((Testassignment)null);
+            // Kiểm tra Testid và Classid tồn tại
+            var test = await _context.Tests.FindAsync(testAssignment.Testid);
+            var classEntity = await _context.Classes.FindAsync(testAssignment.Classid);
+            if (test == null || classEntity == null)
+            {
+                throw new ArgumentException("Testid hoặc Classid không tồn tại.");
+            }
+
+            // Kiểm tra ràng buộc unique (testid, classid)
+            var existingAssignment = await _context.Testassignments
+                .FirstOrDefaultAsync(ta => ta.Testid == testAssignment.Testid && ta.Classid == testAssignment.Classid);
+            if (existingAssignment != null)
+            {
+                throw new ArgumentException("Testassignment với Testid và Classid này đã tồn tại.");
+            }
+
+            _context.Testassignments.Add(testAssignment);
+            await _context.SaveChangesAsync();
+            return testAssignment;
+        }
+
+        public async Task<Testassignment?> UpdateAsync(int id, Testassignment testAssignment)
+        {
+            var existing = await _context.Testassignments.FindAsync(id);
+            if (existing == null)
+            {
+                return null;
+            }
+
+            // Kiểm tra Testid và Classid tồn tại
+            var test = await _context.Tests.FindAsync(testAssignment.Testid);
+            var classEntity = await _context.Classes.FindAsync(testAssignment.Classid);
+            if (test == null || classEntity == null)
+            {
+                throw new ArgumentException("Testid hoặc Classid không tồn tại.");
+            }
+
+            // Kiểm tra ràng buộc unique (testid, classid) nếu thay đổi
+            var duplicate = await _context.Testassignments
+                .FirstOrDefaultAsync(ta => ta.Testid == testAssignment.Testid && ta.Classid == testAssignment.Classid && ta.Assignmentid != id);
+            if (duplicate != null)
+            {
+                throw new ArgumentException("Testassignment với Testid và Classid này đã tồn tại.");
+            }
 
             existing.Testid = testAssignment.Testid;
             existing.Classid = testAssignment.Classid;
             existing.Status = testAssignment.Status;
 
-            return Task.FromResult(existing);
+            await _context.SaveChangesAsync();
+            return existing;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var testAssignment = _testAssignments.FirstOrDefault(ta => ta.Assignmentid == id);
-            if (testAssignment == null) return Task.FromResult(false);
+            var testAssignment = await _context.Testassignments.FindAsync(id);
+            if (testAssignment == null)
+            {
+                return false;
+            }
 
-            _testAssignments.Remove(testAssignment);
-            return Task.FromResult(true);
+            _context.Testassignments.Remove(testAssignment);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

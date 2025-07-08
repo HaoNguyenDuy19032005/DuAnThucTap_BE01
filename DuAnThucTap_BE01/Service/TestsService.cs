@@ -1,59 +1,86 @@
-﻿using DuAnThucTap_BE01.Models;
-using DuAnThucTap_BE01.Iterface;
+﻿using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DuAnThucTap_BE01.Service
+namespace DuAnThucTap_BE01.Services
 {
     public class TestsService : ITests
     {
-        private static List<Tests> _tests = new List<Tests>();
-        private static int _nextId = 1;
+        private readonly ISCDbContext _context;
 
-        public Task<IEnumerable<Tests>> GetAllAsync()
+        public TestsService(ISCDbContext context)
         {
-            return Task.FromResult(_tests.AsEnumerable());
+            _context = context;
         }
 
-        public Task<Tests> GetByIdAsync(int id)
+        public async Task<IEnumerable<Test>> GetAllAsync()
         {
-            return Task.FromResult(_tests.FirstOrDefault(t => t.TestId == id));
+            return await _context.Tests.ToListAsync();
         }
 
-        public Task<Tests> CreateAsync(Tests test)
+        public async Task<Test?> GetByIdAsync(int id)
         {
-            test.TestId = _nextId++;
-            _tests.Add(test);
-            return Task.FromResult(test);
+            return await _context.Tests.FindAsync(id);
         }
 
-        public Task<Tests> UpdateAsync(int id, Tests test)
+        public async Task<Test> CreateAsync(Test test)
         {
-            var existing = _tests.FirstOrDefault(t => t.TestId == id);
-            if (existing == null) return Task.FromResult((Tests)null);
+            // Kiểm tra Teacherid tồn tại
+            var teacher = await _context.Teachers.FindAsync(test.Teacherid);
+            if (teacher == null)
+            {
+                throw new ArgumentException("Teacherid không tồn tại.");
+            }
 
-            existing.TeacherId = test.TeacherId;
+            _context.Tests.Add(test);
+            await _context.SaveChangesAsync();
+            return test;
+        }
+
+        public async Task<Test?> UpdateAsync(int id, Test test)
+        {
+            var existing = await _context.Tests.FindAsync(id);
+            if (existing == null)
+            {
+                return null;
+            }
+
+            // Kiểm tra Teacherid tồn tại
+            var teacher = await _context.Teachers.FindAsync(test.Teacherid);
+            if (teacher == null)
+            {
+                throw new ArgumentException("Teacherid không tồn tại.");
+            }
+
+            existing.Teacherid = test.Teacherid;
             existing.Title = test.Title;
-            existing.TestFormat = test.TestFormat;
-            existing.DurationInMinutes = test.DurationInMinutes;
-            existing.StartTime = test.StartTime;
-            existing.EndTime = test.EndTime;
+            existing.Testformat = test.Testformat;
+            existing.Durationinminutes = test.Durationinminutes;
+            existing.Starttime = test.Starttime;
+            existing.Endtime = test.Endtime;
             existing.Description = test.Description;
             existing.Classification = test.Classification;
-            existing.AttachmentUrl = test.AttachmentUrl;
-            existing.RequireStudentAttachment = test.RequireStudentAttachment;
+            existing.Attachmenturl = test.Attachmenturl;
+            existing.Requirestudentattachment = test.Requirestudentattachment;
 
-            return Task.FromResult(existing);
+            await _context.SaveChangesAsync();
+            return existing;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var test = _tests.FirstOrDefault(t => t.TestId == id);
-            if (test == null) return Task.FromResult(false);
+            var test = await _context.Tests.FindAsync(id);
+            if (test == null)
+            {
+                return false;
+            }
 
-            _tests.Remove(test);
-            return Task.FromResult(true);
+            _context.Tests.Remove(test);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

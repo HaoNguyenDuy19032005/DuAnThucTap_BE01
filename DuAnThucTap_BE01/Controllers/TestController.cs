@@ -1,4 +1,4 @@
-﻿using DuAnThucTap_BE01.Iterface;
+﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -31,14 +31,14 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Tests test)
+        public async Task<IActionResult> Create([FromBody] Test test)
         {
             var created = await _service.CreateAsync(test);
-            return CreatedAtAction(nameof(Get), new { id = created.TestId }, created);
+            return CreatedAtAction(nameof(Get), new { id = created.Testid}, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Tests test)
+        public async Task<IActionResult> Update(int id, [FromBody] Test test)
         {
             var updated = await _service.UpdateAsync(id, test);
             return updated == null ? NotFound() : Ok(updated);

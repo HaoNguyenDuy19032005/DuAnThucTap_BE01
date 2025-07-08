@@ -1,54 +1,54 @@
-﻿using DuAnThucTap_BE01.Interface; // Sửa "Iterface" thành "Interface" nếu cần
-using DuAnThucTap_BE01.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿    using DuAnThucTap_BE01.Interface; // Sửa "Iterface" thành "Interface" nếu cần
+    using DuAnThucTap_BE01.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
-namespace DuAnThucTap_BE01.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class TestAssignmentController : ControllerBase
+    namespace DuAnThucTap_BE01.Controllers
     {
-        private readonly ITestAssignment _service;
-
-        public TestAssignmentController(ITestAssignment service)
+        [ApiController]
+        [Route("api/[controller]")]
+        public class TestAssignmentController : ControllerBase
         {
-            _service = service;
-        }
+            private readonly ITestAssignment _service;
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var testAssignments = await _service.GetAllAsync();
-            return Ok(testAssignments);
-        }
+            public TestAssignmentController(ITestAssignment service)
+            {
+                _service = service;
+            }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            var testAssignment = await _service.GetByIdAsync(id);
-            return testAssignment == null ? NotFound() : Ok(testAssignment);
-        }
+            [HttpGet]
+            public async Task<IActionResult> GetAll()
+            {
+                var testAssignments = await _service.GetAllAsync();
+                return Ok(testAssignments);
+            }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Testassignment testAssignment)
-        {
-            var created = await _service.CreateAsync(testAssignment);
-            return CreatedAtAction(nameof(Get), new { id = created.Assignmentid }, created);
-        }
+            [HttpGet("{id}")]
+            public async Task<IActionResult> Get(int id)
+            {
+                var testAssignment = await _service.GetByIdAsync(id);
+                return testAssignment == null ? NotFound() : Ok(testAssignment);
+            }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Testassignment testAssignment)
-        {
-            var updated = await _service.UpdateAsync(id, testAssignment);
-            return updated == null ? NotFound() : Ok(updated);
-        }
+            [HttpPost]
+            public async Task<IActionResult> Create([FromBody] Testassignment testAssignment)
+            {
+                var created = await _service.CreateAsync(testAssignment);
+                return CreatedAtAction(nameof(Get), new { id = created.Assignmentid }, created);
+            }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var deleted = await _service.DeleteAsync(id);
-            return deleted ? Ok() : NotFound();
+            [HttpPut("{id}")]
+            public async Task<IActionResult> Update(int id, [FromBody] Testassignment testAssignment)
+            {
+                var updated = await _service.UpdateAsync(id, testAssignment);
+                return updated == null ? NotFound() : Ok(updated);
+            }
+
+            [HttpDelete("{id}")]
+            public async Task<IActionResult> Delete(int id)
+            {
+                var deleted = await _service.DeleteAsync(id);
+                return deleted ? Ok() : NotFound();
+            }
         }
     }
-}

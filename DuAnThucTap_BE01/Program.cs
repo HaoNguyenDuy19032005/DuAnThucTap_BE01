@@ -37,6 +37,8 @@ builder.Services.AddScoped<ITeacherWorkStatusHistoryService, TeacherWorkStatusHi
 builder.Services.AddScoped<ITeacherConcurrentSubjectService, TeacherConcurrentSubjectService>();
 builder.Services.AddScoped<ITeachingAssignmentService, TeachingAssignmentService>();
 builder.Services.AddScoped<ITopicListService, TopicListService>();
+builder.Services.AddScoped<ITests, TestsService>();
+builder.Services.AddScoped<ITestAssignment, TestAssignmentService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

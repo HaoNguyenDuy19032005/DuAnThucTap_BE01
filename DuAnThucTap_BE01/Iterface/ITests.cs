@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DuAnThucTap_BE01.Iterface
+namespace DuAnThucTap_BE01.Interface
 {
     public interface ITests
     {
-        Task<IEnumerable<Tests>> GetAllAsync();
-        Task<Tests> GetByIdAsync(int id);
-        Task<Tests> CreateAsync(Tests test);
-        Task<Tests> UpdateAsync(int id, Tests test);
+        Task<IEnumerable<Test>> GetAllAsync();
+        Task<Test> GetByIdAsync(int id);
+        Task<Test> CreateAsync(Test test);
+        Task<Test> UpdateAsync(int id, Test test);
         Task<bool> DeleteAsync(int id);
     }
 }
