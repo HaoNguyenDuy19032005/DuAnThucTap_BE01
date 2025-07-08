@@ -11,15 +11,15 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("commendationid")]
-        public Guid Commendationid { get; set; }
+        public int Commendationid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("semesterid")]
-        public Guid Semesterid { get; set; }
+        public int Semesterid { get; set; }
         [Column("schoolid")]
-        public Guid Schoolid { get; set; }
+        public int Schoolid { get; set; }
         [Column("commendationtypeid")]
-        public Guid Commendationtypeid { get; set; }
+        public int Commendationtypeid { get; set; }
         [Column("commendationdate")]
         public DateOnly Commendationdate { get; set; }
         [Column("content")]

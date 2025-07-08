@@ -16,7 +16,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("objectid")]
-        public Guid Objectid { get; set; }
+        public int Objectid { get; set; }
         [Column("exemptionname")]
         [StringLength(255)]
         public string Exemptionname { get; set; } = null!;

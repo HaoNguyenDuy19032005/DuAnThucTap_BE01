@@ -18,7 +18,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("roleid")]
-        public Guid Roleid { get; set; }
+        public int Roleid { get; set; }
         [Column("rolename")]
         [StringLength(100)]
         public string Rolename { get; set; } = null!;

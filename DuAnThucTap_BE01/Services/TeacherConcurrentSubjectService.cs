@@ -1,5 +1,4 @@
-﻿// Services/TeacherConcurrentSubjectService.cs
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,7 @@ namespace DuAnThucTap_BE01.Services
 
         public async Task<Teacherconcurrentsubject> CreateAsync(Teacherconcurrentsubject assignment)
         {
-            // Kiểm tra xem phân công đã tồn tại chưa để tránh lỗi khóa chính
+  
             var existing = await GetByIdAsync(assignment.Teacherid, assignment.Subjectid, assignment.Schoolyearid);
             if (existing != null)
             {
@@ -29,7 +28,8 @@ namespace DuAnThucTap_BE01.Services
             return assignment;
         }
 
-        public async Task<bool> DeleteAsync(Guid teacherId, Guid subjectId, Guid schoolYearId)
+        // Đã sửa các tham số từ Guid thành int cho khớp với interface
+        public async Task<bool> DeleteAsync(int teacherId, int subjectId, int schoolYearId)
         {
             var assignment = await GetByIdAsync(teacherId, subjectId, schoolYearId);
             if (assignment == null) return false;
@@ -44,7 +44,8 @@ namespace DuAnThucTap_BE01.Services
             return await _context.Teacherconcurrentsubjects.ToListAsync();
         }
 
-        public async Task<Teacherconcurrentsubject?> GetByIdAsync(Guid teacherId, Guid subjectId, Guid schoolYearId)
+        // Đã sửa các tham số từ Guid thành int cho khớp với interface
+        public async Task<Teacherconcurrentsubject?> GetByIdAsync(int teacherId, int subjectId, int schoolYearId)
         {
             return await _context.Teacherconcurrentsubjects.FindAsync(teacherId, subjectId, schoolYearId);
         }

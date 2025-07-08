@@ -16,7 +16,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("disciplinetypeid")]
-        public Guid Disciplinetypeid { get; set; }
+        public int Disciplinetypeid { get; set; }
         [Column("typename")]
         [StringLength(255)]
         public string Typename { get; set; } = null!;

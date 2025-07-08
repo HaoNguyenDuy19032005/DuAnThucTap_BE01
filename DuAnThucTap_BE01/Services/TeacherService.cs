@@ -1,5 +1,4 @@
-﻿
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,8 @@ namespace DuAnThucTap_BE01.Services
             return teacher;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        // Sửa Guid thành int
+        public async Task<bool> DeleteAsync(int id)
         {
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null) return false;
@@ -39,12 +39,14 @@ namespace DuAnThucTap_BE01.Services
             return await _context.Teachers.ToListAsync();
         }
 
-        public async Task<Teacher?> GetByIdAsync(Guid id)
+        // Sửa Guid thành int
+        public async Task<Teacher?> GetByIdAsync(int id)
         {
             return await _context.Teachers.FindAsync(id);
         }
 
-        public async Task<Teacher?> UpdateAsync(Guid id, Teacher updatedTeacher)
+        // Sửa Guid thành int
+        public async Task<Teacher?> UpdateAsync(int id, Teacher updatedTeacher)
         {
             var existingTeacher = await _context.Teachers.FindAsync(id);
             if (existingTeacher == null) return null;

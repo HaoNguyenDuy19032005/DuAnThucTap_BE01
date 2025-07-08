@@ -1,11 +1,10 @@
-﻿// Program.cs
 using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.Helpers;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
-// Khởi tạo WebApplication builder
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -20,16 +19,16 @@ builder.Services.AddCors(options =>
                                 .AllowAnyHeader();
                       });
 });
-builder.Services.AddControllers().AddJsonOptions(options =>
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    // Th�m d�ng n�y v�o
+    options.SerializerSettings.Converters.Add(new NewtonsoftDateOnlyConverter());
 });
 
-// 1. Thêm DbContext
 builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. Đăng ký các Services cho Dependency Injection
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<ITeacherTrainingHistoryService, TeacherTrainingHistoryService>();
@@ -37,13 +36,11 @@ builder.Services.AddScoped<ITeacherWorkHistoryService, TeacherWorkHistoryService
 builder.Services.AddScoped<ITeacherWorkStatusHistoryService, TeacherWorkStatusHistoryService>();
 builder.Services.AddScoped<ITeacherConcurrentSubjectService, TeacherConcurrentSubjectService>();
 
-// Cấu hình Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

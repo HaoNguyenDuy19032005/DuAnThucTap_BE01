@@ -31,7 +31,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("teacherid")]
-        public Guid Teacherid { get; set; }
+        public int Teacherid { get; set; }
         [Column("teachercode")]
         [StringLength(50)]
         public string? Teachercode { get; set; }
@@ -79,16 +79,19 @@ namespace DuAnThucTap_BE01.Models
         public string? Phonenumber { get; set; }
         [Column("dateofjoiningtheparty")]
         public DateOnly? Dateofjoiningtheparty { get; set; }
+        [Column("avatarurl")]
+        [StringLength(255)]
+        public string? Avatarurl { get; set; }
         [Column("dateofjoininggroup")]
         public DateOnly? Dateofjoininggroup { get; set; }
         [Column("ispartymember")]
         public bool? Ispartymember { get; set; }
         [Column("departmentid")]
-        public Guid? Departmentid { get; set; }
+        public int? Departmentid { get; set; }
         [Column("subjectid")]
-        public Guid? Subjectid { get; set; }
+        public int? Subjectid { get; set; }
         [Column("schoolyearid")]
-        public Guid? Schoolyearid { get; set; }
+        public int? Schoolyearid { get; set; }
         [Column("createdat")]
         public DateTime? Createdat { get; set; }
         [Column("updatedat")]

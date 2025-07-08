@@ -17,11 +17,11 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("assignmentid")]
-        public Guid Assignmentid { get; set; }
+        public int Assignmentid { get; set; }
         [Column("testid")]
-        public Guid Testid { get; set; }
+        public int Testid { get; set; }
         [Column("classid")]
-        public Guid Classid { get; set; }
+        public int Classid { get; set; }
         [Column("status")]
         [StringLength(50)]
         public string? Status { get; set; }

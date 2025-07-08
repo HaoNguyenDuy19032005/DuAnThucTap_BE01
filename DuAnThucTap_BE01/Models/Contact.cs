@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
@@ -11,11 +12,11 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("contactid")]
-        public Guid Contactid { get; set; }
+        public int Contactid { get; set; }
         [Column("teacherid")]
-        public Guid? Teacherid { get; set; }
+        public int? Teacherid { get; set; }
         [Column("studentid")]
-        public Guid? Studentid { get; set; }
+        public int? Studentid { get; set; }
         [Column("relationship")]
         [StringLength(100)]
         public string? Relationship { get; set; }
@@ -28,9 +29,12 @@ namespace DuAnThucTap_BE01.Models
         [StringLength(20)]
         public string? Phonenumber { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("Studentid")]
         [InverseProperty("Contacts")]
         public virtual Student? Student { get; set; }
+
+        [JsonIgnore]
         [ForeignKey("Teacherid")]
         [InverseProperty("Contacts")]
         public virtual Teacher? Teacher { get; set; }

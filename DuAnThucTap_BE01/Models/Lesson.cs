@@ -11,11 +11,11 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("lessonid")]
-        public Guid Lessonid { get; set; }
+        public int Lessonid { get; set; }
         [Column("courseid")]
-        public Guid Courseid { get; set; }
+        public int Courseid { get; set; }
         [Column("teacherid")]
-        public Guid Teacherid { get; set; }
+        public int Teacherid { get; set; }
         [Column("title")]
         [StringLength(255)]
         public string Title { get; set; } = null!;

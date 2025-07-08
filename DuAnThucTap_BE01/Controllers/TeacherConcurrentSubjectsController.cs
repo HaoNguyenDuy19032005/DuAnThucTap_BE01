@@ -1,5 +1,4 @@
-﻿// Controllers/TeacherConcurrentSubjectsController.cs
-using DuAnThucTap_BE01.Interface;
+﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +22,8 @@ namespace DuAnThucTap_BE01.Controllers
 
         // Route cho khóa phức hợp
         [HttpGet("{teacherId}/{subjectId}/{schoolYearId}")]
-        public async Task<ActionResult<Teacherconcurrentsubject>> GetById(Guid teacherId, Guid subjectId, Guid schoolYearId)
+        // Sửa các tham số Guid thành int
+        public async Task<ActionResult<Teacherconcurrentsubject>> GetById(int teacherId, int subjectId, int schoolYearId)
         {
             var item = await _service.GetByIdAsync(teacherId, subjectId, schoolYearId);
             return item == null ? NotFound() : Ok(item);
@@ -52,7 +52,8 @@ namespace DuAnThucTap_BE01.Controllers
 
         // Route cho khóa phức hợp
         [HttpDelete("{teacherId}/{subjectId}/{schoolYearId}")]
-        public async Task<IActionResult> Delete(Guid teacherId, Guid subjectId, Guid schoolYearId)
+        // Sửa các tham số Guid thành int
+        public async Task<IActionResult> Delete(int teacherId, int subjectId, int schoolYearId)
         {
             var success = await _service.DeleteAsync(teacherId, subjectId, schoolYearId);
             return !success ? NotFound() : NoContent();

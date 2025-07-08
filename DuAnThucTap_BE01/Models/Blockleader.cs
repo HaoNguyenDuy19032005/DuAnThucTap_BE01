@@ -11,13 +11,13 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("blockleaderid")]
-        public Guid Blockleaderid { get; set; }
+        public int Blockleaderid { get; set; }
         [Column("gradelevelid")]
-        public Guid Gradelevelid { get; set; }
+        public int Gradelevelid { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("teacherid")]
-        public Guid Teacherid { get; set; }
+        public int Teacherid { get; set; }
         [Column("startdate")]
         public DateOnly? Startdate { get; set; }
         [Column("enddate")]

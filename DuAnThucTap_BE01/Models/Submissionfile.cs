@@ -11,9 +11,9 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("fileid")]
-        public Guid Fileid { get; set; }
+        public int Fileid { get; set; }
         [Column("submissionid")]
-        public Guid Submissionid { get; set; }
+        public int Submissionid { get; set; }
         [Column("filename")]
         [StringLength(255)]
         public string? Filename { get; set; }

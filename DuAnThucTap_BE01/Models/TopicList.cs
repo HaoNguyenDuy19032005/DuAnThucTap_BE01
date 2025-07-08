@@ -1,16 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
 {
-    public class TopicList
+    [Table("topiclist")]
+    public partial class Topiclist
     {
+        public Topiclist()
+        {
+            Teachingassignments = new HashSet<Teachingassignment>();
+        }
+
         [Key]
-        public int TopicID { get; set; }
-        public string TopicName { get; set; } = null!;
-        public string? Decription { get; set; }
-        public DateTime TeachingEndDate { get; set; }
+        [Column("topicid")]
+        public int Topicid { get; set; }
+        [Column("topicname")]
+        [StringLength(255)]
+        public string Topicname { get; set; } = null!;
+        [Column("description")]
+        public string? Description { get; set; }
+        [Column("teachingenddate")]
+        public DateOnly? Teachingenddate { get; set; }
 
-        public virtual ICollection<TeachingAssignment> TeachingAssignments { get; set; }
+        [InverseProperty("Topic")]
+        public virtual ICollection<Teachingassignment> Teachingassignments { get; set; }
     }
-
 }

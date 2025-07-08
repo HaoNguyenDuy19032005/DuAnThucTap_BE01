@@ -21,7 +21,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Contact>> GetById(Guid id)
+        // Sửa Guid thành int
+        public async Task<ActionResult<Contact>> GetById(int id)
         {
             var contact = await _service.GetByIdAsync(id);
             return contact == null ? NotFound() : Ok(contact);
@@ -36,7 +37,7 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Contact contact)
+        public async Task<IActionResult> Update(int id, [FromBody] Contact contact)
         {
             if (id != contact.Contactid) return BadRequest("ID không khớp");
             var result = await _service.UpdateAsync(id, contact);
@@ -44,7 +45,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        // Sửa Guid thành int
+        public async Task<IActionResult> Delete(int id)
         {
             var success = await _service.DeleteAsync(id);
             return !success ? NotFound() : NoContent();

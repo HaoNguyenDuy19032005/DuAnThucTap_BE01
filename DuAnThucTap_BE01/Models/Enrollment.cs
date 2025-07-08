@@ -12,11 +12,11 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("enrollmentid")]
-        public Guid Enrollmentid { get; set; }
+        public int Enrollmentid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("classid")]
-        public Guid Classid { get; set; }
+        public int Classid { get; set; }
         [Column("enrollmentdate")]
         public DateOnly? Enrollmentdate { get; set; }
 

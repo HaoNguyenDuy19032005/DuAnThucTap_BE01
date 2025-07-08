@@ -5,9 +5,16 @@ namespace DuAnThucTap_BE01.Interface
     public interface ITeacherWorkHistoryService
     {
         Task<IEnumerable<Teacherworkhistory>> GetAllAsync();
-        Task<Teacherworkhistory?> GetByIdAsync(Guid id);
+
+        // Sửa Guid thành int
+        Task<Teacherworkhistory?> GetByIdAsync(int id);
+
         Task<Teacherworkhistory> CreateAsync(Teacherworkhistory history);
-        Task<Teacherworkhistory?> UpdateAsync(Guid id, Teacherworkhistory history);
-        Task<bool> DeleteAsync(Guid id);
+
+        // Sửa Guid thành int
+        Task<Teacherworkhistory?> UpdateAsync(int id, Teacherworkhistory history);
+
+        // Sửa Guid thành int
+        Task<bool> DeleteAsync(int id);
     }
 }

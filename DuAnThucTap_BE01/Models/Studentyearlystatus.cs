@@ -11,15 +11,15 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("studentyearlystatusid")]
-        public Guid Studentyearlystatusid { get; set; }
+        public int Studentyearlystatusid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("classid")]
-        public Guid? Classid { get; set; }
+        public int? Classid { get; set; }
         [Column("gradelevelid")]
-        public Guid Gradelevelid { get; set; }
+        public int Gradelevelid { get; set; }
         [Column("enrollmentstatus")]
         [StringLength(100)]
         public string? Enrollmentstatus { get; set; }

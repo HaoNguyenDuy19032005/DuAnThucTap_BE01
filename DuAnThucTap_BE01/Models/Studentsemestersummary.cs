@@ -12,15 +12,15 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("summaryid")]
-        public Guid Summaryid { get; set; }
+        public int Summaryid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("semesterid")]
-        public Guid Semesterid { get; set; }
+        public int Semesterid { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("schoolid")]
-        public Guid Schoolid { get; set; }
+        public int Schoolid { get; set; }
         [Column("averagescore")]
         [Precision(4, 2)]
         public decimal? Averagescore { get; set; }

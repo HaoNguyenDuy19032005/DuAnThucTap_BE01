@@ -11,10 +11,10 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("userid")]
-        public Guid Userid { get; set; }
+        public int Userid { get; set; }
         [Key]
         [Column("threadid")]
-        public Guid Threadid { get; set; }
+        public int Threadid { get; set; }
         [Column("lastreadtimestamp")]
         public DateTime Lastreadtimestamp { get; set; }
 

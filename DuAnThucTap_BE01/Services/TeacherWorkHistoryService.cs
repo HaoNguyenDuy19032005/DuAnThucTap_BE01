@@ -20,7 +20,8 @@ namespace DuAnThucTap_BE01.Services
             return history;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        // Sửa Guid thành int
+        public async Task<bool> DeleteAsync(int id)
         {
             var history = await _context.Teacherworkhistories.FindAsync(id);
             if (history == null) return false;
@@ -35,12 +36,14 @@ namespace DuAnThucTap_BE01.Services
             return await _context.Teacherworkhistories.ToListAsync();
         }
 
-        public async Task<Teacherworkhistory?> GetByIdAsync(Guid id)
+        // Sửa Guid thành int
+        public async Task<Teacherworkhistory?> GetByIdAsync(int id)
         {
             return await _context.Teacherworkhistories.FindAsync(id);
         }
 
-        public async Task<Teacherworkhistory?> UpdateAsync(Guid id, Teacherworkhistory updatedHistory)
+        // Sửa Guid thành int
+        public async Task<Teacherworkhistory?> UpdateAsync(int id, Teacherworkhistory updatedHistory)
         {
             var existing = await _context.Teacherworkhistories.FindAsync(id);
             if (existing == null) return null;

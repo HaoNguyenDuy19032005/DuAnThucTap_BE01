@@ -2,6 +2,7 @@
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
+
 namespace DuAnThucTap_BE01.Services
 {
     public class ContactService : IContactService
@@ -17,26 +18,34 @@ namespace DuAnThucTap_BE01.Services
             await _context.SaveChangesAsync();
             return contact;
         }
-        public async Task<bool> DeleteAsync(Guid id)
+
+        // Sửa Guid thành int
+        public async Task<bool> DeleteAsync(int id)
         {
             var contact = await _context.Contacts.FindAsync(id);
             if (contact == null) return false;
+
             _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
             return true;
         }
+
         public async Task<IEnumerable<Contact>> GetAllAsync()
         {
             return await _context.Contacts.ToListAsync();
         }
-        public async Task<Contact?> GetByIdAsync(Guid id)
+
+        // Sửa Guid thành int
+        public async Task<Contact?> GetByIdAsync(int id)
         {
             return await _context.Contacts.FindAsync(id);
         }
-        public async Task<Contact?> UpdateAsync(Guid id, Contact updatedContact)
+
+        public async Task<Contact?> UpdateAsync(int id, Contact updatedContact)
         {
             var existing = await _context.Contacts.FindAsync(id);
             if (existing == null) return null;
+
             // Gán thủ công
             existing.Fullname = updatedContact.Fullname;
             existing.Relationship = updatedContact.Relationship;
@@ -44,6 +53,7 @@ namespace DuAnThucTap_BE01.Services
             existing.Phonenumber = updatedContact.Phonenumber;
             existing.Teacherid = updatedContact.Teacherid;
             existing.Studentid = updatedContact.Studentid;
+
             await _context.SaveChangesAsync();
             return existing;
         }

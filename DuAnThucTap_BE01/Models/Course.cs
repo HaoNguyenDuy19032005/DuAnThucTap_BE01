@@ -16,12 +16,12 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("courseid")]
-        public Guid Courseid { get; set; }
+        public int Courseid { get; set; }
         [Column("coursename")]
         [StringLength(255)]
         public string Coursename { get; set; } = null!;
         [Column("teacherid")]
-        public Guid? Teacherid { get; set; }
+        public int? Teacherid { get; set; }
         [Column("thumbnailurl")]
         public string? Thumbnailurl { get; set; }
         [Column("description")]

@@ -16,7 +16,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("operationunitid")]
-        public Guid Operationunitid { get; set; }
+        public int Operationunitid { get; set; }
         [Column("organizationname")]
         [StringLength(255)]
         public string? Organizationname { get; set; }

@@ -1,5 +1,4 @@
-﻿// Services/TeacherWorkStatusHistoryService.cs
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,8 @@ namespace DuAnThucTap_BE01.Services
             return history;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        // Sửa Guid thành int
+        public async Task<bool> DeleteAsync(int id)
         {
             var history = await _context.Teacherworkstatushistories.FindAsync(id);
             if (history == null) return false;
@@ -37,12 +37,14 @@ namespace DuAnThucTap_BE01.Services
             return await _context.Teacherworkstatushistories.ToListAsync();
         }
 
-        public async Task<Teacherworkstatushistory?> GetByIdAsync(Guid id)
+        // Sửa Guid thành int
+        public async Task<Teacherworkstatushistory?> GetByIdAsync(int id)
         {
             return await _context.Teacherworkstatushistories.FindAsync(id);
         }
 
-        public async Task<Teacherworkstatushistory?> UpdateAsync(Guid id, Teacherworkstatushistory updatedHistory)
+        // Sửa Guid thành int
+        public async Task<Teacherworkstatushistory?> UpdateAsync(int id, Teacherworkstatushistory updatedHistory)
         {
             var existing = await _context.Teacherworkstatushistories.FindAsync(id);
             if (existing == null) return null;

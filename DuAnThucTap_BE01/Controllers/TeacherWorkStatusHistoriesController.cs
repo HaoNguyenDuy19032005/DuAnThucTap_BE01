@@ -1,5 +1,4 @@
-﻿// Controllers/TeacherWorkStatusHistoriesController.cs
-using DuAnThucTap_BE01.Interface;
+﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +21,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacherworkstatushistory>> GetById(Guid id)
+        // Sửa Guid thành int
+        public async Task<ActionResult<Teacherworkstatushistory>> GetById(int id)
         {
             var item = await _service.GetByIdAsync(id);
             return item == null ? NotFound() : Ok(item);
@@ -36,7 +36,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Teacherworkstatushistory history)
+        // Sửa Guid thành int
+        public async Task<IActionResult> Update(int id, [FromBody] Teacherworkstatushistory history)
         {
             if (id != history.Historyid) return BadRequest();
             var result = await _service.UpdateAsync(id, history);
@@ -44,7 +45,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        // Sửa Guid thành int
+        public async Task<IActionResult> Delete(int id)
         {
             var success = await _service.DeleteAsync(id);
             return !success ? NotFound() : NoContent();

@@ -16,15 +16,15 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("examid")]
-        public Guid Examid { get; set; }
+        public int Examid { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("gradelevelid")]
-        public Guid Gradelevelid { get; set; }
+        public int Gradelevelid { get; set; }
         [Column("semesterid")]
-        public Guid Semesterid { get; set; }
+        public int Semesterid { get; set; }
         [Column("subjectid")]
-        public Guid Subjectid { get; set; }
+        public int Subjectid { get; set; }
         [Column("examname")]
         [StringLength(255)]
         public string Examname { get; set; } = null!;
@@ -33,9 +33,9 @@ namespace DuAnThucTap_BE01.Models
         [Column("durationminutes")]
         public int? Durationminutes { get; set; }
         [Column("classtypeid")]
-        public Guid? Classtypeid { get; set; }
+        public int? Classtypeid { get; set; }
         [Column("graderassignmenttypeid")]
-        public Guid? Graderassignmenttypeid { get; set; }
+        public int? Graderassignmenttypeid { get; set; }
         [Column("createdat")]
         public DateTime? Createdat { get; set; }
 

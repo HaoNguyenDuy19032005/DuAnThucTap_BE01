@@ -79,18 +79,14 @@ namespace DuAnThucTap_BE01.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=iscschool;Username=postgres;Password=123456");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=iscschool1;Username=postgres;Password=123456");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasPostgresExtension("uuid-ossp");
-
             modelBuilder.Entity<Announcement>(entity =>
             {
-                entity.Property(e => e.Announcementid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Creator)
@@ -102,8 +98,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Blockleader>(entity =>
             {
-                entity.Property(e => e.Blockleaderid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Gradelevel)
@@ -124,8 +118,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Campus>(entity =>
             {
-                entity.Property(e => e.Campusid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Schoolinfo)
                     .WithMany(p => p.Campuses)
                     .HasForeignKey(d => d.Schoolinfoid)
@@ -134,8 +126,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Class>(entity =>
             {
-                entity.Property(e => e.Classid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Classtype)
@@ -173,8 +163,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Transferid)
                     .HasName("classtransferhistory_pkey");
 
-                entity.Property(e => e.Transferid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Fromclass)
@@ -202,22 +190,13 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Classtype>(entity =>
             {
-                entity.Property(e => e.Classtypeid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Isactive).HasDefaultValueSql("true");
             });
 
-            modelBuilder.Entity<Commendationtype>(entity =>
-            {
-                entity.Property(e => e.Commendationtypeid).HasDefaultValueSql("uuid_generate_v4()");
-            });
-
             modelBuilder.Entity<Contact>(entity =>
             {
-                entity.Property(e => e.Contactid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Contacts)
                     .HasForeignKey(d => d.Studentid)
@@ -233,8 +212,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Course>(entity =>
             {
-                entity.Property(e => e.Courseid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Price).HasDefaultValueSql("0");
 
                 entity.HasOne(d => d.Teacher)
@@ -246,15 +223,11 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Department>(entity =>
             {
-                entity.Property(e => e.Departmentid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
             modelBuilder.Entity<Departmentleader>(entity =>
             {
-                entity.Property(e => e.Departmentleaderid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Departmentleaders)
                     .HasForeignKey(d => d.Departmentid)
@@ -271,15 +244,8 @@ namespace DuAnThucTap_BE01.Data
                     .HasConstraintName("fk_teacher");
             });
 
-            modelBuilder.Entity<Disciplinetype>(entity =>
-            {
-                entity.Property(e => e.Disciplinetypeid).HasDefaultValueSql("uuid_generate_v4()");
-            });
-
             modelBuilder.Entity<Enrollment>(entity =>
             {
-                entity.Property(e => e.Enrollmentid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Enrollmentdate).HasDefaultValueSql("CURRENT_DATE");
 
                 entity.HasOne(d => d.Class)
@@ -295,8 +261,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Exam>(entity =>
             {
-                entity.Property(e => e.Examid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Classtype)
@@ -334,8 +298,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Examgrader>(entity =>
             {
-                entity.Property(e => e.Examgraderid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Examschedule)
                     .WithMany(p => p.Examgraders)
                     .HasForeignKey(d => d.Examscheduleid)
@@ -349,8 +311,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Examschedule>(entity =>
             {
-                entity.Property(e => e.Examscheduleid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Class)
                     .WithMany(p => p.Examschedules)
                     .HasForeignKey(d => d.Classid)
@@ -364,8 +324,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Grade>(entity =>
             {
-                entity.Property(e => e.Gradeid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Instance).HasDefaultValueSql("1");
 
                 entity.HasOne(d => d.Gradetype)
@@ -397,8 +355,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Gradelevel>(entity =>
             {
-                entity.Property(e => e.Gradelevelid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Teacher)
@@ -408,20 +364,8 @@ namespace DuAnThucTap_BE01.Data
                     .HasConstraintName("fk_teacher");
             });
 
-            modelBuilder.Entity<Graderassignmenttype>(entity =>
-            {
-                entity.Property(e => e.Graderassignmenttypeid).HasDefaultValueSql("uuid_generate_v4()");
-            });
-
-            modelBuilder.Entity<Gradetype>(entity =>
-            {
-                entity.Property(e => e.Gradetypeid).HasDefaultValueSql("uuid_generate_v4()");
-            });
-
             modelBuilder.Entity<Lesson>(entity =>
             {
-                entity.Property(e => e.Lessonid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Allowstudentsharing).HasDefaultValueSql("false");
 
                 entity.Property(e => e.Autostartontime).HasDefaultValueSql("false");
@@ -443,14 +387,7 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Operationunit>(entity =>
             {
-                entity.Property(e => e.Operationunitid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            });
-
-            modelBuilder.Entity<Permission>(entity =>
-            {
-                entity.Property(e => e.Permissionid).HasDefaultValueSql("uuid_generate_v4()");
             });
 
             modelBuilder.Entity<Qnaparticipant>(entity =>
@@ -476,8 +413,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Threadid)
                     .HasName("qnathreads_pkey");
 
-                entity.Property(e => e.Threadid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Replycount).HasDefaultValueSql("0");
@@ -495,8 +430,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.Roleid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasMany(d => d.Permissions)
                     .WithMany(p => p.Roles)
                     .UsingEntity<Dictionary<string, object>>(
@@ -509,9 +442,9 @@ namespace DuAnThucTap_BE01.Data
 
                             j.ToTable("rolepermissions");
 
-                            j.IndexerProperty<Guid>("Roleid").HasColumnName("roleid");
+                            j.IndexerProperty<int>("Roleid").HasColumnName("roleid");
 
-                            j.IndexerProperty<Guid>("Permissionid").HasColumnName("permissionid");
+                            j.IndexerProperty<int>("Permissionid").HasColumnName("permissionid");
                         });
             });
 
@@ -519,16 +452,12 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Schoolinfoid)
                     .HasName("schoolinformation_pkey");
-
-                entity.Property(e => e.Schoolinfoid).HasDefaultValueSql("uuid_generate_v4()");
             });
 
             modelBuilder.Entity<Schooltransferhistory>(entity =>
             {
                 entity.HasKey(e => e.Schooltransferid)
                     .HasName("schooltransferhistory_pkey");
-
-                entity.Property(e => e.Schooltransferid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -564,8 +493,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Schoolyear>(entity =>
             {
-                entity.Property(e => e.Schoolyearid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Schoolinfo)
@@ -576,8 +503,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Semester>(entity =>
             {
-                entity.Property(e => e.Semesterid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Schoolyear)
@@ -588,8 +513,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.Property(e => e.Studentid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
@@ -597,8 +520,6 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Commendationid)
                     .HasName("studentcommendations_pkey");
-
-                entity.Property(e => e.Commendationid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -629,8 +550,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Disciplineid)
                     .HasName("studentdisciplines_pkey");
 
-                entity.Property(e => e.Disciplineid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Disciplinetype)
@@ -657,8 +576,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Studentexemption>(entity =>
             {
-                entity.Property(e => e.Studentexemptionid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Object)
                     .WithMany(p => p.Studentexemptions)
                     .HasForeignKey(d => d.Objectid)
@@ -675,8 +592,6 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Summaryid)
                     .HasName("studentsemestersummary_pkey");
-
-                entity.Property(e => e.Summaryid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Studentsemestersummaries)
@@ -703,8 +618,6 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Subjectsummaryid)
                     .HasName("studentsubjectsummary_pkey");
-
-                entity.Property(e => e.Subjectsummaryid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.HasOne(d => d.School)
                     .WithMany(p => p.Studentsubjectsummaries)
@@ -737,8 +650,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Answerid)
                     .HasName("studenttestanswers_pkey");
 
-                entity.Property(e => e.Answerid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Question)
                     .WithMany(p => p.Studenttestanswers)
                     .HasForeignKey(d => d.Questionid)
@@ -755,8 +666,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Submissionid)
                     .HasName("studenttestsubmissions_pkey");
 
-                entity.Property(e => e.Submissionid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Assignment)
                     .WithMany(p => p.Studenttestsubmissions)
                     .HasForeignKey(d => d.Assignmentid)
@@ -770,8 +679,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Studentyearlystatus>(entity =>
             {
-                entity.Property(e => e.Studentyearlystatusid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Class)
@@ -798,8 +705,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Subject>(entity =>
             {
-                entity.Property(e => e.Subjectid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Department)
@@ -825,15 +730,11 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Objectid)
                     .HasName("subjectsofexemption_pkey");
 
-                entity.Property(e => e.Objectid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Isactive).HasDefaultValueSql("true");
             });
 
             modelBuilder.Entity<Subjecttype>(entity =>
             {
-                entity.Property(e => e.Subjecttypeid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(e => e.Isactive).HasDefaultValueSql("true");
@@ -844,8 +745,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Fileid)
                     .HasName("submissionfiles_pkey");
 
-                entity.Property(e => e.Fileid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Submission)
                     .WithMany(p => p.Submissionfiles)
                     .HasForeignKey(d => d.Submissionid)
@@ -854,8 +753,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Teacher>(entity =>
             {
-                entity.Property(e => e.Teacherid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Department)
@@ -903,8 +800,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Trainingid)
                     .HasName("teachertraininghistory_pkey");
 
-                entity.Property(e => e.Trainingid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Teacher)
                     .WithMany(p => p.Teachertraininghistories)
                     .HasForeignKey(d => d.Teacherid)
@@ -915,8 +810,6 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Workhistoryid)
                     .HasName("teacherworkhistory_pkey");
-
-                entity.Property(e => e.Workhistoryid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Teacherworkhistories)
@@ -941,8 +834,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Historyid)
                     .HasName("teacherworkstatushistory_pkey");
 
-                entity.Property(e => e.Historyid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Createdat).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Teacher)
@@ -955,8 +846,6 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Assignmentid)
                     .HasName("teachingassignments_pkey");
-
-                entity.Property(e => e.Assignmentid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.HasOne(d => d.Classtype)
                     .WithMany(p => p.Teachingassignments)
@@ -988,8 +877,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Test>(entity =>
             {
-                entity.Property(e => e.Testid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Requirestudentattachment).HasDefaultValueSql("false");
 
                 entity.HasOne(d => d.Teacher)
@@ -1002,8 +889,6 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Assignmentid)
                     .HasName("testassignments_pkey");
-
-                entity.Property(e => e.Assignmentid).HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.HasOne(d => d.Class)
                     .WithMany(p => p.Testassignments)
@@ -1021,8 +906,6 @@ namespace DuAnThucTap_BE01.Data
                 entity.HasKey(e => e.Questionid)
                     .HasName("testquestions_pkey");
 
-                entity.Property(e => e.Questionid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Points).HasDefaultValueSql("1.0");
 
                 entity.HasOne(d => d.Test)
@@ -1035,14 +918,10 @@ namespace DuAnThucTap_BE01.Data
             {
                 entity.HasKey(e => e.Topicid)
                     .HasName("topiclist_pkey");
-
-                entity.Property(e => e.Topicid).HasDefaultValueSql("uuid_generate_v4()");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Userid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.Property(e => e.Isactive).HasDefaultValueSql("true");
 
                 entity.HasOne(d => d.Role)
@@ -1066,8 +945,6 @@ namespace DuAnThucTap_BE01.Data
 
             modelBuilder.Entity<Usernotification>(entity =>
             {
-                entity.Property(e => e.Usernotificationid).HasDefaultValueSql("uuid_generate_v4()");
-
                 entity.HasOne(d => d.Announcement)
                     .WithMany(p => p.Usernotifications)
                     .HasForeignKey(d => d.Announcementid)

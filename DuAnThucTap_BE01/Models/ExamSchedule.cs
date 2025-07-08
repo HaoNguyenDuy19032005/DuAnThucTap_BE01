@@ -1,5 +1,4 @@
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,11 +17,11 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("examscheduleid")]
-        public Guid Examscheduleid { get; set; }
+        public int Examscheduleid { get; set; }
         [Column("examid")]
-        public Guid Examid { get; set; }
+        public int Examid { get; set; }
         [Column("classid")]
-        public Guid Classid { get; set; }
+        public int Classid { get; set; }
 
         [ForeignKey("Classid")]
         [InverseProperty("Examschedules")]

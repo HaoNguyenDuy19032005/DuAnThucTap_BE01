@@ -23,7 +23,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("userid")]
-        public Guid Userid { get; set; }
+        public int Userid { get; set; }
         [Column("fullname")]
         [StringLength(150)]
         public string? Fullname { get; set; }
@@ -33,14 +33,14 @@ namespace DuAnThucTap_BE01.Models
         [Column("passwordhash")]
         public string Passwordhash { get; set; } = null!;
         [Column("roleid")]
-        public Guid Roleid { get; set; }
+        public int Roleid { get; set; }
         [Required]
         [Column("isactive")]
         public bool? Isactive { get; set; }
         [Column("teacherid")]
-        public Guid? Teacherid { get; set; }
+        public int? Teacherid { get; set; }
         [Column("studentid")]
-        public Guid? Studentid { get; set; }
+        public int? Studentid { get; set; }
 
         [ForeignKey("Roleid")]
         [InverseProperty("Users")]

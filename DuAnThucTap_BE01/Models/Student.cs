@@ -29,7 +29,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("fullname")]
         [StringLength(150)]
         public string Fullname { get; set; } = null!;

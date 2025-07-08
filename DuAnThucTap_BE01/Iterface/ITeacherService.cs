@@ -1,14 +1,20 @@
-﻿// Interface/ITeacherService.cs
-using DuAnThucTap_BE01.Models;
+﻿using DuAnThucTap_BE01.Models;
 
 namespace DuAnThucTap_BE01.Interface
 {
     public interface ITeacherService
     {
         Task<IEnumerable<Teacher>> GetAllAsync();
-        Task<Teacher?> GetByIdAsync(Guid id);
+
+        // Sửa Guid thành int
+        Task<Teacher?> GetByIdAsync(int id);
+
         Task<Teacher> CreateAsync(Teacher teacher);
-        Task<Teacher?> UpdateAsync(Guid id, Teacher teacher);
-        Task<bool> DeleteAsync(Guid id);
+
+        // Sửa Guid thành int
+        Task<Teacher?> UpdateAsync(int id, Teacher teacher);
+
+        // Sửa Guid thành int
+        Task<bool> DeleteAsync(int id);
     }
 }
