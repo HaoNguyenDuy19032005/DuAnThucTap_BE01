@@ -1,29 +1,63 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
 {
+    [Table("exams")]
     public partial class Exam
     {
-        public int ExamID { get; set; }
-        public int SchoolYearID { get; set; }
-        public int GradeLevelID { get; set; }
-        public int SemesterID { get; set; }
-        public int SubjectID { get; set; }
-        public string ExamName { get; set; } = null!;
-        public DateTime ExamDate { get; set; }
-        public int DurationMinutes { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public Exam()
+        {
+            Examschedules = new HashSet<Examschedule>();
+        }
 
-        [JsonIgnore]
-        public virtual Schoolyear? Schoolyear { get; set; } = null!;
-        [JsonIgnore]
-        public virtual Gradelevel? Gradelevel { get; set; } = null!;
-        [JsonIgnore]
-        public virtual Semester? Semester { get; set; } = null!;
-        [JsonIgnore]
-        public virtual Subject? Subject { get; set; } = null!;
+        [Key]
+        [Column("examid")]
+        public int Examid { get; set; }
+        [Column("schoolyearid")]
+        public int Schoolyearid { get; set; }
+        [Column("gradelevelid")]
+        public int Gradelevelid { get; set; }
+        [Column("semesterid")]
+        public int Semesterid { get; set; }
+        [Column("subjectid")]
+        public int Subjectid { get; set; }
+        [Column("examname")]
+        [StringLength(255)]
+        public string Examname { get; set; } = null!;
+        [Column("examdate")]
+        public DateOnly? Examdate { get; set; }
+        [Column("durationminutes")]
+        public int? Durationminutes { get; set; }
+        [Column("classtypeid")]
+        public int? Classtypeid { get; set; }
+        [Column("graderassignmenttypeid")]
+        public int? Graderassignmenttypeid { get; set; }
+        [Column("createdat")]
+        public DateTime? Createdat { get; set; }
 
+        [ForeignKey("Classtypeid")]
+        [InverseProperty("Exams")]
+        public virtual Classtype? Classtype { get; set; }
+        [ForeignKey("Gradelevelid")]
+        [InverseProperty("Exams")]
+        public virtual Gradelevel Gradelevel { get; set; } = null!;
+        [ForeignKey("Graderassignmenttypeid")]
+        [InverseProperty("Exams")]
+        public virtual Graderassignmenttype? Graderassignmenttype { get; set; }
+        [ForeignKey("Schoolyearid")]
+        [InverseProperty("Exams")]
+        public virtual Schoolyear Schoolyear { get; set; } = null!;
+        [ForeignKey("Semesterid")]
+        [InverseProperty("Exams")]
+        public virtual Semester Semester { get; set; } = null!;
+        [ForeignKey("Subjectid")]
+        [InverseProperty("Exams")]
+        public virtual Subject Subject { get; set; } = null!;
+        [InverseProperty("Exam")]
+        public virtual ICollection<Examschedule> Examschedules { get; set; }
     }
 }
