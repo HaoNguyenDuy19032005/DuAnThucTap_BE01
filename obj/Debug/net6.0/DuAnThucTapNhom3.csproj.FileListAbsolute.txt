@@ -1,0 +1,106 @@
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\appsettings.Development.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\appsettings.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.staticwebassets.endpoints.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.exe
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.deps.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.runtimeconfig.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.pdb
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Humanizer.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Npgsql.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\System.Collections.Immutable.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.csproj.AssemblyReference.cache
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.GeneratedMSBuildEditorConfig.editorconfig
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.AssemblyInfoInputs.cache
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.AssemblyInfo.cs
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.csproj.CoreCompileInputs.cache
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.MvcApplicationPartsAssemblyInfo.cs
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.MvcApplicationPartsAssemblyInfo.cache
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.sourcelink.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\scopedcss\bundle\DuAnThucTapNhom3.styles.css
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.build.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.development.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.build.endpoints.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets\msbuild.DuAnThucTapNhom3.Microsoft.AspNetCore.StaticWebAssets.props
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets\msbuild.DuAnThucTapNhom3.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets\msbuild.build.DuAnThucTapNhom3.props
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.DuAnThucTapNhom3.props
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.DuAnThucTapNhom3.props
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.pack.json
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThuc.AF49F796.Up2Date
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\refint\DuAnThucTapNhom3.dll
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.pdb
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.genruntimeconfig.cache
+D:\DuAnThucTap\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\ref\DuAnThucTapNhom3.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\appsettings.Development.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\appsettings.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.staticwebassets.endpoints.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.exe
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.deps.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.runtimeconfig.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\DuAnThucTapNhom3.pdb
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Humanizer.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Microsoft.OpenApi.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Npgsql.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\System.Collections.Immutable.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.csproj.AssemblyReference.cache
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\rpswa.dswa.cache.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.GeneratedMSBuildEditorConfig.editorconfig
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.AssemblyInfoInputs.cache
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.AssemblyInfo.cs
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.csproj.CoreCompileInputs.cache
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.MvcApplicationPartsAssemblyInfo.cs
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.MvcApplicationPartsAssemblyInfo.cache
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\rjimswa.dswa.cache.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\rjsmrazor.dswa.cache.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\rjsmcshtml.dswa.cache.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\scopedcss\bundle\DuAnThucTapNhom3.styles.css
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.build.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.build.json.cache
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.development.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.build.endpoints.json
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThuc.AF49F796.Up2Date
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\refint\DuAnThucTapNhom3.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.pdb
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.genruntimeconfig.cache
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\ref\DuAnThucTapNhom3.dll
