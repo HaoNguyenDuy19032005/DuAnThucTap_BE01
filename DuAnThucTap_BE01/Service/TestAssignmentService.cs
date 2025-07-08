@@ -1,5 +1,5 @@
 ﻿using DuAnThucTap_BE01.Models;
-using DuAnThucTap_BE01.Iterface;
+using DuAnThucTap_BE01.Interface; // Sửa "Iterface" thành "Interface" nếu đây là lỗi đánh máy
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,33 +8,33 @@ namespace DuAnThucTap_BE01.Service
 {
     public class TestAssignmentService : ITestAssignment
     {
-        private static List<TestAssignment> _testAssignments = new List<TestAssignment>();
+        private static List<Testassignment> _testAssignments = new List<Testassignment>();
         private static int _nextAssignmentId = 1;
 
-        public Task<IEnumerable<TestAssignment>> GetAllAsync()
+        public Task<IEnumerable<Testassignment>> GetAllAsync()
         {
             return Task.FromResult(_testAssignments.AsEnumerable());
         }
 
-        public Task<TestAssignment> GetByIdAsync(int id)
+        public Task<Testassignment> GetByIdAsync(int id)
         {
-            return Task.FromResult(_testAssignments.FirstOrDefault(ta => ta.AssignmentId == id));
+            return Task.FromResult(_testAssignments.FirstOrDefault(ta => ta.Assignmentid == id));
         }
 
-        public Task<TestAssignment> CreateAsync(TestAssignment testAssignment)
+        public Task<Testassignment> CreateAsync(Testassignment testAssignment)
         {
-            testAssignment.AssignmentId = _nextAssignmentId++;
+            testAssignment.Assignmentid = _nextAssignmentId++;
             _testAssignments.Add(testAssignment);
             return Task.FromResult(testAssignment);
         }
 
-        public Task<TestAssignment> UpdateAsync(int id, TestAssignment testAssignment)
+        public Task<Testassignment> UpdateAsync(int id, Testassignment testAssignment)
         {
-            var existing = _testAssignments.FirstOrDefault(ta => ta.AssignmentId == id);
-            if (existing == null) return Task.FromResult((TestAssignment)null);
+            var existing = _testAssignments.FirstOrDefault(ta => ta.Assignmentid == id);
+            if (existing == null) return Task.FromResult((Testassignment)null);
 
-            existing.TestId = testAssignment.TestId;
-            existing.ClassId = testAssignment.ClassId;
+            existing.Testid = testAssignment.Testid;
+            existing.Classid = testAssignment.Classid;
             existing.Status = testAssignment.Status;
 
             return Task.FromResult(existing);
@@ -42,7 +42,7 @@ namespace DuAnThucTap_BE01.Service
 
         public Task<bool> DeleteAsync(int id)
         {
-            var testAssignment = _testAssignments.FirstOrDefault(ta => ta.AssignmentId == id);
+            var testAssignment = _testAssignments.FirstOrDefault(ta => ta.Assignmentid == id);
             if (testAssignment == null) return Task.FromResult(false);
 
             _testAssignments.Remove(testAssignment);
