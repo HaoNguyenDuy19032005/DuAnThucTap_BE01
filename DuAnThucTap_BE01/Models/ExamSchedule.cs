@@ -1,35 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
 {
-    [Table("examschedules")]
-    [Index("Examid", "Classid", Name = "examschedules_examid_classid_key", IsUnique = true)]
-    public partial class Examschedule
+    public class ExamSchedule
     {
-        public Examschedule()
-        {
-            Examgraders = new HashSet<Examgrader>();
-        }
-
         [Key]
-        [Column("examscheduleid")]
-        public int Examscheduleid { get; set; }
-        [Column("examid")]
-        public int Examid { get; set; }
-        [Column("classid")]
-        public int Classid { get; set; }
+        public int ExamScheduleID { get; set; }
 
-        [ForeignKey("Classid")]
-        [InverseProperty("Examschedules")]
-        public virtual Class Class { get; set; } = null!;
-        [ForeignKey("Examid")]
-        [InverseProperty("Examschedules")]
-        public virtual Exam Exam { get; set; } = null!;
-        [InverseProperty("Examschedule")]
-        public virtual ICollection<Examgrader> Examgraders { get; set; }
+        [ForeignKey("Exam")]
+        public int ExamID { get; set; }
+
+        [ForeignKey("Class")]
+        public int ClassID { get; set; }
+
+        // Navigation Properties
+        public virtual Exam Exam { get; set; }
+        public virtual Class Class { get; set; }
+        public virtual ICollection<ExamGrader> ExamGraders { get; set; }
     }
 }
