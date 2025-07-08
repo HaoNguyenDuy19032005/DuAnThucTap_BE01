@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
@@ -25,6 +26,7 @@ namespace DuAnThucTap_BE01.Models
         [Column("teachingenddate")]
         public DateOnly? Teachingenddate { get; set; }
 
+        [JsonIgnore]
         [InverseProperty("Topic")]
         public virtual ICollection<Teachingassignment> Teachingassignments { get; set; }
     }
