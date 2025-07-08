@@ -12,24 +12,31 @@ namespace DuAnThucTap_BE01.Models
         [Key]
         [Column("historyid")]
         public int Historyid { get; set; }
+
         [Column("teacherid")]
         public int Teacherid { get; set; }
+
         [Column("statustype")]
         [StringLength(100)]
         public string Statustype { get; set; } = null!;
+
         [Column("startdate")]
         public DateOnly? Startdate { get; set; }
+
         [Column("enddate")]
         public DateOnly? Enddate { get; set; }
+
         [Column("note")]
         public string? Note { get; set; }
+
         [Column("decisionfileurl")]
         public string? Decisionfileurl { get; set; }
+
         [Column("createdat")]
         public DateTime? Createdat { get; set; }
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherworkstatushistories")]
-        public virtual Teacher Teacher { get; set; } = null!;
+        public virtual Teacher? Teacher { get; set; }
     }
 }

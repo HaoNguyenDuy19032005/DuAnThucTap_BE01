@@ -1,4 +1,5 @@
 using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.Helpers;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,11 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    // Thêm dòng này vào
+    options.SerializerSettings.Converters.Add(new NewtonsoftDateOnlyConverter());
+});
 
 builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));

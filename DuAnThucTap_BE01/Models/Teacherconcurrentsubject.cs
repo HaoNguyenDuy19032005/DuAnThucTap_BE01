@@ -21,12 +21,15 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Teacherconcurrentsubjects")]
-        public virtual Schoolyear Schoolyear { get; set; } = null!;
+        public virtual Schoolyear? Schoolyear { get; set; }
+
         [ForeignKey("Subjectid")]
         [InverseProperty("Teacherconcurrentsubjects")]
-        public virtual Subject Subject { get; set; } = null!;
+ 
+        public virtual Subject? Subject { get; set; }
+
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherconcurrentsubjects")]
-        public virtual Teacher Teacher { get; set; } = null!;
+        public virtual Teacher? Teacher { get; set; }
     }
 }
