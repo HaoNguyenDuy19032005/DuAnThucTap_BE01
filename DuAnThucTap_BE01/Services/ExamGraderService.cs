@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace DuAnThucTap_BE01.Services
 {
     public class ExamGraderService : IExamGraderService
@@ -20,6 +21,7 @@ namespace DuAnThucTap_BE01.Services
         {
             _context.Examgraders.Add(examGrader);
             await _context.SaveChangesAsync();
+
             return examGrader;
         }
 
@@ -52,12 +54,14 @@ namespace DuAnThucTap_BE01.Services
         public async Task<Examgrader?> UpdateAsync(int examGraderId, Examgrader updatedExamGrader)
         {
             var existingExamGrader = await _context.Examgraders.FindAsync(examGraderId);
+
             if (existingExamGrader == null) return null;
 
             existingExamGrader.Examscheduleid = updatedExamGrader.Examscheduleid;
             existingExamGrader.Teacherid = updatedExamGrader.Teacherid;
 
             await _context.SaveChangesAsync();
+
             return existingExamGrader;
         }
     }

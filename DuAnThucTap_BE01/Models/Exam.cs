@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DuAnThucTap_BE01.Models
 {
@@ -41,23 +42,36 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Classtypeid")]
         [InverseProperty("Exams")]
+        [JsonIgnore]
         public virtual Classtype? Classtype { get; set; }
+
         [ForeignKey("Gradelevelid")]
         [InverseProperty("Exams")]
-        public virtual Gradelevel Gradelevel { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Gradelevel? Gradelevel { get; set; } // <-- Sửa ở đây
+
         [ForeignKey("Graderassignmenttypeid")]
         [InverseProperty("Exams")]
+        [JsonIgnore]
         public virtual Graderassignmenttype? Graderassignmenttype { get; set; }
+
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Exams")]
-        public virtual Schoolyear Schoolyear { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Schoolyear? Schoolyear { get; set; } // <-- Sửa ở đây
+
         [ForeignKey("Semesterid")]
         [InverseProperty("Exams")]
-        public virtual Semester Semester { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Semester? Semester { get; set; } // <-- Sửa ở đây
+
         [ForeignKey("Subjectid")]
         [InverseProperty("Exams")]
-        public virtual Subject Subject { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Subject? Subject { get; set; } // <-- Sửa ở đây
+
         [InverseProperty("Exam")]
+        [JsonIgnore]
         public virtual ICollection<Examschedule> Examschedules { get; set; }
     }
 }

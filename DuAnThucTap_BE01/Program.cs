@@ -1,9 +1,9 @@
-using DuAnThucTap_BE01.Data;
+Ôªøusing DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.Helpers;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +22,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
-    // ThÍm dÚng n‡y v‡o
     options.SerializerSettings.Converters.Add(new NewtonsoftDateOnlyConverter());
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // B·ªè qua v√≤ng l·∫∑p tham chi·∫øu
 });
 
 builder.Services.AddDbContext<ISCDbContext>(options =>
@@ -31,12 +31,7 @@ builder.Services.AddDbContext<ISCDbContext>(options =>
 builder.Services.AddScoped<IExamGraderService, ExamGraderService>();
 builder.Services.AddScoped<IExamScheduleService, ExamScheduleService>();
 builder.Services.AddScoped<IExamService, ExamService>();
-builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddScoped<IContactService, ContactService>();
-builder.Services.AddScoped<ITeacherTrainingHistoryService, TeacherTrainingHistoryService>();
-builder.Services.AddScoped<ITeacherWorkHistoryService, TeacherWorkHistoryService>();
-builder.Services.AddScoped<ITeacherWorkStatusHistoryService, TeacherWorkStatusHistoryService>();
-builder.Services.AddScoped<ITeacherConcurrentSubjectService, TeacherConcurrentSubjectService>();
+// ... c√°c service kh√°c
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -51,9 +46,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
@@ -29,18 +30,27 @@ namespace DuAnThucTap_BE01.Models
         [Column("notes")]
         public string? Notes { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("Classtypeid")]
         [InverseProperty("Teachingassignments")]
         public virtual Classtype? Classtype { get; set; }
+
+        [JsonIgnore]
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Teachingassignments")]
-        public virtual Schoolyear Schoolyear { get; set; } = null!;
+        public virtual Schoolyear? Schoolyear { get; set; } // Bỏ = null!
+
+        [JsonIgnore]
         [ForeignKey("Subjectid")]
         [InverseProperty("Teachingassignments")]
-        public virtual Subject Subject { get; set; } = null!;
+        public virtual Subject? Subject { get; set; } // Bỏ = null!
+
+        [JsonIgnore]
         [ForeignKey("Teacherid")]
         [InverseProperty("Teachingassignments")]
-        public virtual Teacher Teacher { get; set; } = null!;
+        public virtual Teacher? Teacher { get; set; } // Bỏ = null!
+
+        [JsonIgnore]
         [ForeignKey("Topicid")]
         [InverseProperty("Teachingassignments")]
         public virtual Topiclist? Topic { get; set; }

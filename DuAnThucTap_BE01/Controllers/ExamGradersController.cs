@@ -1,8 +1,10 @@
 ﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.AspNetCore.Mvc;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -12,9 +14,11 @@ namespace DuAnThucTap_BE01.Controllers
     {
         private readonly IExamGraderService _service;
 
+        // Fix for CS0111: Removed duplicate constructor
         public ExamGradersController(IExamGraderService service)
         {
-            _service = service;
+            // Fix for CS8618: Ensuring '_service' is initialized
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         [HttpGet]
