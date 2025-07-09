@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization; // Thêm dòng này
 
 namespace DuAnThucTap_BE01.Models
 {
@@ -37,17 +38,17 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Departmentid")]
         [InverseProperty("Teacherworkhistories")]
-        // Sửa lại thành nullable
+        [JsonIgnore] // <-- Thêm vào đây
         public virtual Department? Department { get; set; }
 
         [ForeignKey("Operationunitid")]
         [InverseProperty("Teacherworkhistories")]
-        // Sửa lại thành nullable
+        [JsonIgnore] // <-- Thêm vào đây
         public virtual Operationunit? Operationunit { get; set; }
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherworkhistories")]
-        // Sửa lại thành nullable
+        [JsonIgnore] // <-- Thêm vào đây
         public virtual Teacher? Teacher { get; set; }
     }
 }
