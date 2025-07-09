@@ -1,4 +1,6 @@
-﻿namespace DuAnThucTapNhom3.Models
+﻿using System.Text.Json.Serialization;
+
+namespace DuAnThucTapNhom3.Models
 {
     public class User
     {
@@ -11,6 +13,7 @@
         public DateTime UpdatedAt { get; set; }
         public bool IsActive { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<SchoolYearlyStatus>? SchoolYearslyStatus { get; set; }
         // Navigation properties
         //public int RoleId { get; set; }

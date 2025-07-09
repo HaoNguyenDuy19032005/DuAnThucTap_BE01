@@ -15,10 +15,12 @@ namespace DuAnThucTapNhom3.Models
         public DateTime? Enddate { get; set; }
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
+
         [JsonIgnore]
         public virtual Schoolyear? Schoolyear { get; set; } = null!;
         [JsonIgnore]
         public virtual ICollection<StudentSemesterSummary> StudentSemesterSummaries { get; set; } = new HashSet<StudentSemesterSummary>();
+        [JsonIgnore]
         public virtual ICollection<SchoolYearlyStatus>? SchoolYearlyStatuses { get; set; }
     }
 }

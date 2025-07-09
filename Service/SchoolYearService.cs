@@ -28,19 +28,28 @@ namespace DuAnThucTapNhom3.Service
             using var transaction = _context.Database.BeginTransaction();
             try
             {
+                // ✅ Kiểm tra trùng Schoolyearname
+                bool exists = _context.Schoolyears
+                    .Any(s => s.Schoolyearname == dto.Schoolyearname);
+
+                if (exists)
+                {
+                    throw new Exception("Tên năm học đã tồn tại.");  // Bạn có thể dùng custom exception
+                }
+
                 // Tạo mới năm học
                 var model = new Schoolyear
                 {
                     Schoolyearname = dto.Schoolyearname,
-                    Startyear = dto.Startyear, // INT
-                    Endyear = dto.Endyear,     // INT
+                    Startyear = dto.Startyear,
+                    Endyear = dto.Endyear,
                     Createdat = DateTime.UtcNow
                 };
 
                 _context.Schoolyears.Add(model);
                 _context.SaveChanges();
 
-                // Nếu chọn kế thừa học kỳ từ năm trước
+                // Kế thừa học kỳ (nếu có)
                 if (dto.IsInherit && dto.FromSchoolYearId.HasValue)
                 {
                     var oldSemesters = _context.Semesters
@@ -49,20 +58,11 @@ namespace DuAnThucTapNhom3.Service
 
                     foreach (var old in oldSemesters)
                     {
-                        // Giả sử Startdate và Enddate trong bảng Semesters là DateTime?
-                        var newStartDate = old.Startdate.HasValue
-                            ? DateTime.SpecifyKind(old.Startdate.Value, DateTimeKind.Utc)
-                            : DateTime.UtcNow;
-
-                        var newEndDate = old.Enddate.HasValue
-                            ? DateTime.SpecifyKind(old.Enddate.Value, DateTimeKind.Utc)
-                            : DateTime.UtcNow;
-
                         var newSemester = new Semester
                         {
                             Semestername = old.Semestername,
-                            Startdate = newStartDate,
-                            Enddate = newEndDate,
+                            Startdate = old.Startdate ?? DateTime.UtcNow,
+                            Enddate = old.Enddate ?? DateTime.UtcNow,
                             Createdat = DateTime.UtcNow,
                             Updatedat = DateTime.UtcNow,
                             Schoolyearid = model.Schoolyearid
@@ -83,6 +83,7 @@ namespace DuAnThucTapNhom3.Service
                 throw new Exception($"Save failed: {ex.InnerException?.Message ?? ex.Message}", ex);
             }
         }
+
 
         public bool Update(int id, Schoolyear model)
         {

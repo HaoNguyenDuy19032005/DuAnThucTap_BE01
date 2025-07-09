@@ -18,6 +18,7 @@ namespace DuAnThucTapNhom3.Models
         public bool? Isactive { get; set; }
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Subject> Subjects { get; set; }
     }

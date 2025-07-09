@@ -1615,96 +1615,6 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
-          },
-          "schoolYearlyStatuses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SchoolYearlyStatus"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SchoolYearlyStatus": {
-        "type": "object",
-        "properties": {
-          "idSchoolYearlyStatus": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "studentId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "schoolYearId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "status": {
-            "type": "string",
-            "nullable": true
-          },
-          "note": {
-            "type": "string",
-            "nullable": true
-          },
-          "classId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "gradelevelId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "semesterId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "teacherId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "student": {
-            "$ref": "#/components/schemas/Student"
-          },
-          "schoolYear": {
-            "$ref": "#/components/schemas/Schoolyear"
-          },
-          "teacher": {
-            "$ref": "#/components/schemas/Teacher"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "class": {
-            "$ref": "#/components/schemas/Class"
-          },
-          "gradelevel": {
-            "$ref": "#/components/schemas/Gradelevel"
-          },
-          "semester": {
-            "$ref": "#/components/schemas/Semester"
           }
         },
         "additionalProperties": false
@@ -1738,9 +1648,12 @@
             "format": "date-time",
             "nullable": true
           },
-          "schoolYearlyStatusId": {
-            "type": "integer",
-            "format": "int32"
+          "semesters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Semester"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1779,93 +1692,6 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
-          },
-          "schoolYearlyStatuses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SchoolYearlyStatus"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Student": {
-        "type": "object",
-        "properties": {
-          "studentId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "studentCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "fullName": {
-            "type": "string",
-            "nullable": true
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "gender": {
-            "type": "string",
-            "nullable": true
-          },
-          "class": {
-            "$ref": "#/components/schemas/Class"
-          },
-          "studentSemesterSummarys": {
-            "$ref": "#/components/schemas/StudentSemesterSummary"
-          }
-        },
-        "additionalProperties": false
-      },
-      "StudentSemesterSummary": {
-        "type": "object",
-        "properties": {
-          "summaryId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "averageScore": {
-            "type": "number",
-            "format": "double"
-          },
-          "students": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Student"
-            },
-            "nullable": true
-          },
-          "semesterId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "semester": {
-            "$ref": "#/components/schemas/Semester"
           }
         },
         "additionalProperties": false
@@ -1959,50 +1785,6 @@
           },
           "fullname": {
             "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "passwordHash": {
-            "type": "string",
-            "nullable": true
-          },
-          "fullName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "loginCount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "schoolYearslyStatus": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SchoolYearlyStatus"
-            },
             "nullable": true
           }
         },

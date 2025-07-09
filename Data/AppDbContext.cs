@@ -190,7 +190,8 @@ namespace DuAnThucTapNhom3.Data
             modelBuilder.Entity<Semester>(entity =>
             {
                 entity.ToTable("semesters");
-
+                entity.HasIndex(s => new { s.Schoolyearid, s.Semestername })
+                .IsUnique();
                 entity.HasIndex(e => e.Schoolyearid, "idx_semesters_schoolyearid");
 
                 entity.Property(e => e.Semesterid).HasColumnName("semesterid");
@@ -216,6 +217,7 @@ namespace DuAnThucTapNhom3.Data
                 entity.HasOne(d => d.Schoolyear)
                     .WithMany(p => p.Semesters)
                     .HasForeignKey(d => d.Schoolyearid)
+                    .OnDelete(DeleteBehavior.Restrict) // hoặc .Cascade
                     .HasConstraintName("fk_schoolyear");
             });
 

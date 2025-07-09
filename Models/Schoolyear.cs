@@ -18,9 +18,11 @@ namespace DuAnThucTapNhom3.Models
         public int Endyear { get; set; }
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
-        [JsonIgnore]
+
+
+        
         public virtual ICollection<Semester>? Semesters { get; set; }
-        public int SchoolYearlyStatusId { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<SchoolYearlyStatus>? SchoolYearlyStatuses { get; set; }
     }

@@ -13,6 +13,7 @@
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string Gender { get; set; } = null!;
+        
         public Class? Class { get; set; }
         public StudentSemesterSummary? StudentSemesterSummarys { get; set; }
     }

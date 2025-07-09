@@ -33,11 +33,29 @@ namespace DuAnThucTapNhom3.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CreateSchoolYearDto dto)
         {
-            if (dto == null) return BadRequest();
+            if (dto == null)
+                return BadRequest("Invalid data.");
 
-            var created = _service.Create(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Schoolyearid }, created);
+            try
+            {
+                var created = _service.Create(dto);
+
+                return CreatedAtAction(nameof(GetById),
+                    new { id = created.Schoolyearid },
+                    created);
+            }
+            catch (Exception ex)
+            {
+                // Nếu lỗi là do tên trùng, trả 409
+                if (ex.Message.Contains("đã tồn tại") || ex.Message.Contains("duplicate"))
+                {
+                    return Conflict(new { message = ex.Message });
+                }
+
+                return StatusCode(500, new { message = "Đã xảy ra lỗi.", detail = ex.Message });
+            }
         }
+
 
 
         [HttpPut("{id}")]

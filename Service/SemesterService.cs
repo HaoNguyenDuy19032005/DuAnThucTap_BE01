@@ -26,11 +26,28 @@ namespace DuAnThucTapNhom3.Service
 
         public Semester Create(Semester model)
         {
+            var allowedNames = new[] { "HK1", "HK2" };
+            if (!allowedNames.Contains(model.Semestername.Trim().ToUpper()))
+                throw new Exception("Tên học kỳ không hợp lệ. Chỉ chấp nhận: HK1, HK2.");
+
+            bool exists = _context.Semesters.Any(s =>
+                s.Schoolyearid == model.Schoolyearid &&
+                s.Semestername.Trim().ToUpper() == model.Semestername.Trim().ToUpper());
+
+            if (exists)
+                throw new Exception($"Học kỳ '{model.Semestername}' đã tồn tại trong năm học này.");
+
+            model.Semestername = model.Semestername.Trim();
             model.Createdat = DateTime.UtcNow;
+            model.Updatedat = DateTime.UtcNow;
+
             _context.Semesters.Add(model);
             _context.SaveChanges();
+
             return model;
         }
+
+
 
         public bool Update(int id, Semester model)
         {

@@ -104,3 +104,4 @@ F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\
 F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.pdb
 F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.genruntimeconfig.cache
 F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\ref\DuAnThucTapNhom3.dll
+F:\ThucTapISC\Thuctap\API giao dien\DuAnThucTapNhom3\DuAnThucTapNhom3\obj\Debug\net6.0\DuAnThucTapNhom3.sourcelink.json

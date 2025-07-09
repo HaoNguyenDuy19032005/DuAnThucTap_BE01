@@ -19,8 +19,10 @@ namespace DuAnThucTapNhom3.Models
         public int? Defaultperiodssem2 { get; set; }
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
+
         public int? Departmentid { get; set; }
         public int? Subjecttypeid { get; set; }
+
         [JsonIgnore]
         public virtual Department? Department { get; set; }
         [JsonIgnore]

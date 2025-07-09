@@ -18,8 +18,10 @@ namespace DuAnThucTapNhom3.Models
         public DateTime? Createdat { get; set; }
         public DateTime? Updatedat { get; set; }
         public int? Headteacherid { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Class> Classes { get; set; }
+        [JsonIgnore]
         public virtual ICollection<SchoolYearlyStatus>? SchoolYearlyStatuses { get; set; }
 
     }

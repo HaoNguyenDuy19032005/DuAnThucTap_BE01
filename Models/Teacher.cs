@@ -15,6 +15,8 @@ namespace DuAnThucTapNhom3.Models
         [Key]
         public int Teacherid { get; set; }
         public string Fullname { get; set; } = null!;
+
+
         [JsonIgnore]
         public virtual ICollection<Department> Departments { get; set; }
 

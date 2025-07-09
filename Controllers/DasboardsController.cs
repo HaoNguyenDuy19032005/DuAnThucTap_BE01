@@ -76,19 +76,19 @@ namespace DuAnThucTapNhom3.Controllers
                 {
                     ClassName = c.Classname,
                     Excellent = _context.StudentSemesterSummaries
-                        .Count(s => s.students.Any(st => st.Class.Classid == c.Classid) &&
+                        .Count(s => s.StudentsInSemeterSumamryModel.Any(st => st.Class.Classid == c.Classid) &&
                                     s.AverageScore >= 8 &&
                                     s.Semester.Schoolyearid == schoolyearId),
                     Good = _context.StudentSemesterSummaries
-                        .Count(s => s.students.Any(st => st.Class.Classid == c.Classid) &&
+                        .Count(s => s.StudentsInSemeterSumamryModel.Any(st => st.Class.Classid == c.Classid) &&
                                     s.AverageScore >= 6.5 && s.AverageScore < 8 &&
                                     s.Semester.Schoolyearid == schoolyearId),
                     Average = _context.StudentSemesterSummaries
-                        .Count(s => s.students.Any(st => st.Class.Classid == c.Classid) &&
+                        .Count(s => s.StudentsInSemeterSumamryModel.Any(st => st.Class.Classid == c.Classid) &&
                                     s.AverageScore >= 5 && s.AverageScore < 6.5 &&
                                     s.Semester.Schoolyearid == schoolyearId),
                     Weak = _context.StudentSemesterSummaries
-                        .Count(s => s.students.Any(st => st.Class.Classid == c.Classid) &&
+                        .Count(s => s.StudentsInSemeterSumamryModel.Any(st => st.Class.Classid == c.Classid) &&
                                     s.AverageScore < 5 &&
                                     s.Semester.Schoolyearid == schoolyearId)
                 })
