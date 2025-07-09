@@ -1,6 +1,7 @@
 ﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.Helpers;
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Services;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -31,7 +32,16 @@ builder.Services.AddDbContext<ISCDbContext>(options =>
 builder.Services.AddScoped<IExamGraderService, ExamGraderService>();
 builder.Services.AddScoped<IExamScheduleService, ExamScheduleService>();
 builder.Services.AddScoped<IExamService, ExamService>();
-// ... các service khác
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<ITeacherTrainingHistoryService, TeacherTrainingHistoryService>();
+builder.Services.AddScoped<ITeacherWorkHistoryService, TeacherWorkHistoryService>();
+builder.Services.AddScoped<ITeacherWorkStatusHistoryService, TeacherWorkStatusHistoryService>();
+builder.Services.AddScoped<ITeacherConcurrentSubjectService, TeacherConcurrentSubjectService>();
+builder.Services.AddScoped<ITeachingAssignmentService, TeachingAssignmentService>();
+builder.Services.AddScoped<ITopicListService, TopicListService>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
