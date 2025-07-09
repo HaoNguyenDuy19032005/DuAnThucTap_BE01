@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization; // Thêm dòng này
 
 namespace DuAnThucTap_BE01.Models
 {
@@ -37,6 +38,7 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherworkstatushistories")]
+        [JsonIgnore] // <-- Thêm vào đây
         public virtual Teacher? Teacher { get; set; }
     }
 }

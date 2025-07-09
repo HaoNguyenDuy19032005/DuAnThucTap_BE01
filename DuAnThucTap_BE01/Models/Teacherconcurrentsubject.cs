@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization; // Thêm dòng này
 
 namespace DuAnThucTap_BE01.Models
 {
@@ -21,15 +22,17 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Teacherconcurrentsubjects")]
+        [JsonIgnore] // <-- Sửa
         public virtual Schoolyear? Schoolyear { get; set; }
 
         [ForeignKey("Subjectid")]
         [InverseProperty("Teacherconcurrentsubjects")]
- 
+        [JsonIgnore] // <-- Sửa
         public virtual Subject? Subject { get; set; }
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherconcurrentsubjects")]
+        [JsonIgnore] // <-- Sửa
         public virtual Teacher? Teacher { get; set; }
     }
 }
