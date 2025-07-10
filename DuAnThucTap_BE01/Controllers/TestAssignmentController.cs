@@ -1,6 +1,7 @@
 ﻿    using DuAnThucTap_BE01.Interface; // Sửa "Iterface" thành "Interface" nếu cần
     using DuAnThucTap_BE01.Models;
-    using Microsoft.AspNetCore.Mvc;
+using DuAnThucTap_BE01.Services;
+using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
     namespace DuAnThucTap_BE01.Controllers
@@ -9,9 +10,9 @@
         [Route("api/[controller]")]
         public class TestAssignmentController : ControllerBase
         {
-            private readonly ITestAssignment _service;
+            private readonly ITestassignment _service;
 
-            public TestAssignmentController(ITestAssignment service)
+            public TestAssignmentController(ITestassignment service)
             {
                 _service = service;
             }

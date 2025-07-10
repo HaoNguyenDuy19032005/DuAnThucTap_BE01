@@ -29,6 +29,9 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<ITests, TestsService>();
+builder.Services.AddScoped<ITestassignment, TestassignmentService>();
+
 // ... các service khác
 
 builder.Services.AddEndpointsApiExplorer();

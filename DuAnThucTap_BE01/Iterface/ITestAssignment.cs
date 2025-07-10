@@ -1,15 +1,15 @@
-﻿using DuAnThucTap_BE01.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DuAnThucTap_BE01.Models;
 
-namespace DuAnThucTap_BE01.Interface // Lưu ý: sửa "Iterface" thành "Interface" nếu đây là lỗi đánh máy
+namespace DuAnThucTap_BE01.Services
 {
-    public interface ITestAssignment
+    public interface ITestassignment
     {
         Task<IEnumerable<Testassignment>> GetAllAsync();
-        Task<Testassignment> GetByIdAsync(int id);
-        Task<Testassignment> CreateAsync(Testassignment testAssignment);
-        Task<Testassignment> UpdateAsync(int id, Testassignment testAssignment);
+        Task<Testassignment?> GetByIdAsync(int id);
+        Task<Testassignment> CreateAsync(Testassignment testassignment);
+        Task<Testassignment?> UpdateAsync(int id, Testassignment testassignment);
         Task<bool> DeleteAsync(int id);
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
@@ -18,21 +17,29 @@ namespace DuAnThucTap_BE01.Models
         [Key]
         [Column("assignmentid")]
         public int Assignmentid { get; set; }
+
         [Column("testid")]
         public int Testid { get; set; }
+
         [Column("classid")]
         public int Classid { get; set; }
+
         [Column("status")]
         [StringLength(50)]
         public string? Status { get; set; }
 
-        [ForeignKey("Classid")]
-        [InverseProperty("Testassignments")]
-        public virtual Class Class { get; set; } = null!;
         [ForeignKey("Testid")]
         [InverseProperty("Testassignments")]
-        public virtual Test Test { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Test? Test { get; set; }
+
+        [ForeignKey("Classid")]
+        [InverseProperty("Testassignments")]
+        [JsonIgnore]
+        public virtual Class? Class { get; set; }
+
         [InverseProperty("Assignment")]
+        [JsonIgnore]
         public virtual ICollection<Studenttestsubmission> Studenttestsubmissions { get; set; }
     }
 }
