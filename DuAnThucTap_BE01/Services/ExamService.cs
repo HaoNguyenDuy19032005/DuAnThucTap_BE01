@@ -16,17 +16,18 @@ namespace DuAnThucTap_BE01.Services
 
         public async Task<Exam> CreateAsync(Exam exam)
         {
-            exam.Createdat = DateTime.UtcNow; // Thêm thời gian tạo nếu cần
+            exam.Createdat = DateTime.UtcNow;
             _context.Exams.Add(exam);
             await _context.SaveChangesAsync();
-            return exam;
+            return await _context.Exams
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Examid == exam.Examid) ?? exam;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
             var exam = await _context.Exams.FindAsync(id);
             if (exam == null) return false;
-
             _context.Exams.Remove(exam);
             await _context.SaveChangesAsync();
             return true;
@@ -35,26 +36,14 @@ namespace DuAnThucTap_BE01.Services
         public async Task<IEnumerable<Exam>> GetAllAsync()
         {
             return await _context.Exams
-                .Include(e => e.Classtype)
-                .Include(e => e.Gradelevel)
-                .Include(e => e.Graderassignmenttype)
-                .Include(e => e.Schoolyear)
-                .Include(e => e.Semester)
-                .Include(e => e.Subject)
-                .Include(e => e.Examschedules)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<Exam?> GetByIdAsync(int id)
         {
             return await _context.Exams
-                .Include(e => e.Classtype)
-                .Include(e => e.Gradelevel)
-                .Include(e => e.Graderassignmenttype)
-                .Include(e => e.Schoolyear)
-                .Include(e => e.Semester)
-                .Include(e => e.Subject)
-                .Include(e => e.Examschedules)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(e => e.Examid == id);
         }
 
@@ -72,10 +61,11 @@ namespace DuAnThucTap_BE01.Services
             existingExam.Durationminutes = updatedExam.Durationminutes;
             existingExam.Classtypeid = updatedExam.Classtypeid;
             existingExam.Graderassignmenttypeid = updatedExam.Graderassignmenttypeid;
-            
 
             await _context.SaveChangesAsync();
-            return existingExam;
+            return await _context.Exams
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Examid == id);
         }
     }
 }
