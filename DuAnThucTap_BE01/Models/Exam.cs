@@ -48,7 +48,7 @@ namespace DuAnThucTap_BE01.Models
         [ForeignKey("Gradelevelid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Gradelevel? Gradelevel { get; set; } // <-- Sửa ở đây
+        public virtual Gradelevel? Gradelevel { get; set; } 
 
         [ForeignKey("Graderassignmenttypeid")]
         [InverseProperty("Exams")]
@@ -58,17 +58,17 @@ namespace DuAnThucTap_BE01.Models
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Schoolyear? Schoolyear { get; set; } // <-- Sửa ở đây
+        public virtual Schoolyear? Schoolyear { get; set; } 
 
         [ForeignKey("Semesterid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Semester? Semester { get; set; } // <-- Sửa ở đây
+        public virtual Semester? Semester { get; set; } 
 
         [ForeignKey("Subjectid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Subject? Subject { get; set; } // <-- Sửa ở đây
+        public virtual Subject? Subject { get; set; }
 
         [InverseProperty("Exam")]
         [JsonIgnore]
