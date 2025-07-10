@@ -23,13 +23,28 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.Converters.Add(new NewtonsoftDateOnlyConverter());
-    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // Bỏ qua vòng lặp tham chiếu
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
 
+// --- Database Context ---
 builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<IExamService, ExamService>();
-// ... các service khác
+
+// --- Dependency Injection for Services ---
+// This is where we register all the services so the application knows how to create them.
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IContactService, DuAnThucTap_BE01.Services.ContactService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IExamGraderService, DuAnThucTap_BE01.Services.ExamGraderService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IExamService, DuAnThucTap_BE01.Services.ExamService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherConcurrentSubjectService, DuAnThucTap_BE01.Services.TeacherConcurrentSubjectService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherService, DuAnThucTap_BE01.Services.TeacherService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherTrainingHistoryService, DuAnThucTap_BE01.Services.TeacherTrainingHistoryService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherWorkHistoryService, DuAnThucTap_BE01.Services.TeacherWorkHistoryService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherWorkStatusHistoryService, DuAnThucTap_BE01.Services.TeacherWorkStatusHistoryService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeachingAssignmentService, DuAnThucTap_BE01.Services.TeachingAssignmentService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITestAssignment, DuAnThucTap_BE01.Services.TestAssignmentService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITests, DuAnThucTap_BE01.Services.TestsService>(); // <-- This line fixes your original error
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITopicListService, DuAnThucTap_BE01.Services.TopicListService>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
