@@ -2,6 +2,9 @@
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 
 namespace DuAnThucTap_BE01.Services
 {
@@ -18,15 +21,15 @@ namespace DuAnThucTap_BE01.Services
         {
             _context.Examgraders.Add(examGrader);
             await _context.SaveChangesAsync();
-            return await _context.Examgraders
-                .AsNoTracking()
-                .FirstOrDefaultAsync(eg => eg.Examgraderid == examGrader.Examgraderid) ?? examGrader;
+
+            return examGrader;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int examGraderId)
         {
-            var examGrader = await _context.Examgraders.FindAsync(id);
+            var examGrader = await _context.Examgraders.FindAsync(examGraderId);
             if (examGrader == null) return false;
+
             _context.Examgraders.Remove(examGrader);
             await _context.SaveChangesAsync();
             return true;
@@ -35,29 +38,31 @@ namespace DuAnThucTap_BE01.Services
         public async Task<IEnumerable<Examgrader>> GetAllAsync()
         {
             return await _context.Examgraders
-                .AsNoTracking()
+                .Include(eg => eg.Examschedule)
+                .Include(eg => eg.Teacher)
                 .ToListAsync();
         }
 
-        public async Task<Examgrader?> GetByIdAsync(int id)
+        public async Task<Examgrader?> GetByIdAsync(int examGraderId)
         {
             return await _context.Examgraders
-                .AsNoTracking()
-                .FirstOrDefaultAsync(eg => eg.Examgraderid == id);
+                .Include(eg => eg.Examschedule)
+                .Include(eg => eg.Teacher)
+                .FirstOrDefaultAsync(eg => eg.Examgraderid == examGraderId);
         }
 
-        public async Task<Examgrader?> UpdateAsync(int id, Examgrader updatedExamGrader)
+        public async Task<Examgrader?> UpdateAsync(int examGraderId, Examgrader updatedExamGrader)
         {
-            var existingExamGrader = await _context.Examgraders.FindAsync(id);
+            var existingExamGrader = await _context.Examgraders.FindAsync(examGraderId);
+
             if (existingExamGrader == null) return null;
 
             existingExamGrader.Examscheduleid = updatedExamGrader.Examscheduleid;
             existingExamGrader.Teacherid = updatedExamGrader.Teacherid;
 
             await _context.SaveChangesAsync();
-            return await _context.Examgraders
-                .AsNoTracking()
-                .FirstOrDefaultAsync(eg => eg.Examgraderid == id);
+
+            return existingExamGrader;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DuAnThucTap_BE01.Models
 {
@@ -25,11 +26,14 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Classid")]
         [InverseProperty("Examschedules")]
+        [JsonIgnore]
         public virtual Class Class { get; set; } = null!;
         [ForeignKey("Examid")]
         [InverseProperty("Examschedules")]
+        [JsonIgnore]
         public virtual Exam Exam { get; set; } = null!;
         [InverseProperty("Examschedule")]
+        [JsonIgnore]
         public virtual ICollection<Examgrader> Examgraders { get; set; }
     }
 }
