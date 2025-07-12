@@ -30,8 +30,6 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// --- Dependency Injection for Services ---
-// This is where we register all the services so the application knows how to create them.
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IContactService, DuAnThucTap_BE01.Services.ContactService>();
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IExamGraderService, DuAnThucTap_BE01.Services.ExamGraderService>();
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IExamService, DuAnThucTap_BE01.Services.ExamService>();
@@ -42,8 +40,9 @@ builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherWorkHistoryService
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeacherWorkStatusHistoryService, DuAnThucTap_BE01.Services.TeacherWorkStatusHistoryService>();
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITeachingAssignmentService, DuAnThucTap_BE01.Services.TeachingAssignmentService>();
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITestAssignment, DuAnThucTap_BE01.Services.TestAssignmentService>();
-builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITests, DuAnThucTap_BE01.Services.TestsService>(); // <-- This line fixes your original error
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITests, DuAnThucTap_BE01.Services.TestsService>(); 
 builder.Services.AddScoped<DuAnThucTap_BE01.Interface.ITopicListService, DuAnThucTap_BE01.Services.TopicListService>();
+builder.Services.AddScoped<DuAnThucTap_BE01.Interface.IExamScheduleService, DuAnThucTap_BE01.Services.ExamScheduleService>();
 
 
 builder.Services.AddEndpointsApiExplorer();

@@ -19,19 +19,23 @@ namespace DuAnThucTap_BE01.Models
         [Key]
         [Column("examscheduleid")]
         public int Examscheduleid { get; set; }
+
         [Column("examid")]
         public int Examid { get; set; }
+
         [Column("classid")]
         public int Classid { get; set; }
 
         [ForeignKey("Classid")]
         [InverseProperty("Examschedules")]
         [JsonIgnore]
-        public virtual Class Class { get; set; } = null!;
+        public virtual Class? Class { get; set; }
+
         [ForeignKey("Examid")]
         [InverseProperty("Examschedules")]
         [JsonIgnore]
-        public virtual Exam Exam { get; set; } = null!;
+        public virtual Exam? Exam { get; set; }
+
         [InverseProperty("Examschedule")]
         [JsonIgnore]
         public virtual ICollection<Examgrader> Examgraders { get; set; }
