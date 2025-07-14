@@ -15,7 +15,6 @@ namespace DuAnThucTap_BE01.Models
         [Column("examgraderid")]
         public int Examgraderid { get; set; }
 
-        // Made Examscheduleid nullable by using 'int?'
         [Column("examscheduleid")]
         public int? Examscheduleid { get; set; }
 
@@ -26,13 +25,11 @@ namespace DuAnThucTap_BE01.Models
         [ForeignKey("Examscheduleid")]
         [InverseProperty("Examgraders")]
         [JsonIgnore]
-        // Made navigation property nullable
         public virtual Examschedule? Examschedule { get; set; }
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Examgraders")]
         [JsonIgnore]
-        // Made navigation property nullable
         public virtual Teacher? Teacher { get; set; }
     }
 }
