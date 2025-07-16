@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization; // <-- Thêm dòng này
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
@@ -99,42 +100,60 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Departmentid")]
         [InverseProperty("Teachers")]
+        [JsonIgnore] // <-- Sửa
         public virtual Department? Department { get; set; }
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Teachers")]
+        [JsonIgnore] // <-- Sửa
         public virtual Schoolyear? Schoolyear { get; set; }
         [ForeignKey("Subjectid")]
         [InverseProperty("Teachers")]
+        [JsonIgnore] // <-- Sửa
         public virtual Subject? Subject { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual User? User { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Blockleader> Blockleaders { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Class> Classes { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Contact> Contacts { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Course> Courses { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Departmentleader> Departmentleaders { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Examgrader> Examgraders { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Gradelevel> Gradelevels { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Lesson> Lessons { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Teacherconcurrentsubject> Teacherconcurrentsubjects { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Teachertraininghistory> Teachertraininghistories { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Teacherworkhistory> Teacherworkhistories { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Teacherworkstatushistory> Teacherworkstatushistories { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Teachingassignment> Teachingassignments { get; set; }
         [InverseProperty("Teacher")]
+        [JsonIgnore] // <-- Sửa
         public virtual ICollection<Test> Tests { get; set; }
     }
 }
