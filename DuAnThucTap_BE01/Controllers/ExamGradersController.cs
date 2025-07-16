@@ -1,10 +1,8 @@
 ﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.AspNetCore.Mvc;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -14,17 +12,16 @@ namespace DuAnThucTap_BE01.Controllers
     {
         private readonly IExamGraderService _service;
 
-        // Fix for CS0111: Removed duplicate constructor
         public ExamGradersController(IExamGraderService service)
         {
-            // Fix for CS8618: Ensuring '_service' is initialized
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Examgrader>>> GetAll()
         {
-            return Ok(await _service.GetAllAsync());
+            var examGraders = await _service.GetAllAsync();
+            return Ok(examGraders);
         }
 
         [HttpGet("{id}")]
@@ -37,17 +34,46 @@ namespace DuAnThucTap_BE01.Controllers
         [HttpPost]
         public async Task<ActionResult<Examgrader>> Create([FromBody] Examgrader examGrader)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            var created = await _service.CreateAsync(examGrader);
-            return CreatedAtAction(nameof(GetById), new { id = created.Examgraderid }, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // Trả về chi tiết lỗi xác thực
+            }
+
+            try
+            {
+                var created = await _service.CreateAsync(examGrader);
+                return CreatedAtAction(nameof(GetById), new { id = created.Examgraderid }, created);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError("General", ex.Message);
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Examgrader examGrader)
         {
-            if (id != examGrader.Examgraderid) return BadRequest("ID không khớp");
-            var result = await _service.UpdateAsync(id, examGrader);
-            return result == null ? NotFound() : NoContent();
+            if (id != examGrader.Examgraderid)
+            {
+                return BadRequest("ID trong URL không khớp với ID trong dữ liệu.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var result = await _service.UpdateAsync(id, examGrader);
+                return result == null ? NotFound() : NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError("General", ex.Message);
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpDelete("{id}")]

@@ -41,7 +41,7 @@ namespace DuAnThucTap_BE01.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Examschedule examSchedule)
         {
-            if (id != examSchedule.Examscheduleid) return BadRequest("ID không khớp");
+            if (id != examSchedule.Examscheduleid) return BadRequest("ID khong khop");
             var result = await _service.UpdateAsync(id, examSchedule);
             return result == null ? NotFound() : NoContent();
         }
