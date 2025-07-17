@@ -4,6 +4,7 @@ using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -12,6 +13,7 @@ namespace DuAnThucTap_BE01.Controllers
     public class TeacherTrainingHistoriesController : ControllerBase
     {
         private readonly ITeacherTrainingHistoryService _service;
+
         public TeacherTrainingHistoriesController(ITeacherTrainingHistoryService service)
         {
             _service = service;
@@ -36,31 +38,46 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create(
+        [FromForm] TeacherTrainingHistoryRequestDto historyDto,
+        [FromForm] IFormFile? file)
         {
-            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations trong TeacherTrainingHistoryRequestDto
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            var created = await _service.CreateAsync(historyDto); // Gọi service với DTO request
+            if (file != null && file.Length > 5 * 1024 * 1024)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Kích thước tệp không được vượt quá 5MB", null));
+            }
+
+            var created = await _service.CreateAsync(historyDto, file);
             var response = new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.Created, "Tạo mới thành công", created);
             return CreatedAtAction(nameof(GetById), new { id = created.Trainingid }, response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
+        [Consumes("multipart/form-data")] // Specify that this endpoint accepts multipart/form-data
+        public async Task<IActionResult> Update(
+            int id,
+            [FromForm] TeacherTrainingHistoryRequestDto historyDto, // Use FromForm for form-data
+            [FromForm] IFormFile? file) // Add file parameter
         {
-            // Không cần kiểm tra id != history.Trainingid vì Trainingid không có trong Request DTO
-            // id sẽ được lấy từ URL.
-
+            // Validate the model state
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
+            // Optional: Validate file (e.g., size, type)
+            if (file != null && file.Length > 5 * 1024 * 1024) // Example: Limit file size to 5MB
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Kích thước tệp không được vượt quá 5MB", null));
+            }
+
+            var result = await _service.UpdateAsync(id, historyDto, file); // Pass file to service
             if (result == null)
             {
                 return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử đào tạo với ID = {id}", null));

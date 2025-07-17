@@ -36,16 +36,15 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TeacherWorkStatusHistoryRequestDto historyDto) // Thay đổi tham số
+        public async Task<IActionResult> Create([FromBody] TeacherWorkStatusHistoryRequestDto historyDto)
         {
-            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations và IValidatableObject trong TeacherWorkStatusHistoryRequestDto
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
             try
             {
-                var createdDto = await _service.CreateAsync(historyDto); // Gọi service với DTO request
+                var createdDto = await _service.CreateAsync(historyDto); 
                 var response = new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.Created, "Tạo mới và cập nhật trạng thái giáo viên thành công", createdDto);
                 return CreatedAtAction(nameof(GetById), new { id = createdDto.Historyid }, response);
             }

@@ -89,10 +89,13 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var teachers = await _service.GetAllAsync();
-            return Ok(new ApiResponse<IEnumerable<TeacherDto>>((int)HttpStatusCode.OK, "Lấy danh sách giáo viên thành công", teachers));
+            var pagedResult = await _service.GetAllAsync(searchQuery, pageNumber, pageSize);
+            return Ok(new ApiResponse<PagedResponse<TeacherDto>>((int)HttpStatusCode.OK, "Lấy danh sách giáo viên thành công", pagedResult));
         }
 
         [HttpGet("{id}")]
