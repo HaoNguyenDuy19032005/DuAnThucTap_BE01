@@ -10,7 +10,7 @@ namespace DuAnThucTap_BE01.Models
     [Table("teachers")]
     [Index("Email", Name = "teachers_email_key", IsUnique = true)]
     [Index("Teachercode", Name = "teachers_teachercode_key", IsUnique = true)]
-    public partial class Teacher : IValidatableObject
+    public partial class Teacher
     {
         public Teacher()
         {
@@ -36,19 +36,16 @@ namespace DuAnThucTap_BE01.Models
 
         [Column("teachercode")]
         [StringLength(50)]
-        public string? Teachercode { get; set; } // Server tự sinh, không cần validation
+        public string? Teachercode { get; set; }
 
         [Column("fullname")]
-        [Required(ErrorMessage = "Họ và tên không được để trống.")]
-        [StringLength(150, MinimumLength = 2, ErrorMessage = "Họ và tên phải có độ dài từ 2 đến 150 ký tự.")]
+        [StringLength(150)]
         public string Fullname { get; set; } = null!;
 
         [Column("dateofbirth")]
-        [Required(ErrorMessage = "Ngày sinh không được để trống.")]
         public DateOnly? Dateofbirth { get; set; }
 
         [Column("gender")]
-        [Required(ErrorMessage = "Giới tính không được để trống.")]
         [StringLength(10)]
         public string? Gender { get; set; }
 
@@ -68,7 +65,6 @@ namespace DuAnThucTap_BE01.Models
         public string? Religion { get; set; }
 
         [Column("status")]
-        [Required(ErrorMessage = "Trạng thái công tác không được để trống.")]
         [StringLength(100)]
         public string? Status { get; set; }
 
@@ -77,17 +73,14 @@ namespace DuAnThucTap_BE01.Models
         public string? Alias { get; set; }
 
         [Column("address_provincecity")]
-        [Required(ErrorMessage = "Tỉnh/Thành phố không được để trống.")]
         [StringLength(100)]
         public string? AddressProvincecity { get; set; }
 
         [Column("address_ward")]
-        [Required(ErrorMessage = "Phường/Xã không được để trống.")]
         [StringLength(100)]
         public string? AddressWard { get; set; }
 
         [Column("address_district")]
-        [Required(ErrorMessage = "Quận/Huyện không được để trống.")]
         [StringLength(100)]
         public string? AddressDistrict { get; set; }
 
@@ -96,14 +89,10 @@ namespace DuAnThucTap_BE01.Models
         public string? AddressStreet { get; set; }
 
         [Column("email")]
-        [Required(ErrorMessage = "Email không được để trống.")]
-        [EmailAddress(ErrorMessage = "Định dạng email không hợp lệ.")]
         [StringLength(255)]
         public string Email { get; set; } = null!;
 
         [Column("phonenumber")]
-        [Required(ErrorMessage = "Số điện thoại không được để trống.")]
-        [RegularExpression(@"^(0[3|5|7|8|9])+([0-9]{8})\b", ErrorMessage = "Số điện thoại không hợp lệ.")]
         [StringLength(20)]
         public string? Phonenumber { get; set; }
 
@@ -111,7 +100,6 @@ namespace DuAnThucTap_BE01.Models
         public DateOnly? Dateofjoiningtheparty { get; set; }
 
         [Column("avatarurl")]
-        [Url(ErrorMessage = "Đường dẫn ảnh đại diện (URL) không hợp lệ.")]
         [StringLength(255)]
         public string? Avatarurl { get; set; }
 
@@ -122,18 +110,12 @@ namespace DuAnThucTap_BE01.Models
         public bool? Ispartymember { get; set; }
 
         [Column("departmentid")]
-        [Required(ErrorMessage = "Khoa/Bộ môn không được để trống.")]
-        [Range(1, int.MaxValue, ErrorMessage = "ID Khoa/Bộ môn không hợp lệ.")]
         public int? Departmentid { get; set; }
 
         [Column("subjectid")]
-        [Required(ErrorMessage = "Môn học không được để trống.")]
-        [Range(1, int.MaxValue, ErrorMessage = "ID Môn học không hợp lệ.")]
         public int? Subjectid { get; set; }
 
         [Column("schoolyearid")]
-        [Required(ErrorMessage = "Năm học không được để trống.")]
-        [Range(1, int.MaxValue, ErrorMessage = "ID Năm học không hợp lệ.")]
         public int? Schoolyearid { get; set; }
 
         [Column("createdat")]
@@ -217,44 +199,6 @@ namespace DuAnThucTap_BE01.Models
         [InverseProperty("Teacher")]
         [JsonIgnore]
         public virtual ICollection<Test> Tests { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (Dateofbirth.HasValue)
-            {
-                var today = DateOnly.FromDateTime(DateTime.Today);
-
-                if (Dateofbirth.Value > today)
-                {
-                    yield return new ValidationResult(
-                        "Ngày sinh không thể ở tương lai.",
-                        new[] { nameof(Dateofbirth) }
-                    );
-                    yield break;
-                }
-
-                var age = today.Year - Dateofbirth.Value.Year;
-                if (Dateofbirth.Value > today.AddYears(-age))
-                {
-                    age--;
-                }
-
-                if (age < 22)
-                {
-                    yield return new ValidationResult(
-                        "Giáo viên phải từ 22 tuổi trở lên.",
-                        new[] { nameof(Dateofbirth) }
-                    );
-                }
-                else if (age > 70)
-                {
-                    yield return new ValidationResult(
-                        "Tuổi giáo viên không được quá 70 tuổi.",
-                        new[] { nameof(Dateofbirth) }
-                    );
-                }
-            }
-        }
 
     }
 }

@@ -1,8 +1,9 @@
-﻿// Services/TeacherService.cs
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Services
@@ -10,16 +11,16 @@ namespace DuAnThucTap_BE01.Services
     public class TeacherService : ITeacherService
     {
         private readonly ISCDbContext _context;
+        private readonly IFirebaseStorageService _firebaseStorage;
 
-        public TeacherService(ISCDbContext context)
+        public TeacherService(ISCDbContext context, IFirebaseStorageService firebaseStorage)
         {
             _context = context;
+            _firebaseStorage = firebaseStorage;
         }
 
         public async Task<IEnumerable<TeacherDto>> GetAllAsync()
         {
-            // Dùng .Select để tạo DTO trực tiếp từ câu lệnh SQL.
-            // Cách này rất hiệu quả và tự động xử lý LEFT JOIN khi có kiểm tra null.
             return await _context.Teachers
                 .Select(t => new TeacherDto
                 {
@@ -46,43 +47,79 @@ namespace DuAnThucTap_BE01.Services
                     IsPartyMember = t.Ispartymember,
                     CreatedAt = t.Createdat,
                     UpdatedAt = t.Updatedat,
-                    // Kiểm tra null để đảm bảo không lỗi và tạo LEFT JOIN
                     DepartmentName = t.Department != null ? t.Department.Departmentname : null,
                     SubjectName = t.Subject != null ? t.Subject.Subjectname : null,
-                    SchoolyearName = t.Schoolyear != null ? t.Schoolyear.Schoolyearname : null // Giả sử trường tên là 'Name'
+                    SchoolyearName = t.Schoolyear != null ? t.Schoolyear.Schoolyearname : null
                 }).ToListAsync();
         }
 
         public async Task<TeacherDto?> GetByIdAsync(int id)
         {
-            // Tối ưu lại GetById để dùng .Select giống GetAllAsync, hiệu quả hơn
             return await _context.Teachers
                 .Where(t => t.Teacherid == id)
                 .Select(t => new TeacherDto
                 {
-                    // Copy toàn bộ các trường như ở GetAllAsync
                     TeacherId = t.Teacherid,
                     TeacherCode = t.Teachercode,
                     Fullname = t.Fullname,
                     DateOfBirth = t.Dateofbirth,
                     Gender = t.Gender,
-                    Email = t.Email,
+                    Ethnicity = t.Ethnicity,
+                    HireDate = t.Hiredate,
+                    Nationality = t.Nationality,
+                    Religion = t.Religion,
                     Status = t.Status,
+                    Alias = t.Alias,
+                    AddressProvinceCity = t.AddressProvincecity,
+                    AddressWard = t.AddressWard,
+                    AddressDistrict = t.AddressDistrict,
+                    AddressStreet = t.AddressStreet,
+                    Email = t.Email,
                     PhoneNumber = t.Phonenumber,
-                    // ... các trường khác
+                    DateOfJoiningTheParty = t.Dateofjoiningtheparty,
+                    AvatarUrl = t.Avatarurl,
+                    DateOfJoiningGroup = t.Dateofjoininggroup,
+                    IsPartyMember = t.Ispartymember,
+                    CreatedAt = t.Createdat,
+                    UpdatedAt = t.Updatedat,
                     DepartmentName = t.Department != null ? t.Department.Departmentname : null,
                     SubjectName = t.Subject != null ? t.Subject.Subjectname : null,
                     SchoolyearName = t.Schoolyear != null ? t.Schoolyear.Schoolyearname : null
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<Teacher> CreateAsync(Teacher teacher)
+        public async Task<Teacher> CreateAsync(TeacherRequestDto teacherDto)
         {
-            // Tự động sinh Teachercode
-            var lastTeacher = await _context.Teachers
-                .OrderByDescending(t => t.Teacherid)
-                .FirstOrDefaultAsync();
+            var teacher = new Teacher
+            {
+                // Gán tất cả dữ liệu từ DTO, không có AvatarUrl
+                Fullname = teacherDto.Fullname,
+                Dateofbirth = teacherDto.Dateofbirth,
+                Gender = teacherDto.Gender,
+                Email = teacherDto.Email,
+                Phonenumber = teacherDto.Phonenumber,
+                Status = teacherDto.Status,
+                Departmentid = teacherDto.Departmentid,
+                Subjectid = teacherDto.Subjectid,
+                Schoolyearid = teacherDto.Schoolyearid,
+                Ethnicity = teacherDto.Ethnicity,
+                Hiredate = teacherDto.Hiredate,
+                Nationality = teacherDto.Nationality,
+                Religion = teacherDto.Religion,
+                Alias = teacherDto.Alias,
+                AddressProvincecity = teacherDto.AddressProvincecity,
+                AddressWard = teacherDto.AddressWard,
+                AddressDistrict = teacherDto.AddressDistrict,
+                AddressStreet = teacherDto.AddressStreet,
+                Dateofjoiningtheparty = teacherDto.Dateofjoiningtheparty,
+                Dateofjoininggroup = teacherDto.Dateofjoininggroup,
+                Ispartymember = teacherDto.Ispartymember,
+                // Avatarurl sẽ trống khi mới tạo
+                Avatarurl = null
+            };
 
+            // Logic tạo mã giáo viên giữ nguyên
+            var lastTeacher = await _context.Teachers.OrderByDescending(t => t.Teacherid).FirstOrDefaultAsync();
             int newNumber = 1;
             if (lastTeacher != null && !string.IsNullOrEmpty(lastTeacher.Teachercode) && lastTeacher.Teachercode.Length > 2)
             {
@@ -99,17 +136,44 @@ namespace DuAnThucTap_BE01.Services
             return teacher;
         }
 
-        public async Task<Teacher?> UpdateAsync(int id, Teacher updatedTeacher)
+        // UpdateAsync đã được cập nhật
+        public async Task<Teacher?> UpdateAsync(int id, TeacherRequestDto teacherDto)
         {
             var existingTeacher = await _context.Teachers.FindAsync(id);
             if (existingTeacher == null) return null;
 
+            // Gán lại tất cả các giá trị từ DTO
+            existingTeacher.Fullname = teacherDto.Fullname;
+            existingTeacher.Dateofbirth = teacherDto.Dateofbirth;
+            // ... gán tất cả các trường khác tương tự ...
+            existingTeacher.Ispartymember = teacherDto.Ispartymember;
 
-            _context.Entry(existingTeacher).CurrentValues.SetValues(updatedTeacher);
+            // Bỏ logic xử lý avatarFile ở đây
+
             existingTeacher.Updatedat = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
             return existingTeacher;
+        }
+
+        // Phương thức MỚI để xử lý upload
+        public async Task<string?> UpdateAvatarAsync(int id, IFormFile avatarFile)
+        {
+            var existingTeacher = await _context.Teachers.FindAsync(id);
+            if (existingTeacher == null)
+            {
+                // Trả về null nếu không tìm thấy giáo viên
+                return null;
+            }
+
+            // Chỉ xử lý upload file và cập nhật URL
+            existingTeacher.Avatarurl = await _firebaseStorage.UploadFileAsync(avatarFile, "teacher_avatars/");
+            existingTeacher.Updatedat = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            // Trả về URL của ảnh mới
+            return existingTeacher.Avatarurl;
         }
 
         public async Task<bool> DeleteAsync(int id)
