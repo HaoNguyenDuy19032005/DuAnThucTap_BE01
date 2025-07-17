@@ -1,20 +1,14 @@
-﻿using DuAnThucTap_BE01.Models;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Models;
 
 namespace DuAnThucTap_BE01.Interface
 {
     public interface ITeacherTrainingHistoryService
     {
-        Task<IEnumerable<Teachertraininghistory>> GetAllAsync();
-
-        // Sửa Guid thành int
-        Task<Teachertraininghistory?> GetByIdAsync(int id);
-
-        Task<Teachertraininghistory> CreateAsync(Teachertraininghistory history);
-
-        // Sửa Guid thành int
-        Task<Teachertraininghistory?> UpdateAsync(int id, Teachertraininghistory history);
-
-        // Sửa Guid thành int
+        Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync();
+        Task<TeacherTrainingHistoryDto?> GetByIdAsync(int id);
+        Task<Teachertraininghistory> CreateAsync(TeacherTrainingHistoryRequestDto historyDto);
+        Task<Teachertraininghistory?> UpdateAsync(int id, TeacherTrainingHistoryRequestDto historyDto);
         Task<bool> DeleteAsync(int id);
     }
 }
