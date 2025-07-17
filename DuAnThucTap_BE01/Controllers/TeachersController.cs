@@ -18,76 +18,6 @@ namespace DuAnThucTap_BE01.Controllers
             _service = service;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TeacherRequestDto teacherDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
-            }
-
-            try
-            {
-                // Gọi service không có tham số file
-                var createdTeacher = await _service.CreateAsync(teacherDto);
-                var response = new ApiResponse<Teacher>((int)HttpStatusCode.Created, "Tạo giáo viên thành công", createdTeacher);
-                return CreatedAtAction(nameof(GetById), new { id = createdTeacher.Teacherid }, response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
-            }
-        }
-
-        // Dùng [FromBody] và không còn IFormFile
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TeacherRequestDto teacherDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
-            }
-
-            try
-            {
-                // Gọi service không có tham số file
-                var result = await _service.UpdateAsync(id, teacherDto);
-                if (result == null)
-                {
-                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy giáo viên với ID = {id}", null));
-                }
-                return Ok(new ApiResponse<Teacher>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
-            }
-        }
-
-        // Action MỚI chỉ để upload ảnh
-        [HttpPost("{id}/avatar")]
-        public async Task<IActionResult> UploadAvatar(int id, IFormFile avatarFile)
-        {
-            if (avatarFile == null || avatarFile.Length == 0)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Vui lòng chọn một file ảnh.", null));
-            }
-
-            try
-            {
-                var newAvatarUrl = await _service.UpdateAvatarAsync(id, avatarFile);
-                if (newAvatarUrl == null)
-                {
-                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy giáo viên với ID = {id}", null));
-                }
-                return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Cập nhật ảnh đại diện thành công", new { avatarUrl = newAvatarUrl }));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
-            }
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll(
             [FromQuery] string? searchQuery,
@@ -107,6 +37,51 @@ namespace DuAnThucTap_BE01.Controllers
                 return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy giáo viên với ID = {id}", null));
             }
             return Ok(new ApiResponse<TeacherDto>((int)HttpStatusCode.OK, "Lấy thông tin giáo viên thành công", teacher));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] TeacherRequestDto teacherDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+
+            var createdTeacher = await _service.CreateAsync(teacherDto);
+            var response = new ApiResponse<Teacher>((int)HttpStatusCode.Created, "Tạo giáo viên thành công", createdTeacher);
+            return CreatedAtAction(nameof(GetById), new { id = createdTeacher.Teacherid }, response);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] TeacherRequestDto teacherDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+
+            var result = await _service.UpdateAsync(id, teacherDto);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy giáo viên với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<Teacher>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+        }
+
+        [HttpPost("{id}/avatar")]
+        public async Task<IActionResult> UploadAvatar(int id, IFormFile avatarFile)
+        {
+            if (avatarFile == null || avatarFile.Length == 0)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Vui lòng chọn một file ảnh.", null));
+            }
+
+            var newAvatarUrl = await _service.UpdateAvatarAsync(id, avatarFile);
+            if (newAvatarUrl == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy giáo viên với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Cập nhật ảnh đại diện thành công", new { avatarUrl = newAvatarUrl }));
         }
 
         [HttpDelete("{id}")]

@@ -1,6 +1,5 @@
 ﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
@@ -68,17 +67,21 @@ namespace DuAnThucTap_BE01.Services
                 attachmentUrl = await _firebaseStorageService.UploadFileAsync(file, "teacher-training-attachments");
             }
 
+            // Chuyển đổi string sang DateOnly?
+            DateOnly.TryParse(historyDto.Startdate, out DateOnly startDate);
+
             var history = new Teachertraininghistory
             {
                 Teacherid = historyDto.Teacherid,
                 Traininginstitutionname = historyDto.Traininginstitutionname,
                 Majororspecialization = historyDto.Majororspecialization,
-                Startdate = historyDto.Startdate,
+                // Gán giá trị đã chuyển đổi
+                Startdate = historyDto.Startdate == null ? null : startDate,
                 Enddateorgraduationyear = historyDto.Enddateorgraduationyear,
                 Active = historyDto.Active,
                 Trainingtype = historyDto.Trainingtype,
                 Certificatediplomaname = historyDto.Certificatediplomaname,
-                Attachmenturl = attachmentUrl 
+                Attachmenturl = attachmentUrl
             };
 
             _context.Teachertraininghistories.Add(history);
@@ -91,26 +94,30 @@ namespace DuAnThucTap_BE01.Services
             var existing = await _context.Teachertraininghistories.FindAsync(id);
             if (existing == null) return null;
 
-            string? newAttachmentUrl = null;
+            string? newAttachmentUrl = existing.Attachmenturl; // Giữ lại url cũ mặc định
             if (file != null && file.Length > 0)
             {
                 newAttachmentUrl = await _firebaseStorageService.UploadFileAsync(file, "teacher-training-attachments");
             }
-            else 
+            // Nếu không có file mới, và DTO có gửi lên url, thì dùng url của DTO (tùy chọn)
+            else if (!string.IsNullOrEmpty(updatedHistoryDto.Attachmenturl))
             {
-                newAttachmentUrl = updatedHistoryDto.Attachmenturl; 
+                newAttachmentUrl = updatedHistoryDto.Attachmenturl;
             }
 
+            // Chuyển đổi string sang DateOnly?
+            DateOnly.TryParse(updatedHistoryDto.Startdate, out DateOnly startDate);
 
             existing.Teacherid = updatedHistoryDto.Teacherid;
             existing.Traininginstitutionname = updatedHistoryDto.Traininginstitutionname;
             existing.Majororspecialization = updatedHistoryDto.Majororspecialization;
-            existing.Startdate = updatedHistoryDto.Startdate;
+            // Gán giá trị đã chuyển đổi
+            existing.Startdate = updatedHistoryDto.Startdate == null ? null : startDate;
             existing.Enddateorgraduationyear = updatedHistoryDto.Enddateorgraduationyear;
             existing.Active = updatedHistoryDto.Active;
             existing.Trainingtype = updatedHistoryDto.Trainingtype;
             existing.Certificatediplomaname = updatedHistoryDto.Certificatediplomaname;
-            existing.Attachmenturl = newAttachmentUrl; 
+            existing.Attachmenturl = newAttachmentUrl;
 
             await _context.SaveChangesAsync();
             return existing;
