@@ -1,5 +1,4 @@
 ﻿using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Models;
 
 namespace DuAnThucTap_BE01.Interface
@@ -8,8 +7,8 @@ namespace DuAnThucTap_BE01.Interface
     {
         Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync();
         Task<TeacherTrainingHistoryDto?> GetByIdAsync(int id);
-        Task<Teachertraininghistory> CreateAsync(Teachertraininghistory history);
-        Task<Teachertraininghistory?> UpdateAsync(int id, Teachertraininghistory history);
+        Task<Teachertraininghistory> CreateAsync(TeacherTrainingHistoryRequestDto historyDto);
+        Task<Teachertraininghistory?> UpdateAsync(int id, TeacherTrainingHistoryRequestDto historyDto);
         Task<bool> DeleteAsync(int id);
     }
 }

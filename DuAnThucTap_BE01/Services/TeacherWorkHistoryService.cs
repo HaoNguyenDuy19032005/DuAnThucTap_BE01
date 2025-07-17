@@ -1,7 +1,5 @@
-﻿// Services/TeacherWorkHistoryService.cs
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
@@ -26,11 +24,11 @@ namespace DuAnThucTap_BE01.Services
                 {
                     Workhistoryid = h.Workhistoryid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher.Fullname,
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // Kiểm tra null an toàn
                     Operationunitid = h.Operationunitid,
-                    OperationUnitName = h.Operationunit.Organizationname, 
+                    OperationUnitName = h.Operationunit != null ? h.Operationunit.Organizationname : null, // Kiểm tra null an toàn
                     Departmentid = h.Departmentid,
-                    DepartmentName = h.Department.Departmentname, 
+                    DepartmentName = h.Department != null ? h.Department.Departmentname : null, // Kiểm tra null an toàn
                     Iscurrentschool = h.Iscurrentschool,
                     Positionheld = h.Positionheld,
                     Startdate = h.Startdate,
@@ -49,11 +47,11 @@ namespace DuAnThucTap_BE01.Services
                 {
                     Workhistoryid = h.Workhistoryid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher.Fullname,
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Operationunitid = h.Operationunitid,
-                    OperationUnitName = h.Operationunit.Organizationname,
+                    OperationUnitName = h.Operationunit != null ? h.Operationunit.Organizationname : null,
                     Departmentid = h.Departmentid,
-                    DepartmentName = h.Department.Departmentname,
+                    DepartmentName = h.Department != null ? h.Department.Departmentname : null,
                     Iscurrentschool = h.Iscurrentschool,
                     Positionheld = h.Positionheld,
                     Startdate = h.Startdate,
@@ -61,25 +59,41 @@ namespace DuAnThucTap_BE01.Services
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<Teacherworkhistory> CreateAsync(Teacherworkhistory history)
+        // Cập nhật phương thức CreateAsync
+        public async Task<Teacherworkhistory> CreateAsync(TeacherWorkHistoryRequestDto historyDto)
         {
+            // Ánh xạ từ DTO sang Model Entity
+            var history = new Teacherworkhistory
+            {
+                Teacherid = historyDto.Teacherid,
+                Operationunitid = historyDto.Operationunitid,
+                Departmentid = historyDto.Departmentid,
+                Iscurrentschool = historyDto.Iscurrentschool,
+                Positionheld = historyDto.Positionheld,
+                Startdate = historyDto.Startdate,
+                Enddate = historyDto.Enddate
+            };
+
             _context.Teacherworkhistories.Add(history);
             await _context.SaveChangesAsync();
             return history;
         }
 
-        public async Task<Teacherworkhistory?> UpdateAsync(int id, Teacherworkhistory updatedHistory)
+        // Cập nhật phương thức UpdateAsync
+        public async Task<Teacherworkhistory?> UpdateAsync(int id, TeacherWorkHistoryRequestDto updatedHistoryDto)
         {
             var existing = await _context.Teacherworkhistories.FindAsync(id);
             if (existing == null) return null;
 
-            existing.Teacherid = updatedHistory.Teacherid;
-            existing.Operationunitid = updatedHistory.Operationunitid;
-            existing.Departmentid = updatedHistory.Departmentid;
-            existing.Iscurrentschool = updatedHistory.Iscurrentschool;
-            existing.Positionheld = updatedHistory.Positionheld;
-            existing.Startdate = updatedHistory.Startdate;
-            existing.Enddate = updatedHistory.Enddate;
+            // Ánh xạ các thuộc tính từ DTO sang entity hiện có
+            existing.Teacherid = updatedHistoryDto.Teacherid;
+            existing.Operationunitid = updatedHistoryDto.Operationunitid;
+            existing.Departmentid = updatedHistoryDto.Departmentid;
+            existing.Iscurrentschool = updatedHistoryDto.Iscurrentschool;
+            existing.Positionheld = updatedHistoryDto.Positionheld;
+            existing.Startdate = updatedHistoryDto.Startdate;
+            existing.Enddate = updatedHistoryDto.Enddate;
+
 
             await _context.SaveChangesAsync();
             return existing;

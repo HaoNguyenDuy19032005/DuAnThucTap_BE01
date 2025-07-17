@@ -1,6 +1,4 @@
-﻿
-using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
+﻿using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Response;
@@ -38,15 +36,16 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Teacherworkstatushistory history)
+        public async Task<IActionResult> Create([FromBody] TeacherWorkStatusHistoryRequestDto historyDto) // Thay đổi tham số
         {
+            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations và IValidatableObject trong TeacherWorkStatusHistoryRequestDto
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
             try
             {
-                var createdDto = await _service.CreateAsync(history);
+                var createdDto = await _service.CreateAsync(historyDto); // Gọi service với DTO request
                 var response = new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.Created, "Tạo mới và cập nhật trạng thái giáo viên thành công", createdDto);
                 return CreatedAtAction(nameof(GetById), new { id = createdDto.Historyid }, response);
             }
@@ -62,22 +61,33 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Teacherworkstatushistory history)
+        public async Task<IActionResult> Update(int id, [FromBody] TeacherWorkStatusHistoryRequestDto historyDto) // Thay đổi tham số
         {
-            if (id != history.Historyid)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "ID không khớp", null));
-            }
+            // Không cần kiểm tra id != history.Historyid vì Historyid không có trong Request DTO
+            // id sẽ được lấy từ URL.
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
-            var result = await _service.UpdateAsync(id, history);
-            if (result == null)
+            try
             {
-                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử trạng thái với ID = {id}", null));
+                var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
+                if (result == null)
+                {
+                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử trạng thái với ID = {id}", null));
+                }
+                return Ok(new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
             }
-            return Ok(new ApiResponse<Teacherworkstatushistory>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
+            catch (Exception ex)
+            {
+                // Lỗi server chung
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
+            }
         }
 
         [HttpDelete("{id}")]

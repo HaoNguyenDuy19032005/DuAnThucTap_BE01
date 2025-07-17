@@ -1,5 +1,4 @@
 ﻿using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Models;
 
 namespace DuAnThucTap_BE01.Interface
@@ -9,7 +8,7 @@ namespace DuAnThucTap_BE01.Interface
         Task<IEnumerable<TeacherConcurrentSubjectDto>> GetAllAsync();
         Task<TeacherConcurrentSubjectDto?> GetByIdAsync(int teacherId, int subjectId, int schoolYearId);
 
-        Task<(bool Succeeded, string? ErrorMessage)> CreateAsync(Teacherconcurrentsubject assignment);
+        Task<(bool Succeeded, string? ErrorMessage, Teacherconcurrentsubject? CreatedAssignment)> CreateAsync(TeacherConcurrentSubjectRequestDto assignmentDto);
         Task<bool> DeleteAsync(int teacherId, int subjectId, int schoolYearId);
     }
 }

@@ -1,5 +1,4 @@
-﻿// Services/TeacherTrainingHistoryService.cs
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
@@ -19,13 +18,12 @@ namespace DuAnThucTap_BE01.Services
 
         public async Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync()
         {
-            // Bỏ .Include() và kiểm tra null trong .Select() để tạo LEFT JOIN an toàn
             return await _context.Teachertraininghistories
                 .Select(h => new TeacherTrainingHistoryDto
                 {
                     Trainingid = h.Trainingid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // SỬA Ở ĐÂY
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Traininginstitutionname = h.Traininginstitutionname,
                     Majororspecialization = h.Majororspecialization,
                     Startdate = h.Startdate,
@@ -39,14 +37,13 @@ namespace DuAnThucTap_BE01.Services
 
         public async Task<TeacherTrainingHistoryDto?> GetByIdAsync(int id)
         {
-            // Tương tự, bỏ .Include() và kiểm tra null
             return await _context.Teachertraininghistories
                 .Where(h => h.Trainingid == id)
                 .Select(h => new TeacherTrainingHistoryDto
                 {
                     Trainingid = h.Trainingid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // SỬA Ở ĐÂY
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Traininginstitutionname = h.Traininginstitutionname,
                     Majororspecialization = h.Majororspecialization,
                     Startdate = h.Startdate,
@@ -58,20 +55,41 @@ namespace DuAnThucTap_BE01.Services
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<Teachertraininghistory> CreateAsync(Teachertraininghistory history)
+        public async Task<Teachertraininghistory> CreateAsync(TeacherTrainingHistoryRequestDto historyDto)
         {
+            var history = new Teachertraininghistory
+            {
+                Teacherid = historyDto.Teacherid,
+                Traininginstitutionname = historyDto.Traininginstitutionname,
+                Majororspecialization = historyDto.Majororspecialization,
+                Startdate = historyDto.Startdate,
+                Enddateorgraduationyear = historyDto.Enddateorgraduationyear,
+                Active = historyDto.Active,
+                Trainingtype = historyDto.Trainingtype,
+                Certificatediplomaname = historyDto.Certificatediplomaname,
+                Attachmenturl = historyDto.Attachmenturl
+            };
+
             _context.Teachertraininghistories.Add(history);
             await _context.SaveChangesAsync();
             return history;
         }
 
-        public async Task<Teachertraininghistory?> UpdateAsync(int id, Teachertraininghistory updatedHistory)
+        public async Task<Teachertraininghistory?> UpdateAsync(int id, TeacherTrainingHistoryRequestDto updatedHistoryDto)
         {
             var existing = await _context.Teachertraininghistories.FindAsync(id);
             if (existing == null) return null;
 
-            // TỐI ƯU: Dùng SetValues để cập nhật ngắn gọn và dễ bảo trì
-            _context.Entry(existing).CurrentValues.SetValues(updatedHistory);
+            // Ánh xạ các thuộc tính từ DTO sang entity hiện có
+            existing.Teacherid = updatedHistoryDto.Teacherid;
+            existing.Traininginstitutionname = updatedHistoryDto.Traininginstitutionname;
+            existing.Majororspecialization = updatedHistoryDto.Majororspecialization;
+            existing.Startdate = updatedHistoryDto.Startdate;
+            existing.Enddateorgraduationyear = updatedHistoryDto.Enddateorgraduationyear;
+            existing.Active = updatedHistoryDto.Active;
+            existing.Trainingtype = updatedHistoryDto.Trainingtype;
+            existing.Certificatediplomaname = updatedHistoryDto.Certificatediplomaname;
+            existing.Attachmenturl = updatedHistoryDto.Attachmenturl;
 
             await _context.SaveChangesAsync();
             return existing;

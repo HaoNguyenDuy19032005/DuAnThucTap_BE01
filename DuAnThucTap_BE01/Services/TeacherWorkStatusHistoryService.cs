@@ -1,7 +1,6 @@
-﻿// Services/TeacherWorkStatusHistoryService.cs
-using DuAnThucTap_BE01.Data;
+﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
+using DuAnThucTap_BE01.Dtos; // Đảm bảo đã import Dtos namespace
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,69 +15,15 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        public async Task<TeacherWorkStatusHistoryDto> CreateAsync(Teacherworkstatushistory history)
-        {
-            // Sử dụng transaction để đảm bảo cả hai thao tác cùng thành công hoặc thất bại
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
-            {
-                // 1. Tìm giáo viên
-                var teacher = await _context.Teachers.FindAsync(history.Teacherid);
-                if (teacher == null)
-                {
-                    throw new KeyNotFoundException($"Không tìm thấy giáo viên với ID = {history.Teacherid}.");
-                }
-
-                // 2. Cập nhật trạng thái và thời gian cho giáo viên
-                teacher.Status = history.Statustype;
-                teacher.Updatedat = DateTime.UtcNow;
-
-                // 3. Ra lệnh tường minh cho EF Core để theo dõi sự thay đổi này
-                _context.Teachers.Update(teacher);
-
-                // 4. Thêm bản ghi lịch sử mới
-                history.Createdat = DateTime.UtcNow;
-                _context.Teacherworkstatushistories.Add(history);
-
-                // 5. Lưu tất cả thay đổi (cả INSERT và UPDATE)
-                await _context.SaveChangesAsync();
-
-                // 6. Hoàn tất giao dịch
-                await transaction.CommitAsync();
-
-                // Trả về DTO với đầy đủ thông tin
-                return new TeacherWorkStatusHistoryDto
-                {
-                    Historyid = history.Historyid,
-                    Teacherid = history.Teacherid,
-                    TeacherName = teacher.Fullname,
-                    Statustype = history.Statustype,
-                    Startdate = history.Startdate,
-                    Enddate = history.Enddate,
-                    Note = history.Note,
-                    Decisionfileurl = history.Decisionfileurl,
-                    Createdat = history.Createdat
-                };
-            }
-            catch (Exception)
-            {
-                // Nếu có lỗi, hủy bỏ tất cả thay đổi
-                await transaction.RollbackAsync();
-                throw; // Ném lại lỗi để Controller xử lý
-            }
-        }
-
-        // ... Các phương thức khác được cập nhật để dùng DTO
         public async Task<IEnumerable<TeacherWorkStatusHistoryDto>> GetAllAsync()
         {
             return await _context.Teacherworkstatushistories
                 .Include(h => h.Teacher)
                 .Select(h => new TeacherWorkStatusHistoryDto
                 {
-                    //... ánh xạ các trường như CreateAsync
                     Historyid = h.Historyid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher.Fullname,
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // Kiểm tra null an toàn
                     Statustype = h.Statustype,
                     Startdate = h.Startdate,
                     Enddate = h.Enddate,
@@ -95,10 +40,9 @@ namespace DuAnThucTap_BE01.Services
                 .Include(h => h.Teacher)
                 .Select(h => new TeacherWorkStatusHistoryDto
                 {
-                    //... ánh xạ các trường như CreateAsync
                     Historyid = h.Historyid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher.Fullname,
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Statustype = h.Statustype,
                     Startdate = h.Startdate,
                     Enddate = h.Enddate,
@@ -108,20 +52,116 @@ namespace DuAnThucTap_BE01.Services
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<Teacherworkstatushistory?> UpdateAsync(int id, Teacherworkstatushistory updatedHistory)
+        // Cập nhật phương thức CreateAsync để nhận DTO
+        public async Task<TeacherWorkStatusHistoryDto> CreateAsync(TeacherWorkStatusHistoryRequestDto historyDto)
         {
-            var existing = await _context.Teacherworkstatushistories.FindAsync(id);
-            if (existing == null) return null;
+            // Sử dụng transaction để đảm bảo cả hai thao tác cùng thành công hoặc thất bại
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                // 1. Tìm giáo viên
+                var teacher = await _context.Teachers.FindAsync(historyDto.Teacherid);
+                if (teacher == null)
+                {
+                    throw new KeyNotFoundException($"Không tìm thấy giáo viên với ID = {historyDto.Teacherid}.");
+                }
 
-            existing.Teacherid = updatedHistory.Teacherid;
-            existing.Statustype = updatedHistory.Statustype;
-            existing.Startdate = updatedHistory.Startdate;
-            existing.Enddate = updatedHistory.Enddate;
-            existing.Note = updatedHistory.Note;
-            existing.Decisionfileurl = updatedHistory.Decisionfileurl;
+                // 2. Cập nhật trạng thái và thời gian cho giáo viên
+                teacher.Status = historyDto.Statustype;
+                teacher.Updatedat = DateTime.UtcNow;
 
-            await _context.SaveChangesAsync();
-            return existing;
+                // 3. Ánh xạ từ DTO sang Model Entity
+                var history = new Teacherworkstatushistory
+                {
+                    Teacherid = historyDto.Teacherid,
+                    Statustype = historyDto.Statustype,
+                    Startdate = historyDto.Startdate,
+                    Enddate = historyDto.Enddate,
+                    Note = historyDto.Note,
+                    Decisionfileurl = historyDto.Decisionfileurl,
+                    Createdat = DateTime.UtcNow // Đặt thời gian tạo
+                };
+
+                // 4. Thêm bản ghi lịch sử mới
+                _context.Teacherworkstatushistories.Add(history);
+
+                // 5. Lưu tất cả thay đổi (cả INSERT và UPDATE)
+                await _context.SaveChangesAsync();
+
+                // 6. Hoàn tất giao dịch
+                await transaction.CommitAsync();
+
+                // Trả về DTO với đầy đủ thông tin
+                return new TeacherWorkStatusHistoryDto
+                {
+                    Historyid = history.Historyid,
+                    Teacherid = history.Teacherid,
+                    TeacherName = teacher.Fullname, // Lấy tên giáo viên từ đối tượng teacher đã tìm được
+                    Statustype = history.Statustype,
+                    Startdate = history.Startdate,
+                    Enddate = history.Enddate,
+                    Note = history.Note,
+                    Decisionfileurl = history.Decisionfileurl,
+                    Createdat = history.Createdat
+                };
+            }
+            catch (Exception)
+            {
+                // Nếu có lỗi, hủy bỏ tất cả thay đổi
+                await transaction.RollbackAsync();
+                throw; // Ném lại lỗi để Controller xử lý
+            }
+        }
+
+        // Cập nhật phương thức UpdateAsync để nhận DTO
+        public async Task<TeacherWorkStatusHistoryDto?> UpdateAsync(int id, TeacherWorkStatusHistoryRequestDto updatedHistoryDto)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var existing = await _context.Teacherworkstatushistories.FindAsync(id);
+                if (existing == null) return null;
+
+                // 1. Cập nhật các thuộc tính từ DTO vào entity hiện có
+                existing.Teacherid = updatedHistoryDto.Teacherid;
+                existing.Statustype = updatedHistoryDto.Statustype;
+                existing.Startdate = updatedHistoryDto.Startdate;
+                existing.Enddate = updatedHistoryDto.Enddate;
+                existing.Note = updatedHistoryDto.Note;
+                existing.Decisionfileurl = updatedHistoryDto.Decisionfileurl;
+
+                // 2. Cập nhật trạng thái của giáo viên liên quan (nếu cần)
+                var teacher = await _context.Teachers.FindAsync(updatedHistoryDto.Teacherid);
+                if (teacher == null)
+                {
+                    throw new KeyNotFoundException($"Không tìm thấy giáo viên với ID = {updatedHistoryDto.Teacherid}.");
+                }
+                teacher.Status = updatedHistoryDto.Statustype;
+                teacher.Updatedat = DateTime.UtcNow;
+                _context.Teachers.Update(teacher); // Ra lệnh tường minh cho EF Core
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                // Trả về DTO sau khi cập nhật
+                return new TeacherWorkStatusHistoryDto
+                {
+                    Historyid = existing.Historyid,
+                    Teacherid = existing.Teacherid,
+                    TeacherName = teacher.Fullname,
+                    Statustype = existing.Statustype,
+                    Startdate = existing.Startdate,
+                    Enddate = existing.Enddate,
+                    Note = existing.Note,
+                    Decisionfileurl = existing.Decisionfileurl,
+                    Createdat = existing.Createdat // Giữ nguyên thời gian tạo ban đầu
+                };
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task<bool> DeleteAsync(int id)

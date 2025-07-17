@@ -1,5 +1,4 @@
 ﻿using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Response;
@@ -38,24 +37,26 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Teacherconcurrentsubject assignment)
+        public async Task<IActionResult> Create([FromBody] TeacherConcurrentSubjectRequestDto assignmentDto) // Thay đổi tham số
         {
+            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations trong TeacherConcurrentSubjectRequestDto
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            var result = await _service.CreateAsync(assignment);
+            var result = await _service.CreateAsync(assignmentDto); // Gọi service với DTO request
 
             if (!result.Succeeded)
             {
-                // Lỗi trùng lặp
+                // Lỗi trùng lặp hoặc các lỗi khác từ service
                 return Conflict(new ApiResponse<object>((int)HttpStatusCode.Conflict, result.ErrorMessage!, null));
             }
 
-            var response = new ApiResponse<Teacherconcurrentsubject>((int)HttpStatusCode.Created, "Tạo phân công thành công", assignment);
+            // Dùng CreatedAssignment từ kết quả của service để lấy khóa chính phức hợp
+            var response = new ApiResponse<Teacherconcurrentsubject>((int)HttpStatusCode.Created, "Tạo phân công thành công", result.CreatedAssignment);
             return CreatedAtAction(nameof(GetById),
-                new { teacherId = assignment.Teacherid, subjectId = assignment.Subjectid, schoolYearId = assignment.Schoolyearid },
+                new { teacherId = result.CreatedAssignment!.Teacherid, subjectId = result.CreatedAssignment.Subjectid, schoolYearId = result.CreatedAssignment.Schoolyearid },
                 response);
         }
 

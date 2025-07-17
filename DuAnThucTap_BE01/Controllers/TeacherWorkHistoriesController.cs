@@ -1,5 +1,4 @@
 ﻿using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Response;
@@ -37,29 +36,29 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Teacherworkhistory history)
+        public async Task<IActionResult> Create([FromBody] TeacherWorkHistoryRequestDto historyDto) // Thay đổi tham số
         {
+            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations và IValidatableObject trong TeacherWorkHistoryRequestDto
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
-            var created = await _service.CreateAsync(history);
+            var created = await _service.CreateAsync(historyDto); // Gọi service với DTO request
             var response = new ApiResponse<Teacherworkhistory>((int)HttpStatusCode.Created, "Tạo mới thành công", created);
             return CreatedAtAction(nameof(GetById), new { id = created.Workhistoryid }, response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Teacherworkhistory history)
+        public async Task<IActionResult> Update(int id, [FromBody] TeacherWorkHistoryRequestDto historyDto) // Thay đổi tham số
         {
-            if (id != history.Workhistoryid)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "ID không khớp", null));
-            }
+            // Không cần kiểm tra id != history.Workhistoryid vì Workhistoryid không có trong Request DTO
+            // id sẽ được lấy từ URL.
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
-            var result = await _service.UpdateAsync(id, history);
+            var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
             if (result == null)
             {
                 return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử công tác với ID = {id}", null));
