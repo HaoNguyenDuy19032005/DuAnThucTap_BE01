@@ -2,18 +2,23 @@
 using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Services
 {
     public class TeacherTrainingHistoryService : ITeacherTrainingHistoryService
     {
         private readonly ISCDbContext _context;
+        private readonly IFirebaseStorageService _firebaseStorageService; 
 
-        public TeacherTrainingHistoryService(ISCDbContext context)
+        public TeacherTrainingHistoryService(ISCDbContext context, IFirebaseStorageService firebaseStorageService)
         {
             _context = context;
+            _firebaseStorageService = firebaseStorageService;
         }
 
         public async Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync()
@@ -55,8 +60,14 @@ namespace DuAnThucTap_BE01.Services
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<Teachertraininghistory> CreateAsync(TeacherTrainingHistoryRequestDto historyDto)
+        public async Task<Teachertraininghistory> CreateAsync(TeacherTrainingHistoryRequestDto historyDto, IFormFile? file)
         {
+            string? attachmentUrl = null;
+            if (file != null && file.Length > 0)
+            {
+                attachmentUrl = await _firebaseStorageService.UploadFileAsync(file, "teacher-training-attachments");
+            }
+
             var history = new Teachertraininghistory
             {
                 Teacherid = historyDto.Teacherid,
@@ -67,7 +78,7 @@ namespace DuAnThucTap_BE01.Services
                 Active = historyDto.Active,
                 Trainingtype = historyDto.Trainingtype,
                 Certificatediplomaname = historyDto.Certificatediplomaname,
-                Attachmenturl = historyDto.Attachmenturl
+                Attachmenturl = attachmentUrl 
             };
 
             _context.Teachertraininghistories.Add(history);
@@ -75,12 +86,22 @@ namespace DuAnThucTap_BE01.Services
             return history;
         }
 
-        public async Task<Teachertraininghistory?> UpdateAsync(int id, TeacherTrainingHistoryRequestDto updatedHistoryDto)
+        public async Task<Teachertraininghistory?> UpdateAsync(int id, TeacherTrainingHistoryRequestDto updatedHistoryDto, IFormFile? file)
         {
             var existing = await _context.Teachertraininghistories.FindAsync(id);
             if (existing == null) return null;
 
-            // Ánh xạ các thuộc tính từ DTO sang entity hiện có
+            string? newAttachmentUrl = null;
+            if (file != null && file.Length > 0)
+            {
+                newAttachmentUrl = await _firebaseStorageService.UploadFileAsync(file, "teacher-training-attachments");
+            }
+            else 
+            {
+                newAttachmentUrl = updatedHistoryDto.Attachmenturl; 
+            }
+
+
             existing.Teacherid = updatedHistoryDto.Teacherid;
             existing.Traininginstitutionname = updatedHistoryDto.Traininginstitutionname;
             existing.Majororspecialization = updatedHistoryDto.Majororspecialization;
@@ -89,7 +110,7 @@ namespace DuAnThucTap_BE01.Services
             existing.Active = updatedHistoryDto.Active;
             existing.Trainingtype = updatedHistoryDto.Trainingtype;
             existing.Certificatediplomaname = updatedHistoryDto.Certificatediplomaname;
-            existing.Attachmenturl = updatedHistoryDto.Attachmenturl;
+            existing.Attachmenturl = newAttachmentUrl; 
 
             await _context.SaveChangesAsync();
             return existing;
@@ -104,5 +125,7 @@ namespace DuAnThucTap_BE01.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+       
     }
 }
