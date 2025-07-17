@@ -1,4 +1,7 @@
-﻿using DuAnThucTap_BE01.Data;
+﻿// Services/TeacherTrainingHistoryService.cs
+using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +17,47 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync()
+        {
+            // Bỏ .Include() và kiểm tra null trong .Select() để tạo LEFT JOIN an toàn
+            return await _context.Teachertraininghistories
+                .Select(h => new TeacherTrainingHistoryDto
+                {
+                    Trainingid = h.Trainingid,
+                    Teacherid = h.Teacherid,
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // SỬA Ở ĐÂY
+                    Traininginstitutionname = h.Traininginstitutionname,
+                    Majororspecialization = h.Majororspecialization,
+                    Startdate = h.Startdate,
+                    Enddateorgraduationyear = h.Enddateorgraduationyear,
+                    Active = h.Active,
+                    Trainingtype = h.Trainingtype,
+                    Certificatediplomaname = h.Certificatediplomaname,
+                    Attachmenturl = h.Attachmenturl
+                }).ToListAsync();
+        }
+
+        public async Task<TeacherTrainingHistoryDto?> GetByIdAsync(int id)
+        {
+            // Tương tự, bỏ .Include() và kiểm tra null
+            return await _context.Teachertraininghistories
+                .Where(h => h.Trainingid == id)
+                .Select(h => new TeacherTrainingHistoryDto
+                {
+                    Trainingid = h.Trainingid,
+                    Teacherid = h.Teacherid,
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // SỬA Ở ĐÂY
+                    Traininginstitutionname = h.Traininginstitutionname,
+                    Majororspecialization = h.Majororspecialization,
+                    Startdate = h.Startdate,
+                    Enddateorgraduationyear = h.Enddateorgraduationyear,
+                    Active = h.Active,
+                    Trainingtype = h.Trainingtype,
+                    Certificatediplomaname = h.Certificatediplomaname,
+                    Attachmenturl = h.Attachmenturl
+                }).FirstOrDefaultAsync();
+        }
+
         public async Task<Teachertraininghistory> CreateAsync(Teachertraininghistory history)
         {
             _context.Teachertraininghistories.Add(history);
@@ -21,7 +65,18 @@ namespace DuAnThucTap_BE01.Services
             return history;
         }
 
-        // Sửa Guid thành int
+        public async Task<Teachertraininghistory?> UpdateAsync(int id, Teachertraininghistory updatedHistory)
+        {
+            var existing = await _context.Teachertraininghistories.FindAsync(id);
+            if (existing == null) return null;
+
+            // TỐI ƯU: Dùng SetValues để cập nhật ngắn gọn và dễ bảo trì
+            _context.Entry(existing).CurrentValues.SetValues(updatedHistory);
+
+            await _context.SaveChangesAsync();
+            return existing;
+        }
+
         public async Task<bool> DeleteAsync(int id)
         {
             var history = await _context.Teachertraininghistories.FindAsync(id);
@@ -30,35 +85,6 @@ namespace DuAnThucTap_BE01.Services
             _context.Teachertraininghistories.Remove(history);
             await _context.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<IEnumerable<Teachertraininghistory>> GetAllAsync()
-        {
-            return await _context.Teachertraininghistories.ToListAsync();
-        }
-
-        // Sửa Guid thành int
-        public async Task<Teachertraininghistory?> GetByIdAsync(int id)
-        {
-            return await _context.Teachertraininghistories.FindAsync(id);
-        }
-
-        // Sửa Guid thành int
-        public async Task<Teachertraininghistory?> UpdateAsync(int id, Teachertraininghistory updatedHistory)
-        {
-            var existing = await _context.Teachertraininghistories.FindAsync(id);
-            if (existing == null) return null;
-
-            existing.Teacherid = updatedHistory.Teacherid;
-            existing.Traininginstitutionname = updatedHistory.Traininginstitutionname;
-            existing.Majororspecialization = updatedHistory.Majororspecialization;
-            existing.Startdate = updatedHistory.Startdate;
-            existing.Enddateorgraduationyear = updatedHistory.Enddateorgraduationyear;
-            existing.Trainingtype = updatedHistory.Trainingtype;
-            existing.Certificatediplomaname = updatedHistory.Certificatediplomaname;
-
-            await _context.SaveChangesAsync();
-            return existing;
         }
     }
 }
