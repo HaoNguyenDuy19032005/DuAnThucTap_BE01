@@ -2,6 +2,7 @@
 using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Services
@@ -14,26 +15,45 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<TeacherWorkHistoryDto>> GetAllAsync()
+        public async Task<PagedResponse<TeacherWorkHistoryDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            return await _context.Teacherworkhistories
+            var query = _context.Teacherworkhistories
                 .Include(h => h.Teacher)
                 .Include(h => h.Operationunit)
                 .Include(h => h.Department)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var lowerCaseQuery = searchQuery.ToLower();
+                query = query.Where(h =>
+                    (h.Teacher != null && h.Teacher.Fullname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Operationunit != null && h.Operationunit.Organizationname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Department != null && h.Department.Departmentname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Positionheld != null && h.Positionheld.ToLower().Contains(lowerCaseQuery))
+                );
+            }
+
+            var totalRecords = await query.CountAsync();
+
+            var pagedData = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(h => new TeacherWorkHistoryDto
                 {
                     Workhistoryid = h.Workhistoryid,
                     Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // Kiểm tra null an toàn
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Operationunitid = h.Operationunitid,
-                    OperationUnitName = h.Operationunit != null ? h.Operationunit.Organizationname : null, // Kiểm tra null an toàn
+                    OperationUnitName = h.Operationunit != null ? h.Operationunit.Organizationname : null,
                     Departmentid = h.Departmentid,
-                    DepartmentName = h.Department != null ? h.Department.Departmentname : null, // Kiểm tra null an toàn
+                    DepartmentName = h.Department != null ? h.Department.Departmentname : null,
                     Iscurrentschool = h.Iscurrentschool,
                     Positionheld = h.Positionheld,
                     Startdate = h.Startdate,
                     Enddate = h.Enddate
                 }).ToListAsync();
+            return new PagedResponse<TeacherWorkHistoryDto>(pagedData, pageNumber, pageSize, totalRecords);
         }
 
         public async Task<TeacherWorkHistoryDto?> GetByIdAsync(int id)

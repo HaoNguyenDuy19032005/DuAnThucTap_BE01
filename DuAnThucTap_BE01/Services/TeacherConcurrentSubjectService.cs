@@ -2,6 +2,7 @@
 using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Services
@@ -15,22 +16,46 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<TeacherConcurrentSubjectDto>> GetAllAsync()
+        public async Task<PagedResponse<TeacherConcurrentSubjectDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            return await _context.Teacherconcurrentsubjects
+            var query = _context.Teacherconcurrentsubjects
                 .Include(tcs => tcs.Teacher)
                 .Include(tcs => tcs.Subject)
                 .Include(tcs => tcs.Schoolyear)
+                .AsQueryable();
+
+            // 1. LOGIC TÌM KIẾM
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var lowerCaseQuery = searchQuery.ToLower();
+                query = query.Where(tcs =>
+                    (tcs.Teacher != null && tcs.Teacher.Fullname.ToLower().Contains(lowerCaseQuery)) ||
+                    (tcs.Subject != null && tcs.Subject.Subjectname.ToLower().Contains(lowerCaseQuery)) ||
+                    (tcs.Schoolyear != null && tcs.Schoolyear.Schoolyearname.ToLower().Contains(lowerCaseQuery))
+                );
+            }
+
+            // 2. LẤY TỔNG SỐ BẢN GHI
+            var totalRecords = await query.CountAsync();
+
+            // 3. LOGIC PHÂN TRANG VÀ LẤY DỮ LIỆU
+            var pagedData = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(tcs => new TeacherConcurrentSubjectDto
                 {
                     TeacherId = tcs.Teacherid,
-                    TeacherName = tcs.Teacher != null ? tcs.Teacher.Fullname : null, // Thêm kiểm tra null an toàn
+                    TeacherName = tcs.Teacher != null ? tcs.Teacher.Fullname : null,
                     SubjectId = tcs.Subjectid,
-                    SubjectName = tcs.Subject != null ? tcs.Subject.Subjectname : null, // Thêm kiểm tra null an toàn
+                    SubjectName = tcs.Subject != null ? tcs.Subject.Subjectname : null,
                     SchoolyearId = tcs.Schoolyearid,
-                    SchoolyearName = tcs.Schoolyear != null ? tcs.Schoolyear.Schoolyearname : null // Thêm kiểm tra null an toàn
+                    SchoolyearName = tcs.Schoolyear != null ? tcs.Schoolyear.Schoolyearname : null
                 }).ToListAsync();
+
+            // 4. TRẢ VỀ KẾT QUẢ ĐÃ ĐÓNG GÓI
+            return new PagedResponse<TeacherConcurrentSubjectDto>(pagedData, pageNumber, pageSize, totalRecords);
         }
+
 
         public async Task<TeacherConcurrentSubjectDto?> GetByIdAsync(int teacherId, int subjectId, int schoolYearId)
         {

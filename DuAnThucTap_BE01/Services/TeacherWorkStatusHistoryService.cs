@@ -3,6 +3,7 @@ using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Dtos; // Đảm bảo đã import Dtos namespace
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Services
@@ -15,15 +16,34 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<TeacherWorkStatusHistoryDto>> GetAllAsync()
+        public async Task<PagedResponse<TeacherWorkStatusHistoryDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            return await _context.Teacherworkstatushistories
+            var query = _context.Teacherworkstatushistories
                 .Include(h => h.Teacher)
+                .AsQueryable();
+
+            // 1. LOGIC TÌM KIẾM
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var lowerCaseQuery = searchQuery.ToLower();
+                query = query.Where(h =>
+                    (h.Teacher != null && h.Teacher.Fullname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Statustype.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Note != null && h.Note.ToLower().Contains(lowerCaseQuery))
+                );
+            }
+
+            // 2. LẤY TỔNG SỐ BẢN GHI
+            var totalRecords = await query.CountAsync();
+
+            // 3. LOGIC PHÂN TRANG VÀ LẤY DỮ LIỆU
+            var pagedData = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(h => new TeacherWorkStatusHistoryDto
                 {
                     Historyid = h.Historyid,
-                    Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // Kiểm tra null an toàn
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Statustype = h.Statustype,
                     Startdate = h.Startdate,
                     Enddate = h.Enddate,
@@ -31,6 +51,9 @@ namespace DuAnThucTap_BE01.Services
                     Decisionfileurl = h.Decisionfileurl,
                     Createdat = h.Createdat
                 }).ToListAsync();
+
+            // 4. TRẢ VỀ KẾT QUẢ ĐÃ ĐÓNG GÓI
+            return new PagedResponse<TeacherWorkStatusHistoryDto>(pagedData, pageNumber, pageSize, totalRecords);
         }
 
         public async Task<TeacherWorkStatusHistoryDto?> GetByIdAsync(int id)
@@ -41,7 +64,6 @@ namespace DuAnThucTap_BE01.Services
                 .Select(h => new TeacherWorkStatusHistoryDto
                 {
                     Historyid = h.Historyid,
-                    Teacherid = h.Teacherid,
                     TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Statustype = h.Statustype,
                     Startdate = h.Startdate,
@@ -95,8 +117,7 @@ namespace DuAnThucTap_BE01.Services
                 return new TeacherWorkStatusHistoryDto
                 {
                     Historyid = history.Historyid,
-                    Teacherid = history.Teacherid,
-                    TeacherName = teacher.Fullname, // Lấy tên giáo viên từ đối tượng teacher đã tìm được
+                    TeacherName = teacher.Fullname, 
                     Statustype = history.Statustype,
                     Startdate = history.Startdate,
                     Enddate = history.Enddate,
@@ -147,7 +168,6 @@ namespace DuAnThucTap_BE01.Services
                 return new TeacherWorkStatusHistoryDto
                 {
                     Historyid = existing.Historyid,
-                    Teacherid = existing.Teacherid,
                     TeacherName = teacher.Fullname,
                     Statustype = existing.Statustype,
                     Startdate = existing.Startdate,

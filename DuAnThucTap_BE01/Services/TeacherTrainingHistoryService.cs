@@ -3,6 +3,7 @@ using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -20,9 +21,29 @@ namespace DuAnThucTap_BE01.Services
             _firebaseStorageService = firebaseStorageService;
         }
 
-        public async Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync()
+        public async Task<PagedResponse<TeacherTrainingHistoryDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            return await _context.Teachertraininghistories
+            var query = _context.Teachertraininghistories
+                                .Include(h => h.Teacher) 
+                                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var lowerCaseQuery = searchQuery.ToLower();
+                query = query.Where(h =>
+                    (h.Teacher != null && h.Teacher.Fullname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Traininginstitutionname != null && h.Traininginstitutionname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Majororspecialization != null && h.Majororspecialization.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Trainingtype != null && h.Trainingtype.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Certificatediplomaname != null && h.Certificatediplomaname.ToLower().Contains(lowerCaseQuery))
+                );
+            }
+
+            var totalRecords = await query.CountAsync();
+
+            var pagedData = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(h => new TeacherTrainingHistoryDto
                 {
                     Trainingid = h.Trainingid,
@@ -37,6 +58,8 @@ namespace DuAnThucTap_BE01.Services
                     Certificatediplomaname = h.Certificatediplomaname,
                     Attachmenturl = h.Attachmenturl
                 }).ToListAsync();
+
+            return new PagedResponse<TeacherTrainingHistoryDto>(pagedData, pageNumber, pageSize, totalRecords);
         }
 
         public async Task<TeacherTrainingHistoryDto?> GetByIdAsync(int id)
@@ -94,24 +117,21 @@ namespace DuAnThucTap_BE01.Services
             var existing = await _context.Teachertraininghistories.FindAsync(id);
             if (existing == null) return null;
 
-            string? newAttachmentUrl = existing.Attachmenturl; // Giữ lại url cũ mặc định
+            string? newAttachmentUrl = existing.Attachmenturl;
             if (file != null && file.Length > 0)
             {
                 newAttachmentUrl = await _firebaseStorageService.UploadFileAsync(file, "teacher-training-attachments");
             }
-            // Nếu không có file mới, và DTO có gửi lên url, thì dùng url của DTO (tùy chọn)
             else if (!string.IsNullOrEmpty(updatedHistoryDto.Attachmenturl))
             {
                 newAttachmentUrl = updatedHistoryDto.Attachmenturl;
             }
 
-            // Chuyển đổi string sang DateOnly?
             DateOnly.TryParse(updatedHistoryDto.Startdate, out DateOnly startDate);
 
             existing.Teacherid = updatedHistoryDto.Teacherid;
             existing.Traininginstitutionname = updatedHistoryDto.Traininginstitutionname;
             existing.Majororspecialization = updatedHistoryDto.Majororspecialization;
-            // Gán giá trị đã chuyển đổi
             existing.Startdate = updatedHistoryDto.Startdate == null ? null : startDate;
             existing.Enddateorgraduationyear = updatedHistoryDto.Enddateorgraduationyear;
             existing.Active = updatedHistoryDto.Active;
