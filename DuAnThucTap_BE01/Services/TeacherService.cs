@@ -3,6 +3,7 @@ using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,38 +20,49 @@ namespace DuAnThucTap_BE01.Services
             _firebaseStorage = firebaseStorage;
         }
 
-        public async Task<IEnumerable<TeacherDto>> GetAllAsync()
+        // CẬP NHẬT PHƯƠNG THỨC NÀY
+        public async Task<PagedResponse<TeacherDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            return await _context.Teachers
-                .Select(t => new TeacherDto
+            // Bắt đầu với một IQueryable để có thể xây dựng truy vấn động
+            var query = _context.Teachers.AsQueryable();
+
+            // 1. Logic tìm kiếm
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                // Tìm kiếm không phân biệt chữ hoa/thường theo Tên hoặc Mã giáo viên
+                query = query.Where(t =>
+                    (t.Fullname != null && t.Fullname.ToLower().Contains(searchQuery.ToLower())) ||
+                    (t.Teachercode != null && t.Teachercode.ToLower().Contains(searchQuery.ToLower()))
+                );
+            }
+
+            // 2. Lấy tổng số bản ghi trước khi phân trang
+            var totalRecords = await query.CountAsync();
+
+            // 3. Logic phân trang
+            var pagedData = await query
+                .Skip((pageNumber - 1) * pageSize) // Bỏ qua các bản ghi của trang trước
+                .Take(pageSize) // Lấy số lượng bản ghi cho trang hiện tại
+                .Select(t => new TeacherDto // Chọn và chuyển đổi sang DTO
                 {
                     TeacherId = t.Teacherid,
                     TeacherCode = t.Teachercode,
                     Fullname = t.Fullname,
-                    DateOfBirth = t.Dateofbirth,
-                    Gender = t.Gender,
-                    Ethnicity = t.Ethnicity,
-                    HireDate = t.Hiredate,
-                    Nationality = t.Nationality,
-                    Religion = t.Religion,
-                    Status = t.Status,
-                    Alias = t.Alias,
-                    AddressProvinceCity = t.AddressProvincecity,
-                    AddressWard = t.AddressWard,
-                    AddressDistrict = t.AddressDistrict,
-                    AddressStreet = t.AddressStreet,
                     Email = t.Email,
                     PhoneNumber = t.Phonenumber,
-                    DateOfJoiningTheParty = t.Dateofjoiningtheparty,
+                    Status = t.Status,
                     AvatarUrl = t.Avatarurl,
-                    DateOfJoiningGroup = t.Dateofjoininggroup,
-                    IsPartyMember = t.Ispartymember,
-                    CreatedAt = t.Createdat,
-                    UpdatedAt = t.Updatedat,
                     DepartmentName = t.Department != null ? t.Department.Departmentname : null,
                     SubjectName = t.Subject != null ? t.Subject.Subjectname : null,
-                    SchoolyearName = t.Schoolyear != null ? t.Schoolyear.Schoolyearname : null
-                }).ToListAsync();
+                    SchoolyearName = t.Schoolyear != null ? t.Schoolyear.Schoolyearname : null,
+                    // Thêm các trường khác nếu cần thiết
+                })
+                .ToListAsync();
+
+            // 4. Tạo đối tượng PagedResponse để trả về
+            var pagedResponse = new PagedResponse<TeacherDto>(pagedData, pageNumber, pageSize, totalRecords);
+
+            return pagedResponse;
         }
 
         public async Task<TeacherDto?> GetByIdAsync(int id)

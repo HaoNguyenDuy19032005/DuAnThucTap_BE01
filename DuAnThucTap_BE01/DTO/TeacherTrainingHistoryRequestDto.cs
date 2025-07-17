@@ -20,13 +20,14 @@ namespace DuAnThucTap_BE01.DTO
         public string Majororspecialization { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Ngày bắt đầu không được để trống.")]
-        public DateOnly Startdate { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Định dạng ngày không hợp lệ, vui lòng nhập theo dạng yyyy-MM-dd.")]
+        public string Startdate { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Ngày kết thúc/Năm tốt nghiệp không được để trống.")]
         [StringLength(50, ErrorMessage = "Ngày kết thúc/Năm tốt nghiệp không được vượt quá 50 ký tự.")]
         public string Enddateorgraduationyear { get; set; } = string.Empty;
 
-        public bool Active { get; set; } = true; // Giá trị mặc định
+        public bool Active { get; set; } = true;
 
         [Required(ErrorMessage = "Loại hình đào tạo không được để trống.")]
         [StringLength(100, ErrorMessage = "Loại hình đào tạo không được vượt quá 100 ký tự.")]
@@ -39,9 +40,18 @@ namespace DuAnThucTap_BE01.DTO
         [Url(ErrorMessage = "Đường dẫn tệp đính kèm không hợp lệ.")]
         [StringLength(500, ErrorMessage = "Đường dẫn tệp đính kèm không được vượt quá 500 ký tự.")]
         public string? Attachmenturl { get; set; }
+
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Startdate > DateOnly.FromDateTime(DateTime.Today))
+            if (!string.IsNullOrEmpty(Startdate) && !DateOnly.TryParse(Startdate, out _))
+            {
+                yield return new ValidationResult(
+                    "Định dạng ngày không hợp lệ, vui lòng nhập theo dạng yyyy-MM-dd.",
+                    new[] { nameof(Startdate) }
+                );
+            }
+            if (!string.IsNullOrEmpty(Startdate) && DateOnly.Parse(Startdate) > DateOnly.FromDateTime(DateTime.Today))
             {
                 yield return new ValidationResult(
                     "Ngày bắt đầu không được là một ngày trong tương lai.",
