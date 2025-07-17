@@ -5,7 +5,6 @@ using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Globalization;
 
 var cultureInfo = new CultureInfo("en-US");
@@ -58,6 +57,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddSwaggerGen(c =>
 {
+    c.OperationFilter<FileUploadOperationFilter>();
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
 });
 var app = builder.Build();

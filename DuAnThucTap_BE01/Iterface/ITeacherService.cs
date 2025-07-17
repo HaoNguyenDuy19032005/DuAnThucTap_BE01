@@ -8,14 +8,12 @@ namespace DuAnThucTap_BE01.Interface
     public interface ITeacherService
     {
         Task<PagedResponse<TeacherDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize);
-
         Task<TeacherDto?> GetByIdAsync(int id);
 
-        Task<Teacher> CreateAsync(TeacherRequestDto teacherDto);
+        Task<Teacher> CreateAsync(TeacherRequestDto teacherDto, IFormFile? avatarFile);
 
-        Task<Teacher?> UpdateAsync(int id, TeacherRequestDto teacherDto);
+        Task<Teacher?> UpdateAsync(int id, TeacherRequestDto teacherDto, IFormFile? avatarFile);
 
-        Task<string?> UpdateAvatarAsync(int id, IFormFile avatarFile);
 
         Task<bool> DeleteAsync(int id);
     }

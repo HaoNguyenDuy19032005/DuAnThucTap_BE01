@@ -1,5 +1,4 @@
-﻿// Models/Teacherworkhistory.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,15 +8,14 @@ using System.Text.Json.Serialization;
 namespace DuAnThucTap_BE01.Models
 {
     [Table("teacherworkhistory")]
-    public partial class Teacherworkhistory : IValidatableObject
+    // Đã bỏ IValidatableObject
+    public partial class Teacherworkhistory
     {
         [Key]
         [Column("workhistoryid")]
         public int Workhistoryid { get; set; }
 
         [Column("teacherid")]
-        [Required(ErrorMessage = "ID Giáo viên không được để trống.")]
-        [Range(1, int.MaxValue, ErrorMessage = "ID Giáo viên không hợp lệ.")]
         public int Teacherid { get; set; }
 
         [Column("operationunitid")]
@@ -30,16 +28,14 @@ namespace DuAnThucTap_BE01.Models
         public bool? Iscurrentschool { get; set; }
 
         [Column("positionheld")]
-        [Required(ErrorMessage = "Vị trí công tác không được để trống.")]
-        [StringLength(150)]
+        [StringLength(150)] // Giữ lại StringLength để khớp với database
         public string? Positionheld { get; set; }
 
         [Column("startdate")]
-        [Required(ErrorMessage = "Ngày bắt đầu không được để trống.")]
         public DateOnly? Startdate { get; set; }
 
         [Column("enddate")]
-        public DateOnly? Enddate { get; set; } // Có thể null nếu là công việc hiện tại
+        public DateOnly? Enddate { get; set; }
 
         [ForeignKey("Departmentid")]
         [InverseProperty("Teacherworkhistories")]
@@ -56,16 +52,6 @@ namespace DuAnThucTap_BE01.Models
         [JsonIgnore]
         public virtual Teacher? Teacher { get; set; }
 
-        // Custom validation: Ngày kết thúc phải sau ngày bắt đầu
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (Startdate.HasValue && Enddate.HasValue && Startdate.Value >= Enddate.Value)
-            {
-                yield return new ValidationResult(
-                    "Ngày kết thúc phải sau ngày bắt đầu.",
-                    new[] { nameof(Enddate) }
-                );
-            }
-        }
+        // Đã xóa toàn bộ phương thức Validate()
     }
 }
