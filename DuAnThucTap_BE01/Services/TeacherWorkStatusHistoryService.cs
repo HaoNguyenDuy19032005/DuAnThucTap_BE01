@@ -1,8 +1,9 @@
 ﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos; // Đảm bảo đã import Dtos namespace
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Services
@@ -10,20 +11,40 @@ namespace DuAnThucTap_BE01.Services
     public class TeacherWorkStatusHistoryService : ITeacherWorkStatusHistoryService
     {
         private readonly ISCDbContext _context;
-        public TeacherWorkStatusHistoryService(ISCDbContext context)
+        private readonly IFirebaseStorageService _firebaseStorageService;
+
+        public TeacherWorkStatusHistoryService(ISCDbContext context, IFirebaseStorageService firebaseStorageService)
         {
             _context = context;
+            _firebaseStorageService = firebaseStorageService;
         }
 
-        public async Task<IEnumerable<TeacherWorkStatusHistoryDto>> GetAllAsync()
+        public async Task<PagedResponse<TeacherWorkStatusHistoryDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            return await _context.Teacherworkstatushistories
+            var query = _context.Teacherworkstatushistories
                 .Include(h => h.Teacher)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var lowerCaseQuery = searchQuery.ToLower();
+                query = query.Where(h =>
+                    (h.Teacher != null && h.Teacher.Fullname.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Statustype.ToLower().Contains(lowerCaseQuery)) ||
+                    (h.Note != null && h.Note.ToLower().Contains(lowerCaseQuery))
+                );
+            }
+
+            var totalRecords = await query.CountAsync();
+
+            var pagedData = await query
+                .OrderByDescending(h => h.Startdate) // Sắp xếp theo ngày bắt đầu gần nhất
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(h => new TeacherWorkStatusHistoryDto
                 {
                     Historyid = h.Historyid,
-                    Teacherid = h.Teacherid,
-                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null, // Kiểm tra null an toàn
+                    TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Statustype = h.Statustype,
                     Startdate = h.Startdate,
                     Enddate = h.Enddate,
@@ -31,6 +52,8 @@ namespace DuAnThucTap_BE01.Services
                     Decisionfileurl = h.Decisionfileurl,
                     Createdat = h.Createdat
                 }).ToListAsync();
+
+            return new PagedResponse<TeacherWorkStatusHistoryDto>(pagedData, pageNumber, pageSize, totalRecords);
         }
 
         public async Task<TeacherWorkStatusHistoryDto?> GetByIdAsync(int id)
@@ -41,7 +64,6 @@ namespace DuAnThucTap_BE01.Services
                 .Select(h => new TeacherWorkStatusHistoryDto
                 {
                     Historyid = h.Historyid,
-                    Teacherid = h.Teacherid,
                     TeacherName = h.Teacher != null ? h.Teacher.Fullname : null,
                     Statustype = h.Statustype,
                     Startdate = h.Startdate,
@@ -52,10 +74,8 @@ namespace DuAnThucTap_BE01.Services
                 }).FirstOrDefaultAsync();
         }
 
-        // Cập nhật phương thức CreateAsync để nhận DTO
-        public async Task<TeacherWorkStatusHistoryDto> CreateAsync(TeacherWorkStatusHistoryRequestDto historyDto)
+        public async Task<TeacherWorkStatusHistoryDto> CreateAsync(TeacherWorkStatusHistoryRequestDto historyDto, IFormFile? file)
         {
-            // Sử dụng transaction để đảm bảo cả hai thao tác cùng thành công hoặc thất bại
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
@@ -66,37 +86,42 @@ namespace DuAnThucTap_BE01.Services
                     throw new KeyNotFoundException($"Không tìm thấy giáo viên với ID = {historyDto.Teacherid}.");
                 }
 
-                // 2. Cập nhật trạng thái và thời gian cho giáo viên
+                // 2. Xử lý tải file
+                string? decisionFileUrl = null;
+                if (file != null && file.Length > 0)
+                {
+                    decisionFileUrl = await _firebaseStorageService.UploadFileAsync(file, "teacher-status-decisions");
+                }
+
+                // 3. Cập nhật trạng thái cho giáo viên
                 teacher.Status = historyDto.Statustype;
                 teacher.Updatedat = DateTime.UtcNow;
 
-                // 3. Ánh xạ từ DTO sang Model Entity
+                // 4. Chuyển đổi ngày tháng từ string sang DateOnly
+                DateOnly.TryParse(historyDto.Startdate, out var startDate);
+                DateOnly.TryParse(historyDto.Enddate, out var endDate);
+
+                // 5. Tạo bản ghi lịch sử mới
                 var history = new Teacherworkstatushistory
                 {
                     Teacherid = historyDto.Teacherid,
                     Statustype = historyDto.Statustype,
-                    Startdate = historyDto.Startdate,
-                    Enddate = historyDto.Enddate,
+                    Startdate = startDate,
+                    Enddate = string.IsNullOrEmpty(historyDto.Enddate) ? null : endDate,
                     Note = historyDto.Note,
-                    Decisionfileurl = historyDto.Decisionfileurl,
-                    Createdat = DateTime.UtcNow // Đặt thời gian tạo
+                    Decisionfileurl = decisionFileUrl,
+                    Createdat = DateTime.UtcNow
                 };
 
-                // 4. Thêm bản ghi lịch sử mới
                 _context.Teacherworkstatushistories.Add(history);
-
-                // 5. Lưu tất cả thay đổi (cả INSERT và UPDATE)
                 await _context.SaveChangesAsync();
-
-                // 6. Hoàn tất giao dịch
                 await transaction.CommitAsync();
 
-                // Trả về DTO với đầy đủ thông tin
+                // 6. Trả về DTO đã được tạo
                 return new TeacherWorkStatusHistoryDto
                 {
                     Historyid = history.Historyid,
-                    Teacherid = history.Teacherid,
-                    TeacherName = teacher.Fullname, // Lấy tên giáo viên từ đối tượng teacher đã tìm được
+                    TeacherName = teacher.Fullname,
                     Statustype = history.Statustype,
                     Startdate = history.Startdate,
                     Enddate = history.Enddate,
@@ -107,14 +132,12 @@ namespace DuAnThucTap_BE01.Services
             }
             catch (Exception)
             {
-                // Nếu có lỗi, hủy bỏ tất cả thay đổi
                 await transaction.RollbackAsync();
-                throw; // Ném lại lỗi để Controller xử lý
+                throw;
             }
         }
 
-        // Cập nhật phương thức UpdateAsync để nhận DTO
-        public async Task<TeacherWorkStatusHistoryDto?> UpdateAsync(int id, TeacherWorkStatusHistoryRequestDto updatedHistoryDto)
+        public async Task<TeacherWorkStatusHistoryDto?> UpdateAsync(int id, TeacherWorkStatusHistoryRequestDto updatedHistoryDto, IFormFile? file)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
@@ -122,15 +145,28 @@ namespace DuAnThucTap_BE01.Services
                 var existing = await _context.Teacherworkstatushistories.FindAsync(id);
                 if (existing == null) return null;
 
-                // 1. Cập nhật các thuộc tính từ DTO vào entity hiện có
+                // 1. Xử lý tải file (nếu có file mới)
+                if (file != null && file.Length > 0)
+                {
+                    existing.Decisionfileurl = await _firebaseStorageService.UploadFileAsync(file, "teacher-status-decisions");
+                }
+                else
+                {
+                    existing.Decisionfileurl = updatedHistoryDto.Decisionfileurl; // Giữ lại URL cũ nếu không có file mới
+                }
+
+                // 2. Chuyển đổi ngày tháng từ string sang DateOnly
+                DateOnly.TryParse(updatedHistoryDto.Startdate, out var startDate);
+                DateOnly.TryParse(updatedHistoryDto.Enddate, out var endDate);
+
+                // 3. Cập nhật các thuộc tính
                 existing.Teacherid = updatedHistoryDto.Teacherid;
                 existing.Statustype = updatedHistoryDto.Statustype;
-                existing.Startdate = updatedHistoryDto.Startdate;
-                existing.Enddate = updatedHistoryDto.Enddate;
+                existing.Startdate = startDate;
+                existing.Enddate = string.IsNullOrEmpty(updatedHistoryDto.Enddate) ? null : endDate;
                 existing.Note = updatedHistoryDto.Note;
-                existing.Decisionfileurl = updatedHistoryDto.Decisionfileurl;
 
-                // 2. Cập nhật trạng thái của giáo viên liên quan (nếu cần)
+                // 4. Cập nhật trạng thái của giáo viên liên quan
                 var teacher = await _context.Teachers.FindAsync(updatedHistoryDto.Teacherid);
                 if (teacher == null)
                 {
@@ -138,23 +174,21 @@ namespace DuAnThucTap_BE01.Services
                 }
                 teacher.Status = updatedHistoryDto.Statustype;
                 teacher.Updatedat = DateTime.UtcNow;
-                _context.Teachers.Update(teacher); // Ra lệnh tường minh cho EF Core
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                // Trả về DTO sau khi cập nhật
+                // 5. Trả về DTO đã được cập nhật
                 return new TeacherWorkStatusHistoryDto
                 {
                     Historyid = existing.Historyid,
-                    Teacherid = existing.Teacherid,
                     TeacherName = teacher.Fullname,
                     Statustype = existing.Statustype,
                     Startdate = existing.Startdate,
                     Enddate = existing.Enddate,
                     Note = existing.Note,
                     Decisionfileurl = existing.Decisionfileurl,
-                    Createdat = existing.Createdat // Giữ nguyên thời gian tạo ban đầu
+                    Createdat = existing.Createdat
                 };
             }
             catch (Exception)

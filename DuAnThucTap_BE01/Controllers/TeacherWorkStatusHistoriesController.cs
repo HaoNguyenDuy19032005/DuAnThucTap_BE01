@@ -18,10 +18,13 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var data = await _service.GetAllAsync();
-            return Ok(new ApiResponse<IEnumerable<TeacherWorkStatusHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data));
+            var data = await _service.GetAllAsync(searchQuery, pageNumber, pageSize);
+            return Ok(new ApiResponse<PagedResponse<TeacherWorkStatusHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data));
         }
 
         [HttpGet("{id}")]
@@ -36,7 +39,10 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TeacherWorkStatusHistoryRequestDto historyDto)
+        [Consumes("multipart/form-data")] // Thêm attribute này
+        public async Task<IActionResult> Create(
+            [FromForm] TeacherWorkStatusHistoryRequestDto historyDto, // Đổi sang FromForm
+            [FromForm] IFormFile? file)                               // Thêm tham số file
         {
             if (!ModelState.IsValid)
             {
@@ -44,8 +50,8 @@ namespace DuAnThucTap_BE01.Controllers
             }
             try
             {
-                var createdDto = await _service.CreateAsync(historyDto); 
-                var response = new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.Created, "Tạo mới và cập nhật trạng thái giáo viên thành công", createdDto);
+                var createdDto = await _service.CreateAsync(historyDto, file);
+                var response = new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.Created, "Tạo mới thành công", createdDto);
                 return CreatedAtAction(nameof(GetById), new { id = createdDto.Historyid }, response);
             }
             catch (KeyNotFoundException ex)
@@ -60,18 +66,19 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TeacherWorkStatusHistoryRequestDto historyDto) // Thay đổi tham số
+        [Consumes("multipart/form-data")] // Thêm attribute này
+        public async Task<IActionResult> Update(
+            int id,
+            [FromForm] TeacherWorkStatusHistoryRequestDto historyDto, // Đổi sang FromForm
+            [FromForm] IFormFile? file)                               // Thêm tham số file
         {
-            // Không cần kiểm tra id != history.Historyid vì Historyid không có trong Request DTO
-            // id sẽ được lấy từ URL.
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
             try
             {
-                var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
+                var result = await _service.UpdateAsync(id, historyDto, file);
                 if (result == null)
                 {
                     return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử trạng thái với ID = {id}", null));

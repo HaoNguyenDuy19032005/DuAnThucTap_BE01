@@ -20,10 +20,14 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var data = await _service.GetAllAsync();
-            return Ok(new ApiResponse<IEnumerable<TeacherTrainingHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data));
+            var data = await _service.GetAllAsync(searchQuery, pageNumber, pageSize);
+            var response = new ApiResponse<PagedResponse<TeacherTrainingHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -40,8 +44,8 @@ namespace DuAnThucTap_BE01.Controllers
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create(
-        [FromForm] TeacherTrainingHistoryRequestDto historyDto,
-        [FromForm] IFormFile? file)
+            [FromForm] TeacherTrainingHistoryRequestDto historyDto,
+            [FromForm] IFormFile? file)
         {
             if (!ModelState.IsValid)
             {
@@ -58,26 +62,25 @@ namespace DuAnThucTap_BE01.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Trainingid }, response);
         }
 
+        // Sửa lại Update để nhận multipart/form-data
         [HttpPut("{id}")]
-        [Consumes("multipart/form-data")] // Specify that this endpoint accepts multipart/form-data
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> Update(
             int id,
-            [FromForm] TeacherTrainingHistoryRequestDto historyDto, // Use FromForm for form-data
-            [FromForm] IFormFile? file) // Add file parameter
+            [FromForm] TeacherTrainingHistoryRequestDto historyDto,
+            [FromForm] IFormFile? file)
         {
-            // Validate the model state
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            // Optional: Validate file (e.g., size, type)
-            if (file != null && file.Length > 5 * 1024 * 1024) // Example: Limit file size to 5MB
+            if (file != null && file.Length > 5 * 1024 * 1024)
             {
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Kích thước tệp không được vượt quá 5MB", null));
             }
 
-            var result = await _service.UpdateAsync(id, historyDto, file); // Pass file to service
+            var result = await _service.UpdateAsync(id, historyDto, file);
             if (result == null)
             {
                 return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử đào tạo với ID = {id}", null));

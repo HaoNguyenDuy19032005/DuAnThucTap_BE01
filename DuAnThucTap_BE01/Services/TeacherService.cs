@@ -6,6 +6,9 @@ using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Services
 {
@@ -20,30 +23,25 @@ namespace DuAnThucTap_BE01.Services
             _firebaseStorage = firebaseStorage;
         }
 
-        // CẬP NHẬT PHƯƠNG THỨC NÀY
         public async Task<PagedResponse<TeacherDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            // Bắt đầu với một IQueryable để có thể xây dựng truy vấn động
             var query = _context.Teachers.AsQueryable();
 
-            // 1. Logic tìm kiếm
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                // Tìm kiếm không phân biệt chữ hoa/thường theo Tên hoặc Mã giáo viên
                 query = query.Where(t =>
                     (t.Fullname != null && t.Fullname.ToLower().Contains(searchQuery.ToLower())) ||
                     (t.Teachercode != null && t.Teachercode.ToLower().Contains(searchQuery.ToLower()))
                 );
             }
 
-            // 2. Lấy tổng số bản ghi trước khi phân trang
             var totalRecords = await query.CountAsync();
 
-            // 3. Logic phân trang
             var pagedData = await query
-                .Skip((pageNumber - 1) * pageSize) // Bỏ qua các bản ghi của trang trước
-                .Take(pageSize) // Lấy số lượng bản ghi cho trang hiện tại
-                .Select(t => new TeacherDto // Chọn và chuyển đổi sang DTO
+                .OrderByDescending(t => t.Teacherid)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(t => new TeacherDto
                 {
                     TeacherId = t.Teacherid,
                     TeacherCode = t.Teachercode,
@@ -55,14 +53,10 @@ namespace DuAnThucTap_BE01.Services
                     DepartmentName = t.Department != null ? t.Department.Departmentname : null,
                     SubjectName = t.Subject != null ? t.Subject.Subjectname : null,
                     SchoolyearName = t.Schoolyear != null ? t.Schoolyear.Schoolyearname : null,
-                    // Thêm các trường khác nếu cần thiết
                 })
                 .ToListAsync();
 
-            // 4. Tạo đối tượng PagedResponse để trả về
-            var pagedResponse = new PagedResponse<TeacherDto>(pagedData, pageNumber, pageSize, totalRecords);
-
-            return pagedResponse;
+            return new PagedResponse<TeacherDto>(pagedData, pageNumber, pageSize, totalRecords);
         }
 
         public async Task<TeacherDto?> GetByIdAsync(int id)
@@ -100,22 +94,30 @@ namespace DuAnThucTap_BE01.Services
                 }).FirstOrDefaultAsync();
         }
 
-        public async Task<Teacher> CreateAsync(TeacherRequestDto teacherDto)
+        public async Task<Teacher> CreateAsync(TeacherRequestDto teacherDto, IFormFile? avatarFile)
         {
+            // 1. Xử lý tải file avatar nếu có
+            string? avatarUrl = null;
+            if (avatarFile != null && avatarFile.Length > 0)
+            {
+                avatarUrl = await _firebaseStorage.UploadFileAsync(avatarFile, "teacher_avatars/");
+            }
+
+            // 2. Chuyển đổi các chuỗi ngày tháng từ DTO
+            DateOnly.TryParse(teacherDto.Dateofbirth, out var dateOfBirth);
+            DateOnly.TryParse(teacherDto.Hiredate, out var hireDate);
+            DateOnly.TryParse(teacherDto.Dateofjoiningtheparty, out var partyDate);
+            DateOnly.TryParse(teacherDto.Dateofjoininggroup, out var groupDate);
+
+            // 3. Ánh xạ từ DTO sang Model
             var teacher = new Teacher
             {
-                // Gán tất cả dữ liệu từ DTO, không có AvatarUrl
                 Fullname = teacherDto.Fullname,
-                Dateofbirth = teacherDto.Dateofbirth,
-                Gender = teacherDto.Gender,
                 Email = teacherDto.Email,
                 Phonenumber = teacherDto.Phonenumber,
+                Gender = teacherDto.Gender,
                 Status = teacherDto.Status,
-                Departmentid = teacherDto.Departmentid,
-                Subjectid = teacherDto.Subjectid,
-                Schoolyearid = teacherDto.Schoolyearid,
                 Ethnicity = teacherDto.Ethnicity,
-                Hiredate = teacherDto.Hiredate,
                 Nationality = teacherDto.Nationality,
                 Religion = teacherDto.Religion,
                 Alias = teacherDto.Alias,
@@ -123,69 +125,79 @@ namespace DuAnThucTap_BE01.Services
                 AddressWard = teacherDto.AddressWard,
                 AddressDistrict = teacherDto.AddressDistrict,
                 AddressStreet = teacherDto.AddressStreet,
-                Dateofjoiningtheparty = teacherDto.Dateofjoiningtheparty,
-                Dateofjoininggroup = teacherDto.Dateofjoininggroup,
                 Ispartymember = teacherDto.Ispartymember,
-                // Avatarurl sẽ trống khi mới tạo
-                Avatarurl = null
+                Departmentid = teacherDto.Departmentid,
+                Subjectid = teacherDto.Subjectid,
+                Schoolyearid = teacherDto.Schoolyearid,
+                Avatarurl = avatarUrl,
+                Dateofbirth = string.IsNullOrEmpty(teacherDto.Dateofbirth) ? null : dateOfBirth,
+                Hiredate = string.IsNullOrEmpty(teacherDto.Hiredate) ? null : hireDate,
+                Dateofjoiningtheparty = string.IsNullOrEmpty(teacherDto.Dateofjoiningtheparty) ? null : partyDate,
+                Dateofjoininggroup = string.IsNullOrEmpty(teacherDto.Dateofjoininggroup) ? null : groupDate,
+                Createdat = DateTime.UtcNow,
+                Updatedat = DateTime.UtcNow
             };
 
-            // Logic tạo mã giáo viên giữ nguyên
+            // 4. Logic tạo mã giáo viên
             var lastTeacher = await _context.Teachers.OrderByDescending(t => t.Teacherid).FirstOrDefaultAsync();
             int newNumber = 1;
-            if (lastTeacher != null && !string.IsNullOrEmpty(lastTeacher.Teachercode) && lastTeacher.Teachercode.Length > 2)
+            if (lastTeacher != null && !string.IsNullOrEmpty(lastTeacher.Teachercode))
             {
-                int.TryParse(lastTeacher.Teachercode.AsSpan(2), out int lastNumber);
-                newNumber = lastNumber + 1;
+                if (int.TryParse(lastTeacher.Teachercode.AsSpan(2), out int lastNum))
+                {
+                    newNumber = lastNum + 1;
+                }
             }
             teacher.Teachercode = "GV" + newNumber.ToString("D5");
-
-            teacher.Createdat = DateTime.UtcNow;
-            teacher.Updatedat = DateTime.UtcNow;
 
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
             return teacher;
         }
 
-        // UpdateAsync đã được cập nhật
-        public async Task<Teacher?> UpdateAsync(int id, TeacherRequestDto teacherDto)
+        public async Task<Teacher?> UpdateAsync(int id, TeacherRequestDto teacherDto, IFormFile? avatarFile)
         {
             var existingTeacher = await _context.Teachers.FindAsync(id);
             if (existingTeacher == null) return null;
 
-            // Gán lại tất cả các giá trị từ DTO
+            // 1. Xử lý tải file avatar nếu có file mới
+            if (avatarFile != null && avatarFile.Length > 0)
+            {
+                existingTeacher.Avatarurl = await _firebaseStorage.UploadFileAsync(avatarFile, "teacher_avatars/");
+            }
+
+            // 2. Chuyển đổi các chuỗi ngày tháng từ DTO
+            DateOnly.TryParse(teacherDto.Dateofbirth, out var dateOfBirth);
+            DateOnly.TryParse(teacherDto.Hiredate, out var hireDate);
+            DateOnly.TryParse(teacherDto.Dateofjoiningtheparty, out var partyDate);
+            DateOnly.TryParse(teacherDto.Dateofjoininggroup, out var groupDate);
+
+            // 3. Cập nhật các thông tin khác từ DTO
             existingTeacher.Fullname = teacherDto.Fullname;
-            existingTeacher.Dateofbirth = teacherDto.Dateofbirth;
-            // ... gán tất cả các trường khác tương tự ...
+            existingTeacher.Email = teacherDto.Email;
+            existingTeacher.Phonenumber = teacherDto.Phonenumber;
+            existingTeacher.Gender = teacherDto.Gender;
+            existingTeacher.Status = teacherDto.Status;
+            existingTeacher.Ethnicity = teacherDto.Ethnicity;
+            existingTeacher.Nationality = teacherDto.Nationality;
+            existingTeacher.Religion = teacherDto.Religion;
+            existingTeacher.Alias = teacherDto.Alias;
+            existingTeacher.AddressProvincecity = teacherDto.AddressProvincecity;
+            existingTeacher.AddressWard = teacherDto.AddressWard;
+            existingTeacher.AddressDistrict = teacherDto.AddressDistrict;
+            existingTeacher.AddressStreet = teacherDto.AddressStreet;
             existingTeacher.Ispartymember = teacherDto.Ispartymember;
-
-            // Bỏ logic xử lý avatarFile ở đây
-
+            existingTeacher.Departmentid = teacherDto.Departmentid;
+            existingTeacher.Subjectid = teacherDto.Subjectid;
+            existingTeacher.Schoolyearid = teacherDto.Schoolyearid;
+            existingTeacher.Dateofbirth = string.IsNullOrEmpty(teacherDto.Dateofbirth) ? null : dateOfBirth;
+            existingTeacher.Hiredate = string.IsNullOrEmpty(teacherDto.Hiredate) ? null : hireDate;
+            existingTeacher.Dateofjoiningtheparty = string.IsNullOrEmpty(teacherDto.Dateofjoiningtheparty) ? null : partyDate;
+            existingTeacher.Dateofjoininggroup = string.IsNullOrEmpty(teacherDto.Dateofjoininggroup) ? null : groupDate;
             existingTeacher.Updatedat = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
             return existingTeacher;
-        }
-
-        // Phương thức MỚI để xử lý upload
-        public async Task<string?> UpdateAvatarAsync(int id, IFormFile avatarFile)
-        {
-            var existingTeacher = await _context.Teachers.FindAsync(id);
-            if (existingTeacher == null)
-            {
-                // Trả về null nếu không tìm thấy giáo viên
-                return null;
-            }
-
-            // Chỉ xử lý upload file và cập nhật URL
-            existingTeacher.Avatarurl = await _firebaseStorage.UploadFileAsync(avatarFile, "teacher_avatars/");
-            existingTeacher.Updatedat = DateTime.UtcNow;
-
-            await _context.SaveChangesAsync();
-
-            // Trả về URL của ảnh mới
-            return existingTeacher.Avatarurl;
         }
 
         public async Task<bool> DeleteAsync(int id)
