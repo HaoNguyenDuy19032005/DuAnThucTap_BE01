@@ -43,7 +43,7 @@ builder.Services.AddScoped<ITeacherTrainingHistoryService, TeacherTrainingHistor
 builder.Services.AddScoped<ITeacherWorkHistoryService, TeacherWorkHistoryService>();
 builder.Services.AddScoped<ITeacherWorkStatusHistoryService, TeacherWorkStatusHistoryService>();
 builder.Services.AddScoped<ITeachingAssignmentService, TeachingAssignmentService>();
-builder.Services.AddScoped<ITestAssignment, TestAssignmentService>();
+builder.Services.AddScoped<ITestassignment, TestassignmentService>();
 builder.Services.AddScoped<ITests, TestsService>();
 builder.Services.AddScoped<ITopicListService, TopicListService>();
 builder.Services.AddScoped<IExamScheduleService, ExamScheduleService>();
