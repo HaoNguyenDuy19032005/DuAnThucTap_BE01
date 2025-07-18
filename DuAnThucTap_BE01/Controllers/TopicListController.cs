@@ -1,8 +1,10 @@
 ﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
-using DuAnThucTap_BE01.DTOs;      // Thêm DTO
-using DuAnThucTap_BE01.Helpers;  // Thêm ApiResponse
+using DuAnThucTap_BE01.DTOs;
+using DuAnThucTap_BE01.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -17,7 +19,6 @@ namespace DuAnThucTap_BE01.Controllers
             _service = service;
         }
 
-        // Helper để map sang DTO
         private TopicListDto MapToDto(Topiclist topic)
         {
             return new TopicListDto
@@ -30,12 +31,35 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TopicListDto>>>> GetAll()
+        public async Task<ActionResult<ApiResponse<PagedResult<TopicListDto>>>> GetAll(
+            [FromQuery] string? searchTerm,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var topics = await _service.GetAllAsync();
-            var dtos = topics.Select(MapToDto);
-            return Ok(new ApiResponse<IEnumerable<TopicListDto>> { Success = true, Message = "Lấy danh sách chủ đề thành công", Data = dtos });
+            // Gọi service với các tham số
+            var pagedResult = await _service.GetAllAsync(searchTerm, pageNumber, pageSize);
+
+            // Chuyển đổi danh sách Items từ Entity sang DTO
+            var dtos = pagedResult.Items.Select(MapToDto).ToList();
+
+            // Tạo một PagedResult mới chứa danh sách DTO
+            var pagedDtoResult = new PagedResult<TopicListDto>
+            {
+                Items = dtos,
+                PageNumber = pagedResult.PageNumber,
+                PageSize = pagedResult.PageSize,
+                TotalCount = pagedResult.TotalCount
+            };
+
+            return Ok(new ApiResponse<PagedResult<TopicListDto>>
+            {
+                Success = true,
+                Message = "Lấy danh sách chủ đề thành công",
+                Data = pagedDtoResult
+            });
         }
+
+        // --- Các action khác (GetById, Create, Update, Delete) giữ nguyên ---
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse<TopicListDto>>> GetById(int id)
@@ -45,7 +69,7 @@ namespace DuAnThucTap_BE01.Controllers
             {
                 return NotFound(new ApiResponse<TopicListDto> { Success = false, Message = "Không tìm thấy chủ đề." });
             }
-            return Ok(new ApiResponse<TopicListDto> { Success = true, Data = MapToDto(topic) });
+            return Ok(new ApiResponse<TopicListDto> { Success = true, Message = "Lấy dữ liệu thành công", Data = MapToDto(topic) });
         }
 
         [HttpPost]
@@ -67,7 +91,6 @@ namespace DuAnThucTap_BE01.Controllers
             }
         }
 
-        // Tương tự cho Update và Delete
         [HttpPut("{id}")]
         public async Task<ActionResult<ApiResponse<TopicListDto>>> Update(int id, [FromBody] Topiclist topicList)
         {

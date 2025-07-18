@@ -1,8 +1,11 @@
 ﻿using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
-using DuAnThucTap_BE01.DTOs; // Thêm DTO
-using DuAnThucTap_BE01.Helpers; // Thêm ApiResponse
+using DuAnThucTap_BE01.DTOs;
+using DuAnThucTap_BE01.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -23,11 +26,11 @@ namespace DuAnThucTap_BE01.Controllers
             return new TeachingAssignmentDto
             {
                 Assignmentid = assignment.Assignmentid,
-                TeacherName = assignment.Teacher?.Fullname,       // Chỉ map tên
-                SubjectName = assignment.Subject?.Subjectname,     // Chỉ map tên
-                ClasstypeName = assignment.Classtype?.Classtypename, // Chỉ map tên
-                TopicName = assignment.Topic?.Topicname,         // Chỉ map tên
-                SchoolyearName = assignment.Schoolyear?.Schoolyearname, // Chỉ map tên
+                TeacherName = assignment.Teacher?.Fullname,
+                SubjectName = assignment.Subject?.Subjectname,
+                ClasstypeName = assignment.Classtype?.Classtypename,
+                TopicName = assignment.Topic?.Topicname,
+                SchoolyearName = assignment.Schoolyear?.Schoolyearname,
                 Teachingstartdate = assignment.Teachingstartdate,
                 Teachingenddate = assignment.Teachingenddate,
                 Notes = assignment.Notes
@@ -35,13 +38,37 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<IEnumerable<TeachingAssignmentDto>>>> GetAll()
+        public async Task<ActionResult<ApiResponse<PagedResult<TeachingAssignmentDto>>>> GetAll(
+            [FromQuery] string? searchTerm,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var assignments = await _service.GetAllAsync();
-            var dtos = assignments.Select(MapToDto);
-            return Ok(new ApiResponse<IEnumerable<TeachingAssignmentDto>> { Success = true, Message = "Lấy danh sách thành công", Data = dtos });
+            // Gọi service với các tham số phân trang và tìm kiếm
+            var pagedResult = await _service.GetAllAsync(searchTerm, pageNumber, pageSize);
+
+            // Chuyển đổi danh sách Items từ Entity sang DTO
+            var dtos = pagedResult.Items.Select(MapToDto).ToList();
+
+            // Tạo một PagedResult mới chứa danh sách DTO
+            var pagedDtoResult = new PagedResult<TeachingAssignmentDto>
+            {
+                Items = dtos,
+                PageNumber = pagedResult.PageNumber,
+                PageSize = pagedResult.PageSize,
+                TotalCount = pagedResult.TotalCount
+            };
+
+            // Trả về kết quả trong ApiResponse
+            return Ok(new ApiResponse<PagedResult<TeachingAssignmentDto>>
+            {
+                Success = true,
+                Message = "Lấy danh sách phân công thành công",
+                Data = pagedDtoResult
+            });
         }
 
+        // --- Các action khác (GetById, Create, Update, Delete) giữ nguyên ---
+        // (Tôi đã cập nhật GetById để nó cũng trả về đủ tên)
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse<TeachingAssignmentDto>>> GetById(int id)
         {
@@ -54,6 +81,7 @@ namespace DuAnThucTap_BE01.Controllers
             return Ok(new ApiResponse<TeachingAssignmentDto> { Success = true, Message = "Lấy dữ liệu thành công", Data = dto });
         }
 
+        // ... (Create, Update, Delete actions)
         [HttpPost]
         public async Task<ActionResult<ApiResponse<TeachingAssignmentDto>>> Create([FromBody] Teachingassignment teachingAssignment)
         {
@@ -66,8 +94,7 @@ namespace DuAnThucTap_BE01.Controllers
             try
             {
                 var created = await _service.CreateAsync(teachingAssignment);
-                // Lấy lại dữ liệu đầy đủ để có tên
-                var result = await _service.GetByIdAsync(created.Assignmentid);
+                var result = await _service.GetByIdAsync(created.Assignmentid); // Lấy lại dữ liệu đầy đủ
                 var dto = MapToDto(result);
                 return Ok(new ApiResponse<TeachingAssignmentDto> { Success = true, Message = "Thêm phân công thành công!", Data = dto });
             }
