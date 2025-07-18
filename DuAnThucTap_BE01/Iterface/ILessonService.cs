@@ -10,6 +10,7 @@ namespace DuAnThucTap_BE01.Interface
     {
         Task<PagedResponse<LessonDto>> GetAllLessonsAsync(int pageNumber, int pageSize, string? searchQuery);
         Task<LessonDto?> GetLessonByIdAsync(int id);
+        Task<LessonDto?> GetLessonByTitleAsync(string title);
         Task<Lesson> CreateLessonAsync(LessonRequestDto lessonDto);
         Task<Lesson?> UpdateLessonAsync(int id, LessonRequestDto lessonDto);
         Task<bool> DeleteLessonAsync(int id);

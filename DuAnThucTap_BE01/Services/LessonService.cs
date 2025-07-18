@@ -23,8 +23,8 @@ namespace DuAnThucTap_BE01.Services
         public async Task<PagedResponse<LessonDto>> GetAllLessonsAsync(int pageNumber, int pageSize, string? searchQuery)
         {
             var query = _context.Lessons
-                .Include(l => l.Course) // Nạp dữ liệu liên quan
-                .Include(l => l.Teacher) // Nạp dữ liệu liên quan
+                .Include(l => l.Course)
+                .Include(l => l.Teacher)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchQuery))
@@ -51,10 +51,8 @@ namespace DuAnThucTap_BE01.Services
                     ShareableLink = l.Shareablelink,
                     MeetingId = l.Meetingid,
                     CreatedAt = l.Createdat,
-                    CourseId = l.Courseid,
-                    CourseName = l.Course.Coursename, // Lấy tên từ bảng Course
-                    TeacherId = l.Teacherid,
-                    TeacherName = l.Teacher.Fullname // Lấy tên từ bảng Teacher
+                    CourseName = l.Course.Coursename,
+                    TeacherName = l.Teacher.Fullname
                 })
                 .ToListAsync();
 
@@ -80,9 +78,32 @@ namespace DuAnThucTap_BE01.Services
                     ShareableLink = l.Shareablelink,
                     MeetingId = l.Meetingid,
                     CreatedAt = l.Createdat,
-                    CourseId = l.Courseid,
                     CourseName = l.Course.Coursename,
-                    TeacherId = l.Teacherid,
+                    TeacherName = l.Teacher.Fullname
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<LessonDto?> GetLessonByTitleAsync(string title)
+        {
+            return await _context.Lessons
+                .Include(l => l.Course)
+                .Include(l => l.Teacher)
+                .Where(l => l.Title.ToLower() == title.ToLower())
+                .Select(l => new LessonDto
+                {
+                    LessonId = l.Lessonid,
+                    Title = l.Title,
+                    Description = l.Description,
+                    StartTime = l.Starttime,
+                    EndTime = l.Endtime,
+                    DurationInMinutes = l.Durationinminutes,
+                    IsRecordingEnabled = l.Isrecordingenabled,
+                    AllowStudentSharing = l.Allowstudentsharing,
+                    ShareableLink = l.Shareablelink,
+                    MeetingId = l.Meetingid,
+                    CreatedAt = l.Createdat,
+                    CourseName = l.Course.Coursename,
                     TeacherName = l.Teacher.Fullname
                 })
                 .FirstOrDefaultAsync();
@@ -120,7 +141,6 @@ namespace DuAnThucTap_BE01.Services
                 return null;
             }
 
-            // Ánh xạ các thuộc tính từ DTO sang model đã tồn tại
             existingLesson.Courseid = lessonDto.CourseId;
             existingLesson.Teacherid = lessonDto.TeacherId;
             existingLesson.Title = lessonDto.Title;
