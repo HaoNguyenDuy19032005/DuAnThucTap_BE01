@@ -1,16 +1,16 @@
-﻿using DuAnThucTap_BE01.Models;
-using System.Collections.Generic;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using System.Threading.Tasks;
-
 
 namespace DuAnThucTap_BE01.Interface
 {
     public interface IExamGraderService
     {
-        Task<IEnumerable<Examgrader>> GetAllAsync();
-        Task<Examgrader?> GetByIdAsync(int examGraderId);
-        Task<Examgrader> CreateAsync(Examgrader examGrader);
-        Task<Examgrader?> UpdateAsync(int examGraderId, Examgrader updatedExamGrader);
+        Task<PagedResponse<ExamGraderResponseDto>> GetPagedExamGradersAsync(string? searchQuery, int pageNumber, int pageSize);
+        Task<ExamGraderResponseDto?> GetByIdAsync(int examGraderId);
+        Task<Examgrader> CreateAsync(ExamGraderDto examGraderDto);
+        Task<Examgrader?> UpdateAsync(int examGraderId, ExamGraderDto updatedExamGraderDto);
         Task<bool> DeleteAsync(int examGraderId);
     }
 }

@@ -18,14 +18,20 @@ namespace DuAnThucTap_BE01.Models
         [Key]
         [Column("examid")]
         public int Examid { get; set; }
+
+        // Sửa các khóa ngoại từ int thành int? để chúng không còn là required
         [Column("schoolyearid")]
-        public int Schoolyearid { get; set; }
+        public int? Schoolyearid { get; set; } // <--- Sửa ở đây
+
         [Column("gradelevelid")]
-        public int Gradelevelid { get; set; }
+        public int? Gradelevelid { get; set; } // <--- Sửa ở đây
+
         [Column("semesterid")]
-        public int Semesterid { get; set; }
+        public int? Semesterid { get; set; } // <--- Sửa ở đây
+
         [Column("subjectid")]
-        public int Subjectid { get; set; }
+        public int? Subjectid { get; set; } // <--- Sửa ở đây
+
         [Column("examname")]
         [StringLength(255)]
         public string Examname { get; set; } = null!;
@@ -48,7 +54,7 @@ namespace DuAnThucTap_BE01.Models
         [ForeignKey("Gradelevelid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Gradelevel? Gradelevel { get; set; } 
+        public virtual Gradelevel? Gradelevel { get; set; }
 
         [ForeignKey("Graderassignmenttypeid")]
         [InverseProperty("Exams")]
@@ -58,12 +64,12 @@ namespace DuAnThucTap_BE01.Models
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Schoolyear? Schoolyear { get; set; } 
+        public virtual Schoolyear? Schoolyear { get; set; }
 
         [ForeignKey("Semesterid")]
         [InverseProperty("Exams")]
         [JsonIgnore]
-        public virtual Semester? Semester { get; set; } 
+        public virtual Semester? Semester { get; set; }
 
         [ForeignKey("Subjectid")]
         [InverseProperty("Exams")]
