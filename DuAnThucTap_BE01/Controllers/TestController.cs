@@ -1,6 +1,5 @@
 ﻿using DuAnThucTap_BE01.Dtos;
-using DuAnThucTap_BE01.Interface;
-using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -43,7 +42,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TestRequestDto testDto)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] TestRequestDto testDto)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace DuAnThucTap_BE01.Controllers
             try
             {
                 var created = await _service.CreateAsync(testDto);
-                var response = new ApiResponse<Test>((int)HttpStatusCode.Created, "Tạo bài kiểm tra thành công", created);
+                var response = new ApiResponse<TestDto>((int)HttpStatusCode.Created, "Tạo bài kiểm tra thành công", created);
                 return CreatedAtAction(nameof(Get), new { id = created.Testid }, response);
             }
             catch (Exception ex)
@@ -63,7 +63,8 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TestRequestDto testDto)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update(int id, [FromForm] TestRequestDto testDto)
         {
             if (!ModelState.IsValid)
             {
@@ -77,30 +78,7 @@ namespace DuAnThucTap_BE01.Controllers
                 {
                     return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy bài kiểm tra với ID = {id}", null));
                 }
-                return Ok(new ApiResponse<Test>((int)HttpStatusCode.OK, "Cập nhật bài kiểm tra thành công", updated));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
-            }
-        }
-
-        [HttpPost("{id}/attachment")]
-        public async Task<IActionResult> UploadAttachment(int id, IFormFile attachmentFile)
-        {
-            if (attachmentFile == null || attachmentFile.Length == 0)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Vui lòng chọn một file đính kèm.", null));
-            }
-
-            try
-            {
-                var newAttachmentUrl = await _service.UpdateAttachmentAsync(id, attachmentFile);
-                if (newAttachmentUrl == null)
-                {
-                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy bài kiểm tra với ID = {id}", null));
-                }
-                return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Cập nhật tệp đính kèm thành công", new { attachmentUrl = newAttachmentUrl }));
+                return Ok(new ApiResponse<TestDto>((int)HttpStatusCode.OK, "Cập nhật bài kiểm tra thành công", updated));
             }
             catch (Exception ex)
             {
@@ -126,4 +104,4 @@ namespace DuAnThucTap_BE01.Controllers
             }
         }
     }
-}
+}       

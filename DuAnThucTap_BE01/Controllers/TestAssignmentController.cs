@@ -1,55 +1,120 @@
-﻿    using DuAnThucTap_BE01.Interface; // Sửa "Iterface" thành "Interface" nếu cần
-    using DuAnThucTap_BE01.Models;
-using DuAnThucTap_BE01.Services;
+﻿using DuAnThucTap_BE01.Dtos;
+using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
+using System.Net;
+using System.Threading.Tasks;
 
-    namespace DuAnThucTap_BE01.Controllers
+namespace DuAnThucTap_BE01.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TestAssignmentController : ControllerBase
     {
-        [ApiController]
-        [Route("api/[controller]")]
-        public class TestAssignmentController : ControllerBase
+        private readonly ITestassignment _service;
+
+        public TestAssignmentController(ITestassignment service)
         {
-            private readonly ITestassignment _service;
+            _service = service;
+        }
 
-            public TestAssignmentController(ITestassignment service)
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] string? searchQuery, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
             {
-                _service = service;
+                var testAssignments = await _service.GetAllAsync(searchQuery, page, pageSize);
+                return Ok(new ApiResponse<IEnumerable<TestAssignmentDto>>((int)HttpStatusCode.OK, "Lấy danh sách phân công bài kiểm tra thành công", testAssignments));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var testAssignment = await _service.GetByIdAsync(id);
+            if (testAssignment == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy phân công bài kiểm tra với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<TestAssignmentDto>((int)HttpStatusCode.OK, "Lấy thông tin phân công bài kiểm tra thành công", testAssignment));
+        }
+
+        [HttpPost]
+        [Consumes("application/json")]
+        public async Task<IActionResult> Create([FromBody] TestAssignmentRequestDto testAssignment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            [HttpGet]
-            public async Task<IActionResult> GetAll()
-            {
-                var testAssignments = await _service.GetAllAsync();
-                return Ok(testAssignments);
-            }
-
-            [HttpGet("{id}")]
-            public async Task<IActionResult> Get(int id)
-            {
-                var testAssignment = await _service.GetByIdAsync(id);
-                return testAssignment == null ? NotFound() : Ok(testAssignment);
-            }
-
-            [HttpPost]
-            public async Task<IActionResult> Create([FromBody] Testassignment testAssignment)
+            try
             {
                 var created = await _service.CreateAsync(testAssignment);
-                return CreatedAtAction(nameof(Get), new { id = created.Assignmentid }, created);
+                return CreatedAtAction(nameof(Get), new { id = created.Assignmentid }, new ApiResponse<TestAssignmentDto>((int)HttpStatusCode.Created, "Tạo phân công bài kiểm tra thành công", created));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
+            }
+        }
+
+        [HttpPut("{id}")]
+        [Consumes("application/json")]
+        public async Task<IActionResult> Update(int id, [FromBody] TestAssignmentRequestDto testAssignment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            [HttpPut("{id}")]
-            public async Task<IActionResult> Update(int id, [FromBody] Testassignment testAssignment)
+            try
             {
                 var updated = await _service.UpdateAsync(id, testAssignment);
-                return updated == null ? NotFound() : Ok(updated);
+                if (updated == null)
+                {
+                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy phân công bài kiểm tra với ID = {id}", null));
+                }
+                return Ok(new ApiResponse<TestAssignmentDto>((int)HttpStatusCode.OK, "Cập nhật phân công bài kiểm tra thành công", updated));
             }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
+            }
+        }
 
-            [HttpDelete("{id}")]
-            public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
             {
                 var deleted = await _service.DeleteAsync(id);
-                return deleted ? Ok() : NotFound();
+                if (!deleted)
+                {
+                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy phân công bài kiểm tra với ID = {id}", null));
+                }
+                return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Xóa phân công bài kiểm tra thành công", null));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
             }
         }
     }
+}

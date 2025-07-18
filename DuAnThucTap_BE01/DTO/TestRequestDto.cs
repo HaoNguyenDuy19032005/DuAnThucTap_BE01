@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace DuAnThucTap_BE01.Dtos
 {
@@ -36,10 +37,14 @@ namespace DuAnThucTap_BE01.Dtos
         [Range(1, int.MaxValue, ErrorMessage = "ID Giáo viên không hợp lệ.")]
         public int Teacherid { get; set; }
 
+        // Thêm trường để nhận file đính kèm
+        public IFormFile? AttachmentFile { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Starttime.HasValue && Endtime.HasValue)
             {
+                // Kiểm tra Starttime < Endtime
                 if (Starttime.Value >= Endtime.Value)
                 {
                     yield return new ValidationResult(
@@ -48,11 +53,48 @@ namespace DuAnThucTap_BE01.Dtos
                     );
                 }
 
+                // Kiểm tra Starttime không ở quá khứ
                 if (Starttime.Value < DateTime.UtcNow)
                 {
                     yield return new ValidationResult(
                         "Thời gian bắt đầu không được ở quá khứ.",
                         new[] { nameof(Starttime) }
+                    );
+                }
+
+                // Kiểm tra Durationinminutes khớp với khoảng thời gian từ Starttime đến Endtime
+                if (Durationinminutes.HasValue)
+                {
+                    var duration = (Endtime.Value - Starttime.Value).TotalMinutes;
+                    if (Math.Abs(duration - Durationinminutes.Value) > 0.5) // Cho phép sai số 0.5 phút
+                    {
+                        yield return new ValidationResult(
+                            "Khoảng thời gian từ Starttime đến Endtime phải bằng Durationinminutes.",
+                            new[] { nameof(Durationinminutes), nameof(Starttime), nameof(Endtime) }
+                        );
+                    }
+                }
+            }
+
+            // Kiểm tra định dạng file nếu có file đính kèm
+            if (AttachmentFile != null)
+            {
+                var allowedExtensions = new[] { ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".jpeg" };
+                var extension = Path.GetExtension(AttachmentFile.FileName).ToLower();
+                if (!allowedExtensions.Contains(extension))
+                {
+                    yield return new ValidationResult(
+                        "Chỉ chấp nhận các định dạng file: doc, docx, ppt, pptx, xls, xlsx, jpeg.",
+                        new[] { nameof(AttachmentFile) }
+                    );
+                }
+
+                // Kiểm tra kích thước file (50MB = 50 * 1024 * 1024 bytes)
+                if (AttachmentFile.Length > 50 * 1024 * 1024)
+                {
+                    yield return new ValidationResult(
+                        "Kích thước file không được vượt quá 50MB.",
+                        new[] { nameof(AttachmentFile) }
                     );
                 }
             }

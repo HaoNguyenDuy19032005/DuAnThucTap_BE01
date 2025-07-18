@@ -45,10 +45,10 @@ namespace DuAnThucTap_BE01.Services
             {
                 searchQuery = searchQuery.ToLower();
                 query = query.Where(t => t.Title.ToLower().Contains(searchQuery) ||
-                                         t.TeacherName.ToLower().Contains(searchQuery));
+                                         (t.TeacherName != null && t.TeacherName.ToLower().Contains(searchQuery)));
             }
 
-            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+            query = query.OrderBy(t => t.Testid).Skip((page - 1) * pageSize).Take(pageSize);
             return await query.ToListAsync();
         }
 
@@ -74,12 +74,18 @@ namespace DuAnThucTap_BE01.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Test> CreateAsync(TestRequestDto testDto)
+        public async Task<TestDto> CreateAsync(TestRequestDto testDto)
         {
             var teacher = await _context.Teachers.FindAsync(testDto.Teacherid);
             if (teacher == null)
             {
                 throw new ArgumentException("Giáo viên không tồn tại.");
+            }
+
+            string? attachmentUrl = null;
+            if (testDto.AttachmentFile != null && testDto.AttachmentFile.Length > 0)
+            {
+                attachmentUrl = await _firebaseStorage.UploadFileAsync(testDto.AttachmentFile, "test_attachments/");
             }
 
             var test = new Test
@@ -87,20 +93,35 @@ namespace DuAnThucTap_BE01.Services
                 Title = testDto.Title,
                 Testformat = testDto.Testformat,
                 Durationinminutes = testDto.Durationinminutes,
-                Starttime = testDto.Starttime,
-                Endtime = testDto.Endtime,
+                Starttime = testDto.Starttime.HasValue ? DateTime.SpecifyKind(testDto.Starttime.Value, DateTimeKind.Utc) : null,
+                Endtime = testDto.Endtime.HasValue ? DateTime.SpecifyKind(testDto.Endtime.Value, DateTimeKind.Utc) : null,
                 Description = testDto.Description,
                 Classification = testDto.Classification,
                 Requirestudentattachment = testDto.Requirestudentattachment,
-                Teacherid = testDto.Teacherid
+                Teacherid = testDto.Teacherid,
+                Attachmenturl = attachmentUrl
             };
 
             _context.Tests.Add(test);
             await _context.SaveChangesAsync();
-            return test;
+
+            return new TestDto
+            {
+                Testid = test.Testid,
+                Title = test.Title,
+                Testformat = test.Testformat,
+                Durationinminutes = test.Durationinminutes,
+                Starttime = test.Starttime,
+                Endtime = test.Endtime,
+                Description = test.Description,
+                Classification = test.Classification,
+                Attachmenturl = test.Attachmenturl,
+                Requirestudentattachment = test.Requirestudentattachment,
+                TeacherName = teacher.Fullname
+            };
         }
 
-        public async Task<Test?> UpdateAsync(int id, TestRequestDto testDto)
+        public async Task<TestDto?> UpdateAsync(int id, TestRequestDto testDto)
         {
             var existing = await _context.Tests.FindAsync(id);
             if (existing == null)
@@ -114,46 +135,37 @@ namespace DuAnThucTap_BE01.Services
                 throw new ArgumentException("Giáo viên không tồn tại.");
             }
 
+            if (testDto.AttachmentFile != null && testDto.AttachmentFile.Length > 0)
+            {
+                existing.Attachmenturl = await _firebaseStorage.UploadFileAsync(testDto.AttachmentFile, "test_attachments/");
+            }
+
             existing.Title = testDto.Title;
             existing.Testformat = testDto.Testformat;
             existing.Durationinminutes = testDto.Durationinminutes;
-            existing.Starttime = testDto.Starttime;
-            existing.Endtime = testDto.Endtime;
+            existing.Starttime = testDto.Starttime.HasValue ? DateTime.SpecifyKind(testDto.Starttime.Value, DateTimeKind.Utc) : null;
+            existing.Endtime = testDto.Endtime.HasValue ? DateTime.SpecifyKind(testDto.Endtime.Value, DateTimeKind.Utc) : null;
             existing.Description = testDto.Description;
             existing.Classification = testDto.Classification;
             existing.Requirestudentattachment = testDto.Requirestudentattachment;
             existing.Teacherid = testDto.Teacherid;
 
             await _context.SaveChangesAsync();
-            return existing;
-        }
 
-        public async Task<string?> UpdateAttachmentAsync(int id, IFormFile attachmentFile)
-        {
-            var existing = await _context.Tests.FindAsync(id);
-            if (existing == null)
+            return new TestDto
             {
-                return null;
-            }
-
-            // Kiểm tra định dạng file
-            var allowedExtensions = new[] { ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".jpeg" };
-            var extension = Path.GetExtension(attachmentFile.FileName).ToLower();
-            if (!allowedExtensions.Contains(extension))
-            {
-                throw new ArgumentException("Chỉ chấp nhận các định dạng file: doc, docx, ppt, pptx, xls, xlsx, jpeg.");
-            }
-
-            // Kiểm tra kích thước file (50MB = 50 * 1024 * 1024 bytes)
-            if (attachmentFile.Length > 50 * 1024 * 1024)
-            {
-                throw new ArgumentException("Kích thước file không được vượt quá 50MB.");
-            }
-
-            // Upload file lên Firebase
-            existing.Attachmenturl = await _firebaseStorage.UploadFileAsync(attachmentFile, "test_attachments/");
-            await _context.SaveChangesAsync();
-            return existing.Attachmenturl;
+                Testid = existing.Testid,
+                Title = existing.Title,
+                Testformat = existing.Testformat,
+                Durationinminutes = existing.Durationinminutes,
+                Starttime = existing.Starttime,
+                Endtime = existing.Endtime,
+                Description = existing.Description,
+                Classification = existing.Classification,
+                Attachmenturl = existing.Attachmenturl,
+                Requirestudentattachment = existing.Requirestudentattachment,
+                TeacherName = teacher.Fullname
+            };
         }
 
         public async Task<bool> DeleteAsync(int id)

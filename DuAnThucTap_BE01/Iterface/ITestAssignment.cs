@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using DuAnThucTap_BE01.Dtos;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using DuAnThucTap_BE01.Models;
 
-namespace DuAnThucTap_BE01.Services
+namespace DuAnThucTap_BE01.Interface
 {
     public interface ITestassignment
     {
-        Task<IEnumerable<Testassignment>> GetAllAsync();
-        Task<Testassignment?> GetByIdAsync(int id);
-        Task<Testassignment> CreateAsync(Testassignment testassignment);
-        Task<Testassignment?> UpdateAsync(int id, Testassignment testassignment);
+        Task<IEnumerable<TestAssignmentDto>> GetAllAsync(string? searchQuery, int page, int pageSize);
+        Task<TestAssignmentDto?> GetByIdAsync(int id);
+        Task<TestAssignmentDto> CreateAsync(TestAssignmentRequestDto testassignment);
+        Task<TestAssignmentDto?> UpdateAsync(int id, TestAssignmentRequestDto testassignment);
         Task<bool> DeleteAsync(int id);
     }
 }

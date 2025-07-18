@@ -1,18 +1,15 @@
 ﻿using DuAnThucTap_BE01.Dtos;
-using DuAnThucTap_BE01.Models;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DuAnThucTap_BE01.Interface
+namespace DuAnThucTap_BE01.Iterface
 {
     public interface ITests
     {
         Task<IEnumerable<TestDto>> GetAllAsync(string? searchQuery, int page, int pageSize);
         Task<TestDto?> GetByIdAsync(int id);
-        Task<Test> CreateAsync(TestRequestDto testDto);
-        Task<Test?> UpdateAsync(int id, TestRequestDto testDto);
-        Task<string?> UpdateAttachmentAsync(int id, IFormFile attachmentFile);
+        Task<TestDto> CreateAsync(TestRequestDto testDto);
+        Task<TestDto?> UpdateAsync(int id, TestRequestDto testDto);
         Task<bool> DeleteAsync(int id);
     }
 }

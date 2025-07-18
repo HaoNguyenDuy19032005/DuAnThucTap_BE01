@@ -5,6 +5,7 @@ using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System.Globalization;
 
 var cultureInfo = new CultureInfo("en-US");
@@ -28,8 +29,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.Converters.Add(new NewtonsoftDateOnlyConverter());
+    // Bỏ qua vòng lặp tham chiếu
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
-
 
 builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -60,8 +62,8 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<FileUploadOperationFilter>();
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
 });
-var app = builder.Build();
 
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
