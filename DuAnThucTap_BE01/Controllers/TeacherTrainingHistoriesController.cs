@@ -35,38 +35,39 @@ namespace DuAnThucTap_BE01.Controllers
             return Ok(new ApiResponse<TeacherTrainingHistoryDto>((int)HttpStatusCode.OK, "Lấy dữ liệu thành công", data));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
-        {
-            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations trong TeacherTrainingHistoryRequestDto
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Create([FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
+        //{
+        //    // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations trong TeacherTrainingHistoryRequestDto
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+        //    }
 
-            var created = await _service.CreateAsync(historyDto); // Gọi service với DTO request
-            var response = new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.Created, "Tạo mới thành công", created);
-            return CreatedAtAction(nameof(GetById), new { id = created.Trainingid }, response);
-        }
+        //    var created = await _service.CreateAsync(historyDto); // Gọi service với DTO request
+        //    var response = new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.Created, "Tạo mới thành công", created);
+        //    return CreatedAtAction(nameof(GetById), new { id = created.Trainingid }, response);
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
-        {
-            // Không cần kiểm tra id != history.Trainingid vì Trainingid không có trong Request DTO
-            // id sẽ được lấy từ URL.
+        //}
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Update(int id, [FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
+        //{
+        //    // Không cần kiểm tra id != history.Trainingid vì Trainingid không có trong Request DTO
+        //    // id sẽ được lấy từ URL.
 
-            var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
-            if (result == null)
-            {
-                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử đào tạo với ID = {id}", null));
-            }
-            return Ok(new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
-        }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+        //    }
+
+        //    var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
+        //    if (result == null)
+        //    {
+        //        return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử đào tạo với ID = {id}", null));
+        //    }
+        //    return Ok(new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+        //}
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
