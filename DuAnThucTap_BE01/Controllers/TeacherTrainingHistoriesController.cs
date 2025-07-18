@@ -4,6 +4,7 @@ using DuAnThucTap_BE01.Models;
 using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -12,16 +13,21 @@ namespace DuAnThucTap_BE01.Controllers
     public class TeacherTrainingHistoriesController : ControllerBase
     {
         private readonly ITeacherTrainingHistoryService _service;
+
         public TeacherTrainingHistoriesController(ITeacherTrainingHistoryService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var data = await _service.GetAllAsync();
-            return Ok(new ApiResponse<IEnumerable<TeacherTrainingHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data));
+            var data = await _service.GetAllAsync(searchQuery, pageNumber, pageSize);
+            var response = new ApiResponse<PagedResponse<TeacherTrainingHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -35,39 +41,52 @@ namespace DuAnThucTap_BE01.Controllers
             return Ok(new ApiResponse<TeacherTrainingHistoryDto>((int)HttpStatusCode.OK, "Lấy dữ liệu thành công", data));
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create([FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
-        //{
-        //    // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations trong TeacherTrainingHistoryRequestDto
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
-        //    }
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create(
+            [FromForm] TeacherTrainingHistoryRequestDto historyDto,
+            [FromForm] IFormFile? file)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
 
-        //    var created = await _service.CreateAsync(historyDto); // Gọi service với DTO request
-        //    var response = new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.Created, "Tạo mới thành công", created);
-        //    return CreatedAtAction(nameof(GetById), new { id = created.Trainingid }, response);
+            if (file != null && file.Length > 5 * 1024 * 1024)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Kích thước tệp không được vượt quá 5MB", null));
+            }
 
-        //}
+            var created = await _service.CreateAsync(historyDto, file);
+            var response = new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.Created, "Tạo mới thành công", created);
+            return CreatedAtAction(nameof(GetById), new { id = created.Trainingid }, response);
+        }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, [FromBody] TeacherTrainingHistoryRequestDto historyDto) // Thay đổi tham số
-        //{
-        //    // Không cần kiểm tra id != history.Trainingid vì Trainingid không có trong Request DTO
-        //    // id sẽ được lấy từ URL.
+        // Sửa lại Update để nhận multipart/form-data
+        [HttpPut("{id}")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update(
+            int id,
+            [FromForm] TeacherTrainingHistoryRequestDto historyDto,
+            [FromForm] IFormFile? file)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
-        //    }
+            if (file != null && file.Length > 5 * 1024 * 1024)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Kích thước tệp không được vượt quá 5MB", null));
+            }
 
-        //    var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
-        //    if (result == null)
-        //    {
-        //        return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử đào tạo với ID = {id}", null));
-        //    }
-        //    return Ok(new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
-        //}
+            var result = await _service.UpdateAsync(id, historyDto, file);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử đào tạo với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<Teachertraininghistory>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

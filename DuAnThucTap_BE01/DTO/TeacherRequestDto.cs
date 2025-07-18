@@ -9,8 +9,8 @@ namespace DuAnThucTap_BE01.Dtos
         [Required(ErrorMessage = "Họ và tên không được để trống.")]
         [StringLength(150, MinimumLength = 2, ErrorMessage = "Họ và tên phải có độ dài từ 2 đến 150 ký tự.")]
         public string Fullname { get; set; } = null!;
-        [DataType(DataType.Date)]
-        public DateOnly? Dateofbirth { get; set; }
+
+        public string? Dateofbirth { get; set; }
 
         [Required(ErrorMessage = "Giới tính không được để trống.")]
         [StringLength(10, ErrorMessage = "Giới tính không được vượt quá 10 ký tự.")]
@@ -19,7 +19,7 @@ namespace DuAnThucTap_BE01.Dtos
         [StringLength(50, ErrorMessage = "Dân tộc không được vượt quá 50 ký tự.")]
         public string? Ethnicity { get; set; }
 
-        public DateOnly? Hiredate { get; set; }
+        public string? Hiredate { get; set; }
 
         [StringLength(100, ErrorMessage = "Quốc tịch không được vượt quá 100 ký tự.")]
         public string? Nationality { get; set; }
@@ -59,11 +59,10 @@ namespace DuAnThucTap_BE01.Dtos
         [StringLength(20, ErrorMessage = "Số điện thoại không được vượt quá 20 ký tự.")]
         public string? Phonenumber { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateOnly? Dateofjoiningtheparty { get; set; }
+        public string? Dateofjoiningtheparty { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateOnly? Dateofjoininggroup { get; set; }
+        public string? Dateofjoininggroup { get; set; }
+
         public bool? Ispartymember { get; set; }
 
         [Required(ErrorMessage = "Khoa/Bộ môn không được để trống.")]
@@ -78,41 +77,38 @@ namespace DuAnThucTap_BE01.Dtos
         [Range(1, int.MaxValue, ErrorMessage = "ID Năm học không hợp lệ.")]
         public int? Schoolyearid { get; set; }
 
-        // Chuyển logic validation tuổi từ Model sang DTO
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Dateofbirth.HasValue)
+            if (!string.IsNullOrEmpty(Dateofbirth))
             {
-                var today = DateOnly.FromDateTime(DateTime.Today);
+                if (DateOnly.TryParse(Dateofbirth, out DateOnly parsedDateOfBirth))
+                {
+                    var today = DateOnly.FromDateTime(DateTime.Today);
+                    if (parsedDateOfBirth > today)
+                    {
+                        yield return new ValidationResult("Ngày sinh không thể ở tương lai.", new[] { nameof(Dateofbirth) });
+                    }
+                    else
+                    {
+                        var age = today.Year - parsedDateOfBirth.Year;
+                        if (parsedDateOfBirth > today.AddYears(-age))
+                        {
+                            age--;
+                        }
 
-                if (Dateofbirth.Value > today)
-                {
-                    yield return new ValidationResult(
-                        "Ngày sinh không thể ở tương lai.",
-                        new[] { nameof(Dateofbirth) }
-                    );
-                    yield break; // Dừng validation nếu ngày sinh không hợp lệ
+                        if (age < 22)
+                        {
+                            yield return new ValidationResult("Giáo viên phải từ 22 tuổi trở lên.", new[] { nameof(Dateofbirth) });
+                        }
+                        else if (age > 70)
+                        {
+                            yield return new ValidationResult("Tuổi giáo viên không được quá 70 tuổi.", new[] { nameof(Dateofbirth) });
+                        }
+                    }
                 }
-
-                var age = today.Year - Dateofbirth.Value.Year;
-                if (Dateofbirth.Value > today.AddYears(-age))
+                else
                 {
-                    age--;
-                }
-
-                if (age < 22)
-                {
-                    yield return new ValidationResult(
-                        "Giáo viên phải từ 22 tuổi trở lên.",
-                        new[] { nameof(Dateofbirth) }
-                    );
-                }
-                else if (age > 70)
-                {
-                    yield return new ValidationResult(
-                        "Tuổi giáo viên không được quá 70 tuổi.",
-                        new[] { nameof(Dateofbirth) }
-                    );
+                    yield return new ValidationResult("Định dạng Ngày sinh không hợp lệ, vui lòng nhập theo dạng yyyy-MM-dd.", new[] { nameof(Dateofbirth) });
                 }
             }
         }
