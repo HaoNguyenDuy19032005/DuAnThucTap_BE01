@@ -18,11 +18,16 @@ namespace DuAnThucTap_BE01.Models
         [Key]
         [Column("topicid")]
         public int Topicid { get; set; }
+
         [Column("topicname")]
         [StringLength(255)]
+        // Thêm [Required] để đảm bảo dữ liệu đầu vào luôn có tên chủ đề
+        [Required(ErrorMessage = "Tên chủ đề không được để trống")]
         public string Topicname { get; set; } = null!;
+
         [Column("description")]
         public string? Description { get; set; }
+
         [Column("teachingenddate")]
         public DateOnly? Teachingenddate { get; set; }
 
