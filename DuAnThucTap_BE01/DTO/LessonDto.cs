@@ -40,15 +40,9 @@ namespace DuAnThucTap_BE01.Dtos
         [DisplayName("Ngày tạo")]
         public DateTime? CreatedAt { get; set; }
 
-        // --- Dữ liệu từ các bảng liên quan ---
-        [DisplayName("ID Khóa học")]
-        public int CourseId { get; set; }
-
+        // --- Dữ liệu từ các bảng liên quan (chỉ hiển thị tên) ---
         [DisplayName("Tên khóa học")]
         public string? CourseName { get; set; }
-
-        [DisplayName("ID Giáo viên")]
-        public int TeacherId { get; set; }
 
         [DisplayName("Tên giáo viên")]
         public string? TeacherName { get; set; }

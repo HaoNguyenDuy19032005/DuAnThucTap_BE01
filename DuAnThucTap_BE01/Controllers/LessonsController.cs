@@ -42,6 +42,17 @@ namespace DuAnThucTap_BE01.Controllers
             return Ok(new ApiResponse<LessonDto>((int)HttpStatusCode.OK, "Lấy thông tin buổi học thành công", lesson));
         }
 
+        [HttpGet("by-title/{title}")]
+        public async Task<IActionResult> GetLessonByTitle(string title)
+        {
+            var lesson = await _lessonService.GetLessonByTitleAsync(title);
+            if (lesson == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy buổi học với tiêu đề: '{title}'", null));
+            }
+            return Ok(new ApiResponse<LessonDto>((int)HttpStatusCode.OK, "Lấy thông tin buổi học thành công", lesson));
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateLesson([FromBody] LessonRequestDto lessonDto)
         {
