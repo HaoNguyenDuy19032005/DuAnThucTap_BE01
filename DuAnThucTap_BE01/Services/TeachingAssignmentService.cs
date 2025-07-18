@@ -2,8 +2,6 @@
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Services
 {
@@ -16,29 +14,53 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
+        // Helper để thêm các .Include()
+        private IQueryable<Teachingassignment> GetQueryWithIncludes()
+        {
+            return _context.Teachingassignments
+                .Include(t => t.Teacher)
+                .Include(t => t.Subject)
+                .Include(t => t.Schoolyear)
+                .Include(t => t.Classtype)
+                .Include(t => t.Topic);
+        }
+
         public async Task<IEnumerable<Teachingassignment>> GetAllAsync()
         {
-            return await _context.Teachingassignments.ToListAsync();
+            // Sử dụng helper
+            return await GetQueryWithIncludes().ToListAsync();
         }
 
         public async Task<Teachingassignment?> GetByIdAsync(int id)
         {
-            return await _context.Teachingassignments.FindAsync(id);
+            // Sử dụng helper
+            return await GetQueryWithIncludes()
+                         .FirstOrDefaultAsync(t => t.Assignmentid == id);
+        }
+
+        private async Task ValidateForeignKeysAsync(Teachingassignment assignment)
+        {
+            if (!await _context.Teachers.AnyAsync(t => t.Teacherid == assignment.Teacherid))
+                throw new ArgumentException("Mã giáo viên không tồn tại.");
+            if (!await _context.Subjects.AnyAsync(s => s.Subjectid == assignment.Subjectid))
+                throw new ArgumentException("Mã môn học không tồn tại.");
+            if (!await _context.Schoolyears.AnyAsync(sy => sy.Schoolyearid == assignment.Schoolyearid))
+                throw new ArgumentException("Mã năm học không tồn tại.");
+            if (assignment.Classtypeid.HasValue && !await _context.Classtypes.AnyAsync(ct => ct.Classtypeid == assignment.Classtypeid))
+                throw new ArgumentException("Mã loại lớp không tồn tại.");
+            if (assignment.Topicid.HasValue && !await _context.Topiclists.AnyAsync(t => t.Topicid == assignment.Topicid))
+                throw new ArgumentException("Mã chủ đề không tồn tại.");
         }
 
         public async Task<Teachingassignment> CreateAsync(Teachingassignment teachingAssignment)
         {
-            // Kiểm tra khóa ngoại
-            if (!await _context.Teachers.AnyAsync(t => t.Teacherid == teachingAssignment.Teacherid))
-                throw new ArgumentException("Teacherid không tồn tại.");
-            if (!await _context.Subjects.AnyAsync(s => s.Subjectid == teachingAssignment.Subjectid))
-                throw new ArgumentException("Subjectid không tồn tại.");
-            if (!await _context.Schoolyears.AnyAsync(sy => sy.Schoolyearid == teachingAssignment.Schoolyearid))
-                throw new ArgumentException("Schoolyearid không tồn tại.");
-            if (teachingAssignment.Classtypeid.HasValue && !await _context.Classtypes.AnyAsync(ct => ct.Classtypeid == teachingAssignment.Classtypeid))
-                throw new ArgumentException("Classtypeid không tồn tại.");
-            if (teachingAssignment.Topicid.HasValue && !await _context.Topiclists.AnyAsync(t => t.Topicid == teachingAssignment.Topicid))
-                throw new ArgumentException("Topicid không tồn tại.");
+            // Bắt lỗi ngày
+            if (teachingAssignment.Teachingstartdate.HasValue && teachingAssignment.Teachingenddate.HasValue && teachingAssignment.Teachingenddate < teachingAssignment.Teachingstartdate)
+            {
+                throw new ArgumentException("Ngày kết thúc không được nhỏ hơn ngày bắt đầu.");
+            }
+
+            await ValidateForeignKeysAsync(teachingAssignment);
 
             _context.Teachingassignments.Add(teachingAssignment);
             await _context.SaveChangesAsync();
@@ -50,31 +72,22 @@ namespace DuAnThucTap_BE01.Services
             var existing = await _context.Teachingassignments.FindAsync(id);
             if (existing == null) return null;
 
-            // Kiểm tra khóa ngoại
-            if (!await _context.Teachers.AnyAsync(t => t.Teacherid == updatedAssignment.Teacherid))
-                throw new ArgumentException("Teacherid không tồn tại.");
-            if (!await _context.Subjects.AnyAsync(s => s.Subjectid == updatedAssignment.Subjectid))
-                throw new ArgumentException("Subjectid không tồn tại.");
-            if (!await _context.Schoolyears.AnyAsync(sy => sy.Schoolyearid == updatedAssignment.Schoolyearid))
-                throw new ArgumentException("Schoolyearid không tồn tại.");
-            if (updatedAssignment.Classtypeid.HasValue && !await _context.Classtypes.AnyAsync(ct => ct.Classtypeid == updatedAssignment.Classtypeid))
-                throw new ArgumentException("Classtypeid không tồn tại.");
-            if (updatedAssignment.Topicid.HasValue && !await _context.Topiclists.AnyAsync(t => t.Topicid == updatedAssignment.Topicid))
-                throw new ArgumentException("Topicid không tồn tại.");
+            // Bắt lỗi ngày
+            if (updatedAssignment.Teachingstartdate.HasValue && updatedAssignment.Teachingenddate.HasValue && updatedAssignment.Teachingenddate < updatedAssignment.Teachingstartdate)
+            {
+                throw new ArgumentException("Ngày kết thúc không được nhỏ hơn ngày bắt đầu.");
+            }
 
-            existing.Teacherid = updatedAssignment.Teacherid;
-            existing.Subjectid = updatedAssignment.Subjectid;
-            existing.Classtypeid = updatedAssignment.Classtypeid;
-            existing.Topicid = updatedAssignment.Topicid;
-            existing.Schoolyearid = updatedAssignment.Schoolyearid;
-            existing.Teachingstartdate = updatedAssignment.Teachingstartdate;
-            existing.Teachingenddate = updatedAssignment.Teachingenddate;
-            existing.Notes = updatedAssignment.Notes;
+            await ValidateForeignKeysAsync(updatedAssignment);
+
+            // Cập nhật các trường
+            _context.Entry(existing).CurrentValues.SetValues(updatedAssignment);
 
             await _context.SaveChangesAsync();
             return existing;
         }
 
+        // DeleteAsync giữ nguyên
         public async Task<bool> DeleteAsync(int id)
         {
             var assignment = await _context.Teachingassignments.FindAsync(id);
