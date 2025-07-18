@@ -49,16 +49,18 @@ namespace DuAnThucTap_BE01.Controllers
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            // --- SỬA LỖI: Thêm try-catch để xử lý lỗi trùng lặp ---
             try
             {
                 var created = await _service.CreateAsync(examGraderDto);
-                var response = new ApiResponse<Examgrader>((int)HttpStatusCode.Created, "Tạo người chấm thi thành công", created);
+
+                // --- SỬA LỖI: Lấy lại thông tin chi tiết để trả về ---
+                var resultDto = await _service.GetByIdAsync(created.Examgraderid);
+
+                var response = new ApiResponse<ExamGraderResponseDto>((int)HttpStatusCode.Created, "Tạo người chấm thi thành công", resultDto);
                 return CreatedAtAction(nameof(GetById), new { id = created.Examgraderid }, response);
             }
             catch (InvalidOperationException ex)
             {
-                // Trả về lỗi 400 với thông báo từ Service
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
             }
         }
@@ -71,7 +73,6 @@ namespace DuAnThucTap_BE01.Controllers
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
 
-            // --- SỬA LỖI: Thêm try-catch để xử lý lỗi trùng lặp ---
             try
             {
                 var result = await _service.UpdateAsync(id, examGraderDto);
@@ -79,11 +80,13 @@ namespace DuAnThucTap_BE01.Controllers
                 {
                     return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy người chấm thi với ID = {id}", null));
                 }
-                return Ok(new ApiResponse<Examgrader>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+
+                // --- SỬA LỖI: Lấy lại thông tin chi tiết để trả về ---
+                var resultDto = await _service.GetByIdAsync(id);
+                return Ok(new ApiResponse<ExamGraderResponseDto>((int)HttpStatusCode.OK, "Cập nhật thành công", resultDto));
             }
             catch (InvalidOperationException ex)
             {
-                // Trả về lỗi 400 với thông báo từ Service
                 return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
             }
         }

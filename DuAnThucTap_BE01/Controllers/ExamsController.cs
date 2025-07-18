@@ -20,7 +20,6 @@ namespace DuAnThucTap_BE01.Controllers
             _service = service;
         }
 
-        // THAY ĐỔI: Nhận các tham số riêng lẻ
         [HttpGet]
         public async Task<IActionResult> GetPagedExams(
             [FromQuery] string? searchQuery,
@@ -64,7 +63,12 @@ namespace DuAnThucTap_BE01.Controllers
             };
 
             var created = await _service.CreateAsync(exam);
-            var response = new ApiResponse<Exam>((int)HttpStatusCode.Created, "Tạo kỳ thi thành công", created);
+
+            // --- SỬA LỖI: Lấy lại thông tin chi tiết để trả về ---
+            // Sau khi tạo, gọi lại GetByIdAsync để lấy ExamResponseDto có đầy đủ tên
+            var resultDto = await _service.GetByIdAsync(created.Examid);
+
+            var response = new ApiResponse<ExamResponseDto>((int)HttpStatusCode.Created, "Tạo kỳ thi thành công", resultDto);
             return CreatedAtAction(nameof(GetById), new { id = created.Examid }, response);
         }
 
@@ -95,7 +99,10 @@ namespace DuAnThucTap_BE01.Controllers
             {
                 return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy kỳ thi với ID = {id}", null));
             }
-            return Ok(new ApiResponse<Exam>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+
+            // --- SỬA LỖI: Lấy lại thông tin chi tiết để trả về ---
+            var resultDto = await _service.GetByIdAsync(id);
+            return Ok(new ApiResponse<ExamResponseDto>((int)HttpStatusCode.OK, "Cập nhật thành công", resultDto));
         }
 
         [HttpDelete("{id}")]
