@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization; // Thêm dòng này
+using System.Text.Json.Serialization;
 
 namespace DuAnThucTap_BE01.Models
 {
     [Table("teacherworkstatushistory")]
+    // Đã bỏ IValidatableObject
     public partial class Teacherworkstatushistory
     {
         [Key]
@@ -18,7 +19,7 @@ namespace DuAnThucTap_BE01.Models
         public int Teacherid { get; set; }
 
         [Column("statustype")]
-        [StringLength(100)]
+        [StringLength(100)] // Giữ lại StringLength để khớp với database
         public string Statustype { get; set; } = null!;
 
         [Column("startdate")]
@@ -38,7 +39,8 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherworkstatushistories")]
-        [JsonIgnore] // <-- Thêm vào đây
+        [JsonIgnore]
         public virtual Teacher? Teacher { get; set; }
+
     }
 }

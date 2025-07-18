@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization; // Thêm dòng này
+using System.Text.Json.Serialization;
 
 namespace DuAnThucTap_BE01.Models
 {
     [Table("teacherworkhistory")]
+    // Đã bỏ IValidatableObject
     public partial class Teacherworkhistory
     {
         [Key]
@@ -27,7 +28,7 @@ namespace DuAnThucTap_BE01.Models
         public bool? Iscurrentschool { get; set; }
 
         [Column("positionheld")]
-        [StringLength(150)]
+        [StringLength(150)] // Giữ lại StringLength để khớp với database
         public string? Positionheld { get; set; }
 
         [Column("startdate")]
@@ -38,17 +39,19 @@ namespace DuAnThucTap_BE01.Models
 
         [ForeignKey("Departmentid")]
         [InverseProperty("Teacherworkhistories")]
-        [JsonIgnore] // <-- Thêm vào đây
+        [JsonIgnore]
         public virtual Department? Department { get; set; }
 
         [ForeignKey("Operationunitid")]
         [InverseProperty("Teacherworkhistories")]
-        [JsonIgnore] // <-- Thêm vào đây
+        [JsonIgnore]
         public virtual Operationunit? Operationunit { get; set; }
 
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherworkhistories")]
-        [JsonIgnore] // <-- Thêm vào đây
+        [JsonIgnore]
         public virtual Teacher? Teacher { get; set; }
+
+        // Đã xóa toàn bộ phương thức Validate()
     }
 }

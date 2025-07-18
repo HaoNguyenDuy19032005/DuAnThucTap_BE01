@@ -1,20 +1,20 @@
-﻿using DuAnThucTap_BE01.Models;
+﻿using DuAnThucTap_BE01.Dtos;
+using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
+using Microsoft.AspNetCore.Http;
 
 namespace DuAnThucTap_BE01.Interface
 {
     public interface ITeacherService
     {
-        Task<IEnumerable<Teacher>> GetAllAsync();
+        Task<PagedResponse<TeacherDto>> GetAllAsync(string? searchQuery, int pageNumber, int pageSize);
+        Task<TeacherDto?> GetByIdAsync(int id);
 
-        // Sửa Guid thành int
-        Task<Teacher?> GetByIdAsync(int id);
+        Task<Teacher> CreateAsync(TeacherRequestDto teacherDto, IFormFile? avatarFile);
 
-        Task<Teacher> CreateAsync(Teacher teacher);
+        Task<Teacher?> UpdateAsync(int id, TeacherRequestDto teacherDto, IFormFile? avatarFile);
 
-        // Sửa Guid thành int
-        Task<Teacher?> UpdateAsync(int id, Teacher teacher);
 
-        // Sửa Guid thành int
         Task<bool> DeleteAsync(int id);
     }
 }

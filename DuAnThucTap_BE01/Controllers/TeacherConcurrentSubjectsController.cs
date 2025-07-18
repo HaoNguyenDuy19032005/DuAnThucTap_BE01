@@ -1,6 +1,9 @@
-﻿using DuAnThucTap_BE01.Interface;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -15,48 +18,60 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacherconcurrentsubject>>> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            return Ok(await _service.GetAllAsync());
+            var data = await _service.GetAllAsync(searchQuery, pageNumber, pageSize);
+            var response = new ApiResponse<PagedResponse<TeacherConcurrentSubjectDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data);
+            return Ok(response);
         }
 
-        // Route cho khóa phức hợp
         [HttpGet("{teacherId}/{subjectId}/{schoolYearId}")]
-        // Sửa các tham số Guid thành int
-        public async Task<ActionResult<Teacherconcurrentsubject>> GetById(int teacherId, int subjectId, int schoolYearId)
+        public async Task<IActionResult> GetById(int teacherId, int subjectId, int schoolYearId)
         {
-            var item = await _service.GetByIdAsync(teacherId, subjectId, schoolYearId);
-            return item == null ? NotFound() : Ok(item);
+            var data = await _service.GetByIdAsync(teacherId, subjectId, schoolYearId);
+            if (data == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, "Không tìm thấy phân công này", null));
+            }
+            return Ok(new ApiResponse<TeacherConcurrentSubjectDto>((int)HttpStatusCode.OK, "Lấy dữ liệu thành công", data));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Teacherconcurrentsubject>> Create([FromBody] Teacherconcurrentsubject assignment)
+        public async Task<IActionResult> Create([FromBody] TeacherConcurrentSubjectRequestDto assignmentDto) // Thay đổi tham số
         {
-            try
+            // ModelState.IsValid sẽ tự động kiểm tra các Data Annotations trong TeacherConcurrentSubjectRequestDto
+            if (!ModelState.IsValid)
             {
-                var created = await _service.CreateAsync(assignment);
-                // Trả về route để GetById
-                return CreatedAtAction(nameof(GetById),
-                    new
-                    {
-                        teacherId = created.Teacherid,
-                        subjectId = created.Subjectid,
-                        schoolYearId = created.Schoolyearid
-                    }, created);
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
             }
-            catch (InvalidOperationException ex)
+
+            var result = await _service.CreateAsync(assignmentDto); // Gọi service với DTO request
+
+            if (!result.Succeeded)
             {
-                return Conflict(new { message = ex.Message });
+                // Lỗi trùng lặp hoặc các lỗi khác từ service
+                return Conflict(new ApiResponse<object>((int)HttpStatusCode.Conflict, result.ErrorMessage!, null));
             }
+
+            // Dùng CreatedAssignment từ kết quả của service để lấy khóa chính phức hợp
+            var response = new ApiResponse<Teacherconcurrentsubject>((int)HttpStatusCode.Created, "Tạo phân công thành công", result.CreatedAssignment);
+            return CreatedAtAction(nameof(GetById),
+                new { teacherId = result.CreatedAssignment!.Teacherid, subjectId = result.CreatedAssignment.Subjectid, schoolYearId = result.CreatedAssignment.Schoolyearid },
+                response);
         }
 
-        // Route cho khóa phức hợp
         [HttpDelete("{teacherId}/{subjectId}/{schoolYearId}")]
-        // Sửa các tham số Guid thành int
         public async Task<IActionResult> Delete(int teacherId, int subjectId, int schoolYearId)
         {
             var success = await _service.DeleteAsync(teacherId, subjectId, schoolYearId);
-            return !success ? NotFound() : NoContent();
+            if (!success)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, "Không tìm thấy phân công để xóa", null));
+            }
+            return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Xóa phân công thành công", null));
         }
     }
 }
