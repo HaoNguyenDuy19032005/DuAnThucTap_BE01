@@ -1,7 +1,10 @@
-﻿using DuAnThucTap_BE01.Interface;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Controllers
@@ -18,39 +21,78 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Examschedule>>> GetAll()
+        public async Task<IActionResult> GetPagedExamSchedules(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            return Ok(await _service.GetAllAsync());
+            var pagedResult = await _service.GetPagedExamSchedulesAsync(searchQuery, pageNumber, pageSize);
+            return Ok(new ApiResponse<PagedResponse<ExamScheduleResponseDto>>((int)HttpStatusCode.OK, "Lấy danh sách lịch thi thành công", pagedResult));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Examschedule>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var examSchedule = await _service.GetByIdAsync(id);
-            return examSchedule == null ? NotFound() : Ok(examSchedule);
+            if (examSchedule == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch thi với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<ExamScheduleResponseDto>((int)HttpStatusCode.OK, "Lấy thông tin lịch thi thành công", examSchedule));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Examschedule>> Create([FromBody] Examschedule examSchedule)
+        public async Task<IActionResult> Create([FromBody] ExamScheduleDto examScheduleDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            var created = await _service.CreateAsync(examSchedule);
-            return CreatedAtAction(nameof(GetById), new { id = created.Examscheduleid }, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+
+            try
+            {
+                var created = await _service.CreateAsync(examScheduleDto);
+                var response = new ApiResponse<Examschedule>((int)HttpStatusCode.Created, "Tạo lịch thi thành công", created);
+                return CreatedAtAction(nameof(GetById), new { id = created.Examscheduleid }, response);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Examschedule examSchedule)
+        public async Task<IActionResult> Update(int id, [FromBody] ExamScheduleDto examScheduleDto)
         {
-            if (id != examSchedule.Examscheduleid) return BadRequest("ID khong khop");
-            var result = await _service.UpdateAsync(id, examSchedule);
-            return result == null ? NotFound() : NoContent();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+
+            try
+            {
+                var result = await _service.UpdateAsync(id, examScheduleDto);
+                if (result == null)
+                {
+                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch thi với ID = {id}", null));
+                }
+                return Ok(new ApiResponse<Examschedule>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _service.DeleteAsync(id);
-            return !success ? NotFound() : NoContent();
+            if (!success)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch thi với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Xóa thành công", null));
         }
     }
 }

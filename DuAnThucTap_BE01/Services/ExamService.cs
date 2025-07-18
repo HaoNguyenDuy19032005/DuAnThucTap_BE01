@@ -1,7 +1,12 @@
 ﻿using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.DTO;
 using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Services
 {
@@ -14,37 +19,65 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
+        // THAY ĐỔI: Nhận các tham số riêng lẻ
+        public async Task<PagedResponse<ExamResponseDto>> GetPagedExamsAsync(string? searchQuery, int pageNumber, int pageSize)
+        {
+            var query = _context.Exams.AsNoTracking();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var searchTermLower = searchQuery.ToLower();
+                query = query.Where(e => e.Examname.ToLower().Contains(searchTermLower));
+            }
+
+            var totalRecords = await query.CountAsync();
+
+            var pagedData = await query
+                .OrderByDescending(e => e.Examdate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(e => new ExamResponseDto
+                {
+                    ExamId = e.Examid,
+                    ExamName = e.Examname,
+                    ExamDate = e.Examdate,
+                    DurationMinutes = e.Durationminutes,
+                    CreatedAt = e.Createdat,
+                    SchoolyearName = e.Schoolyear != null ? e.Schoolyear.Schoolyearname : null,
+                    GradelevelName = e.Gradelevel != null ? e.Gradelevel.Gradelevelname : null,
+                    SemesterName = e.Semester != null ? e.Semester.Semestername : null,
+                    SubjectName = e.Subject != null ? e.Subject.Subjectname : null
+                })
+                .ToListAsync();
+
+            return new PagedResponse<ExamResponseDto>(pagedData, pageNumber, pageSize, totalRecords);
+        }
+
+        public async Task<ExamResponseDto?> GetByIdAsync(int id)
+        {
+            return await _context.Exams
+                .Where(e => e.Examid == id)
+                .Select(e => new ExamResponseDto
+                {
+                    ExamId = e.Examid,
+                    ExamName = e.Examname,
+                    ExamDate = e.Examdate,
+                    DurationMinutes = e.Durationminutes,
+                    CreatedAt = e.Createdat,
+                    SchoolyearName = e.Schoolyear != null ? e.Schoolyear.Schoolyearname : null,
+                    GradelevelName = e.Gradelevel != null ? e.Gradelevel.Gradelevelname : null,
+                    SemesterName = e.Semester != null ? e.Semester.Semestername : null,
+                    SubjectName = e.Subject != null ? e.Subject.Subjectname : null
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Exam> CreateAsync(Exam exam)
         {
             exam.Createdat = DateTime.UtcNow;
             _context.Exams.Add(exam);
             await _context.SaveChangesAsync();
-            return await _context.Exams
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Examid == exam.Examid) ?? exam;
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var exam = await _context.Exams.FindAsync(id);
-            if (exam == null) return false;
-            _context.Exams.Remove(exam);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<IEnumerable<Exam>> GetAllAsync()
-        {
-            return await _context.Exams
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
-        public async Task<Exam?> GetByIdAsync(int id)
-        {
-            return await _context.Exams
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Examid == id);
+            return exam;
         }
 
         public async Task<Exam?> UpdateAsync(int id, Exam updatedExam)
@@ -63,9 +96,16 @@ namespace DuAnThucTap_BE01.Services
             existingExam.Graderassignmenttypeid = updatedExam.Graderassignmenttypeid;
 
             await _context.SaveChangesAsync();
-            return await _context.Exams
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Examid == id);
+            return existingExam;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var exam = await _context.Exams.FindAsync(id);
+            if (exam == null) return false;
+            _context.Exams.Remove(exam);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

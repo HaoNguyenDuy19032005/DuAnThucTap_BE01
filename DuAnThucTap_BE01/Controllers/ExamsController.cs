@@ -1,5 +1,10 @@
-﻿using DuAnThucTap_BE01.Interface;
+﻿using System.Net;
+using System.Threading.Tasks;
+using DuAnThucTap_BE01.Dto;
+using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DuAnThucTap_BE01.Controllers
@@ -15,40 +20,93 @@ namespace DuAnThucTap_BE01.Controllers
             _service = service;
         }
 
+        // THAY ĐỔI: Nhận các tham số riêng lẻ
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exam>>> GetAll()
+        public async Task<IActionResult> GetPagedExams(
+            [FromQuery] string? searchQuery,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            return Ok(await _service.GetAllAsync());
+            var pagedResult = await _service.GetPagedExamsAsync(searchQuery, pageNumber, pageSize);
+            return Ok(new ApiResponse<PagedResponse<ExamResponseDto>>((int)HttpStatusCode.OK, "Lấy danh sách kỳ thi thành công", pagedResult));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Exam>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var exam = await _service.GetByIdAsync(id);
-            return exam == null ? NotFound() : Ok(exam);
+            if (exam == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy kỳ thi với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<ExamResponseDto>((int)HttpStatusCode.OK, "Lấy thông tin kỳ thi thành công", exam));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Exam>> Create([FromBody] Exam exam)
+        public async Task<IActionResult> Create([FromBody] ExamDto examDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+
+            var exam = new Exam
+            {
+                Schoolyearid = examDto.Schoolyearid,
+                Gradelevelid = examDto.Gradelevelid,
+                Semesterid = examDto.Semesterid,
+                Subjectid = examDto.Subjectid,
+                Examname = examDto.Examname,
+                Examdate = examDto.Examdate,
+                Durationminutes = examDto.Durationminutes,
+                Classtypeid = examDto.Classtypeid,
+                Graderassignmenttypeid = examDto.Graderassignmenttypeid
+            };
+
             var created = await _service.CreateAsync(exam);
-            return CreatedAtAction(nameof(GetById), new { id = created.Examid }, created);
+            var response = new ApiResponse<Exam>((int)HttpStatusCode.Created, "Tạo kỳ thi thành công", created);
+            return CreatedAtAction(nameof(GetById), new { id = created.Examid }, response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Exam exam)
+        public async Task<IActionResult> Update(int id, [FromBody] ExamDto examDto)
         {
-            if (id != exam.Examid) return BadRequest("ID không khớp");
-            var result = await _service.UpdateAsync(id, exam);
-            return result == null ? NotFound() : NoContent();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+
+            var examToUpdate = new Exam
+            {
+                Examid = id,
+                Schoolyearid = examDto.Schoolyearid,
+                Gradelevelid = examDto.Gradelevelid,
+                Semesterid = examDto.Semesterid,
+                Subjectid = examDto.Subjectid,
+                Examname = examDto.Examname,
+                Examdate = examDto.Examdate,
+                Durationminutes = examDto.Durationminutes,
+                Classtypeid = examDto.Classtypeid,
+                Graderassignmenttypeid = examDto.Graderassignmenttypeid
+            };
+
+            var result = await _service.UpdateAsync(id, examToUpdate);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy kỳ thi với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<Exam>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _service.DeleteAsync(id);
-            return !success ? NotFound() : NoContent();
+            if (!success)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy kỳ thi với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Xóa thành công", null));
         }
     }
 }

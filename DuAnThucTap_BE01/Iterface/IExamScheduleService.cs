@@ -1,15 +1,16 @@
-﻿using DuAnThucTap_BE01.Models;
-using System.Collections.Generic;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Interface
 {
     public interface IExamScheduleService
     {
-        Task<IEnumerable<Examschedule>> GetAllAsync();
-        Task<Examschedule?> GetByIdAsync(int examScheduleId);
-        Task<Examschedule> CreateAsync(Examschedule examSchedule);
-        Task<Examschedule?> UpdateAsync(int examScheduleId, Examschedule updatedExamSchedule);
+        Task<PagedResponse<ExamScheduleResponseDto>> GetPagedExamSchedulesAsync(string? searchQuery, int pageNumber, int pageSize);
+        Task<ExamScheduleResponseDto?> GetByIdAsync(int examScheduleId);
+        Task<Examschedule> CreateAsync(ExamScheduleDto examScheduleDto);
+        Task<Examschedule?> UpdateAsync(int examScheduleId, ExamScheduleDto updatedExamScheduleDto);
         Task<bool> DeleteAsync(int examScheduleId);
     }
 }
