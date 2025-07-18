@@ -24,6 +24,12 @@ namespace DuAnThucTap.Data
         public virtual DbSet<Teachingassignment> Teachingassignments { get; set; } = null!;
         public virtual DbSet<Topiclist> Topiclists { get; set; } = null!;
         public virtual DbSet<Departmentleader> Departmentleaders { get; set; } = null!;
+        public DbSet<ClassSubject> ClassSubjects { get; set; }
+        public DbSet<Blockleader> Blockleaders { get; set; } = null!;
+        public DbSet<Campus> Campuses { get; set; } = null!;
+        public DbSet<Gradetype> Gradetypes { get; set; } = null!;
+
+
 
         // 👇 Add this part INSIDE the class
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,10 +52,23 @@ namespace DuAnThucTap.Data
      .WithMany(tl => tl.Teachingassignments)
      .HasForeignKey(t => t.Topicid);
 
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ClassSubject>()
+                .HasKey(cs => new { cs.Classid, cs.Subjectid });
+
+            modelBuilder.Entity<ClassSubject>()
+                .HasOne(cs => cs.Class)
+                .WithMany(c => c.ClassSubjects)
+                .HasForeignKey(cs => cs.Classid);
+
+            modelBuilder.Entity<ClassSubject>()
+                .HasOne(cs => cs.Subject)
+                .WithMany(s => s.ClassSubjects)
+                .HasForeignKey(cs => cs.Subjectid);
         }
 
-        // 👇 Add this part INSIDE the class
-        public DbSet<DuAnThucTap.Model.Gradetype>? Gradetype { get; set; }
+  
         
 
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DuAnWebbanVali\\DuAnThucTap\\DuAnThucTap\\DuAnThucTap.csproj": {}
+    "C:\\Users\\pc\\Source\\Repos\\DuAn_Nhom3_tinh\\DuAnThucTap\\DuAnThucTap.csproj": {}
   },
   "projects": {
-    "D:\\DuAnWebbanVali\\DuAnThucTap\\DuAnThucTap\\DuAnThucTap.csproj": {
+    "C:\\Users\\pc\\Source\\Repos\\DuAn_Nhom3_tinh\\DuAnThucTap\\DuAnThucTap.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DuAnWebbanVali\\DuAnThucTap\\DuAnThucTap\\DuAnThucTap.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Source\\Repos\\DuAn_Nhom3_tinh\\DuAnThucTap\\DuAnThucTap.csproj",
         "projectName": "DuAnThucTap",
-        "projectPath": "D:\\DuAnWebbanVali\\DuAnThucTap\\DuAnThucTap\\DuAnThucTap.csproj",
+        "projectPath": "C:\\Users\\pc\\Source\\Repos\\DuAn_Nhom3_tinh\\DuAnThucTap\\DuAnThucTap.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "D:\\DuAnWebbanVali\\DuAnThucTap\\DuAnThucTap\\obj\\",
+        "outputPath": "C:\\Users\\pc\\Source\\Repos\\DuAn_Nhom3_tinh\\DuAnThucTap\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

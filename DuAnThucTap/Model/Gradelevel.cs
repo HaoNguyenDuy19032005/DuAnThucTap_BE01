@@ -16,5 +16,8 @@ namespace DuAnThucTap.Model
         public virtual Teacher? Teacher { get; set; }
         [JsonIgnore]
         public virtual ICollection<Class>? Classes { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Blockleader>? Blockleaders { get; set; }
+
     }
 }

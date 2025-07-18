@@ -25,5 +25,7 @@ namespace DuAnThucTap.Model
         public virtual ICollection<Grade>? Grades { get; set; }
         [JsonIgnore]
         public virtual ICollection<Schoolyear>? Schoolyears { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Campus>? Campuses { get; set; }
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using DuAnThucTap.DTOs;
+using DuAnThucTap.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DuAnThucTap.Data;
-using DuAnThucTap.Model;
 
 namespace DuAnThucTap.Controllers
 {
@@ -14,111 +8,96 @@ namespace DuAnThucTap.Controllers
     [ApiController]
     public class GradetypesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IGradetypeService _service;
 
-        public GradetypesController(ApplicationDbContext context)
+        public GradetypesController(IGradetypeService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/Gradetypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Gradetype>>> GetGradetype()
+        public async Task<IActionResult> GetAll(
+      [FromQuery] string? search,
+      [FromQuery] int page = 1,
+      [FromQuery] int pageSize = 5)
         {
-          if (_context.Gradetype == null)
-          {
-              return NotFound();
-          }
-            return await _context.Gradetype.ToListAsync();
+            var result = await _service.GetAllAsync(search, page, pageSize);
+
+            if (result.Count == 0)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "Không tìm thấy loại điểm nào phù hợp.",
+                    search,
+                    page
+                });
+            }
+
+            return Ok(new
+            {
+                success = true,
+                message = "Lấy danh sách loại điểm thành công.",
+                currentPage = result.PageIndex,
+                totalPages = result.TotalPage,
+                data = result
+            });
         }
 
-        // GET: api/Gradetypes/5
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<Gradetype>> GetGradetype(int id)
+        public async Task<IActionResult> Get(int id)
         {
-          if (_context.Gradetype == null)
-          {
-              return NotFound();
-          }
-            var gradetype = await _context.Gradetype.FindAsync(id);
-
-            if (gradetype == null)
-            {
-                return NotFound();
-            }
-
-            return gradetype;
+            var result = await _service.GetByIdAsync(id);
+            return result is null
+                ? NotFound(new { success = false, message = "Không tìm thấy loại điểm." })
+                : Ok(result);
         }
 
-        // PUT: api/Gradetypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGradetype(int id, Gradetype gradetype)
-        {
-            if (id != gradetype.Gradetypeid)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(gradetype).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GradetypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Gradetypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Gradetype>> PostGradetype(Gradetype gradetype)
+        public async Task<IActionResult> Post([FromBody] GradetypeDto dto)
         {
-          if (_context.Gradetype == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Gradetype'  is null.");
-          }
-            _context.Gradetype.Add(gradetype);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.ToDictionary(
+                    kv => kv.Key,
+                    kv => kv.Value!.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
 
-            return CreatedAtAction("GetGradetype", new { id = gradetype.Gradetypeid }, gradetype);
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Dữ liệu không hợp lệ!",
+                    errors
+                });
+            }
+
+            return Ok(await _service.CreateAsync(dto));
         }
 
-        // DELETE: api/Gradetypes/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] GradetypeDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.ToDictionary(
+                    kv => kv.Key,
+                    kv => kv.Value!.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Dữ liệu không hợp lệ!",
+                    errors
+                });
+            }
+
+            return Ok(await _service.UpdateAsync(id, dto));
+        }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGradetype(int id)
-        {
-            if (_context.Gradetype == null)
-            {
-                return NotFound();
-            }
-            var gradetype = await _context.Gradetype.FindAsync(id);
-            if (gradetype == null)
-            {
-                return NotFound();
-            }
-
-            _context.Gradetype.Remove(gradetype);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool GradetypeExists(int id)
-        {
-            return (_context.Gradetype?.Any(e => e.Gradetypeid == id)).GetValueOrDefault();
-        }
+        public async Task<IActionResult> Delete(int id)
+            => Ok(await _service.DeleteAsync(id));
     }
 }

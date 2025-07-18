@@ -41,5 +41,7 @@ namespace DuAnThucTap.Model
         public virtual Subject? Subject { get; set; }
         [JsonIgnore]
         public virtual ICollection<Class>? Classes { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Blockleader>? Blockleaders { get; set; }
     }
 }

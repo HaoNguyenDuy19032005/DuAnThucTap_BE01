@@ -13,10 +13,24 @@ public class SchoolyearService : ISchoolyearService
         _context = context;
     }
 
-    public async Task<IEnumerable<Schoolyear>> GetAllAsync()
+    public async Task<PaginatedList<Schoolyear>> GetAllAsync(string? search, int pageIndex, int pageSize)
     {
-        return await _context.Schoolyears.ToListAsync();
+        var query = _context.Schoolyears.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            query = query.Where(s => s.Schoolyearname.Contains(search));
+        }
+
+        query = query.OrderByDescending(s => s.Startyear);
+
+        var paginated = await Task.Run(() =>
+            PaginatedList<Schoolyear>.Create(query, pageIndex, pageSize)
+        );
+
+        return paginated;
     }
+
 
     public async Task<Schoolyear?> GetByIdAsync(int id)
     {
@@ -25,6 +39,17 @@ public class SchoolyearService : ISchoolyearService
 
     public async Task<Schoolyear> CreateAsync(Schoolyear schoolyear)
     {
+        if (schoolyear.Startyear >= schoolyear.Endyear)
+            throw new ArgumentException("Năm bắt đầu phải nhỏ hơn năm kết thúc.");
+
+        var schoolInfoExists = await _context.Schoolinformations
+            .AnyAsync(s => s.Schoolinfoid == schoolyear.Schoolinfoid);
+
+        if (!schoolInfoExists)
+            throw new ArgumentException($"Schoolinfoid {schoolyear.Schoolinfoid} không tồn tại.");
+
+        schoolyear.Createdat = DateTime.UtcNow;
+
         _context.Schoolyears.Add(schoolyear);
         await _context.SaveChangesAsync();
         return schoolyear;
@@ -32,21 +57,29 @@ public class SchoolyearService : ISchoolyearService
 
     public async Task<bool> UpdateAsync(int id, Schoolyear schoolyear)
     {
-        if (id != schoolyear.Schoolyearid)
+        if (schoolyear.Startyear >= schoolyear.Endyear)
+            throw new ArgumentException("Năm bắt đầu phải nhỏ hơn năm kết thúc.");
+
+        var schoolInfoExists = await _context.Schoolinformations
+            .AnyAsync(s => s.Schoolinfoid == schoolyear.Schoolinfoid);
+        if (!schoolInfoExists)
+            throw new ArgumentException($"Schoolinfoid {schoolyear.Schoolinfoid} không tồn tại.");
+
+        var existing = await _context.Schoolyears.FirstOrDefaultAsync(s => s.Schoolyearid == id);
+        if (existing == null)
             return false;
 
-        _context.Entry(schoolyear).State = EntityState.Modified;
+        // Gán từng field
+        existing.Schoolyearname = schoolyear.Schoolyearname;
+        existing.Startyear = schoolyear.Startyear;
+        existing.Endyear = schoolyear.Endyear;
+        existing.Schoolinfoid = schoolyear.Schoolinfoid;
+        existing.Updatedat = DateTime.UtcNow;
 
-        try
-        {
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            return false;
-        }
+        await _context.SaveChangesAsync();
+        return true;
     }
+
 
     public async Task<bool> DeleteAsync(int id)
     {
@@ -58,3 +91,4 @@ public class SchoolyearService : ISchoolyearService
         return true;
     }
 }
+

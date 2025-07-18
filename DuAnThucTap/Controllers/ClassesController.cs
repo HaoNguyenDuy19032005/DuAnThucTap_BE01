@@ -1,124 +1,107 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DuAnThucTap.Data;
+﻿using DuAnThucTap.Model;
 using DuAnThucTap.Model;
+using Microsoft.AspNetCore.Mvc;
 
-namespace DuAnThucTap.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class ClassesController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ClassesController : ControllerBase
+    private readonly IClassService _service;
+
+    public ClassesController(IClassService service)
     {
-        private readonly ApplicationDbContext _context;
+        _service = service;
+    }
 
-        public ClassesController(ApplicationDbContext context)
+    [HttpGet]
+    public async Task<IActionResult> GetClasses(
+        [FromQuery] string? search,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 5)
+    {
+        var result = await _service.GetAllAsync(search, page, pageSize);
+
+        if (result.Count == 0)
         {
-            _context = context;
-        }
-
-        // GET: api/Classes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
-        {
-          if (_context.Classes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Classes.ToListAsync();
-        }
-
-        // GET: api/Classes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Class>> GetClass(int id)
-        {
-          if (_context.Classes == null)
-          {
-              return NotFound();
-          }
-            var @class = await _context.Classes.FindAsync(id);
-
-            if (@class == null)
+            return NotFound(new
             {
-                return NotFound();
-            }
-
-            return @class;
+                message = "Không tìm thấy lớp học nào phù hợp.",
+                search = search,
+                page = page
+            });
         }
 
-        // PUT: api/Classes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutClass(int id, Class @class)
+        return Ok(new
         {
-            if (id != @class.Classid)
-            {
-                return BadRequest();
-            }
+            message = "Lấy danh sách lớp học thành công",
+            currentPage = result.PageIndex,
+            totalPages = result.TotalPage,
+            data = result
+        });
+    }
 
-            _context.Entry(@class).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClassExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetClass(int id)
+    {
+        var data = await _service.GetByIdAsync(id);
+        if (data == null)
+            return NotFound(new { message = "Không tìm thấy lớp học." });
 
-            return NoContent();
-        }
+        return Ok(data);
+    }
 
-        // POST: api/Classes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Class>> PostClass(Class @class)
+    [HttpPost]
+    public async Task<IActionResult> PostClass([FromBody] CreateClassDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
         {
-          if (_context.Classes == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Classes'  is null.");
-          }
-            _context.Classes.Add(@class);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetClass", new { id = @class.Classid }, @class);
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetClass), new { id = created.Classid },
+                new { message = "Tạo lớp học thành công", data = created });
         }
-
-        // DELETE: api/Classes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(int id)
+        catch (ArgumentException ex)
         {
-            if (_context.Classes == null)
-            {
-                return NotFound();
-            }
-            var @class = await _context.Classes.FindAsync(id);
-            if (@class == null)
-            {
-                return NotFound();
-            }
-
-            _context.Classes.Remove(@class);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return BadRequest(new { message = ex.Message });
         }
+    }
 
-        private bool ClassExists(int id)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutClass(int id, [FromBody] CreateClassDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        try
         {
-            return (_context.Classes?.Any(e => e.Classid == id)).GetValueOrDefault();
+            var updated = await _service.UpdateAsync(id, dto);
+
+            if (updated == null)
+                return NotFound(new { message = "Không tìm thấy lớp học để cập nhật." });
+
+            return Ok(new
+            {
+                message = "Cập nhật lớp học thành công",
+                data = updated // trả về luôn object mới để client hiển thị
+            });
         }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteClass(int id)
+    {
+        var success = await _service.DeleteAsync(id);
+        if (!success)
+            return NotFound(new { message = "Không tìm thấy lớp học để xoá." });
+
+        return Ok(new { message = "Xoá lớp học thành công" });
     }
 }

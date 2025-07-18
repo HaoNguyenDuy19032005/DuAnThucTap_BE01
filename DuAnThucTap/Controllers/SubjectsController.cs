@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DuAnThucTap.Data;
 using DuAnThucTap.Model;
 
 namespace DuAnThucTap.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class SubjectsController : ControllerBase
     {
         private readonly ISubjectService _service;
@@ -22,41 +18,107 @@ namespace DuAnThucTap.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Subject>>> GetSubjects()
+        public async Task<IActionResult> GetSubjects(
+            [FromQuery] string? search,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 5)
         {
-            var subjects = await _service.GetAllAsync();
-            return Ok(subjects);
+            var result = await _service.GetAllAsync(search, page, pageSize);
+
+            if (result.Count == 0)
+            {
+                return NotFound(new
+                {
+                    message = "Không tìm thấy môn học phù hợp.",
+                    search = search,
+                    page = page
+                });
+            }
+
+            return Ok(new
+            {
+                message = "Lấy danh sách môn học thành công",
+                currentPage = result.PageIndex,
+                totalPages = result.TotalPage,
+                data = result
+            });
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Subject>> GetSubject(int id)
+        public async Task<IActionResult> GetSubject(int id)
         {
             var subject = await _service.GetByIdAsync(id);
-            if (subject == null) return NotFound();
+            if (subject == null)
+                return NotFound(new { message = "Không tìm thấy môn học." });
+
             return Ok(subject);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Subject>> PostSubject(Subject subject)
+        public async Task<IActionResult> PostSubject(Subject subject)
         {
-            var created = await _service.CreateAsync(subject);
-            return CreatedAtAction(nameof(GetSubject), new { id = created.Subjectid }, created);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var created = await _service.CreateAsync(subject);
+                return Ok(new
+                {
+                    message = "Tạo môn học thành công.",
+                    data = created
+                });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch
+            {
+                return StatusCode(500, new { message = "Đã xảy ra lỗi khi tạo môn học." });
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSubject(int id, Subject subject)
         {
-            var updated = await _service.UpdateAsync(id, subject);
-            if (!updated) return BadRequest();
-            return NoContent();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var updated = await _service.UpdateAsync(id, subject);
+                if (!updated)
+                    return NotFound(new { message = "Không tìm thấy môn học để cập nhật." });
+
+                return Ok(new { message = "Cập nhật môn học thành công." });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch
+            {
+                return StatusCode(500, new { message = "Đã xảy ra lỗi khi cập nhật môn học." });
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSubject(int id)
         {
-            var deleted = await _service.DeleteAsync(id);
-            if (!deleted) return NotFound();
-            return NoContent();
+            try
+            {
+                var deleted = await _service.DeleteAsync(id);
+                if (!deleted)
+                    return NotFound(new { message = "Không tìm thấy môn học để xóa." });
+
+                return Ok(new { message = "Xóa môn học thành công." });
+            }
+            catch
+            {
+                return StatusCode(500, new { message = "Đã xảy ra lỗi khi xóa môn học." });
+            }
         }
     }
+
 }
