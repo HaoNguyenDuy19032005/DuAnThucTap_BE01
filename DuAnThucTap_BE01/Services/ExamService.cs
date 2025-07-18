@@ -19,10 +19,15 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        // THAY ĐỔI: Nhận các tham số riêng lẻ
         public async Task<PagedResponse<ExamResponseDto>> GetPagedExamsAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            var query = _context.Exams.AsNoTracking();
+            // --- SỬA LỖI: Thêm các .Include() để tải dữ liệu liên quan ---
+            var query = _context.Exams
+                .Include(e => e.Schoolyear)
+                .Include(e => e.Gradelevel)
+                .Include(e => e.Semester)
+                .Include(e => e.Subject)
+                .AsNoTracking();
 
             if (!string.IsNullOrEmpty(searchQuery))
             {
@@ -43,6 +48,7 @@ namespace DuAnThucTap_BE01.Services
                     ExamDate = e.Examdate,
                     DurationMinutes = e.Durationminutes,
                     CreatedAt = e.Createdat,
+                    // Giờ đây e.Schoolyear, e.Gradelevel... sẽ có dữ liệu
                     SchoolyearName = e.Schoolyear != null ? e.Schoolyear.Schoolyearname : null,
                     GradelevelName = e.Gradelevel != null ? e.Gradelevel.Gradelevelname : null,
                     SemesterName = e.Semester != null ? e.Semester.Semestername : null,
@@ -55,7 +61,13 @@ namespace DuAnThucTap_BE01.Services
 
         public async Task<ExamResponseDto?> GetByIdAsync(int id)
         {
+            // --- SỬA LỖI: Thêm các .Include() để tải dữ liệu liên quan ---
             return await _context.Exams
+                .Include(e => e.Schoolyear)
+                .Include(e => e.Gradelevel)
+                .Include(e => e.Semester)
+                .Include(e => e.Subject)
+                .AsNoTracking()
                 .Where(e => e.Examid == id)
                 .Select(e => new ExamResponseDto
                 {

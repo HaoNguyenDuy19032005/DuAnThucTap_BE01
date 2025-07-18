@@ -52,7 +52,11 @@ namespace DuAnThucTap_BE01.Controllers
             try
             {
                 var created = await _service.CreateAsync(examScheduleDto);
-                var response = new ApiResponse<Examschedule>((int)HttpStatusCode.Created, "Tạo lịch thi thành công", created);
+
+                // --- SỬA LỖI: Lấy lại thông tin chi tiết để trả về ---
+                var resultDto = await _service.GetByIdAsync(created.Examscheduleid);
+
+                var response = new ApiResponse<ExamScheduleResponseDto>((int)HttpStatusCode.Created, "Tạo lịch thi thành công", resultDto);
                 return CreatedAtAction(nameof(GetById), new { id = created.Examscheduleid }, response);
             }
             catch (InvalidOperationException ex)
@@ -76,7 +80,10 @@ namespace DuAnThucTap_BE01.Controllers
                 {
                     return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch thi với ID = {id}", null));
                 }
-                return Ok(new ApiResponse<Examschedule>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+
+                // --- SỬA LỖI: Lấy lại thông tin chi tiết để trả về ---
+                var resultDto = await _service.GetByIdAsync(id);
+                return Ok(new ApiResponse<ExamScheduleResponseDto>((int)HttpStatusCode.OK, "Cập nhật thành công", resultDto));
             }
             catch (InvalidOperationException ex)
             {
