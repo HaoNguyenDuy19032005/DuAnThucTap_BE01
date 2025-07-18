@@ -1,20 +1,18 @@
-﻿using DuAnThucTap_BE01.Models;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Models;
+using Microsoft.AspNetCore.Http; 
 
 namespace DuAnThucTap_BE01.Interface
 {
     public interface ITeacherTrainingHistoryService
     {
-        Task<IEnumerable<Teachertraininghistory>> GetAllAsync();
+        Task<IEnumerable<TeacherTrainingHistoryDto>> GetAllAsync();
+        Task<TeacherTrainingHistoryDto?> GetByIdAsync(int id);
 
-        // Sửa Guid thành int
-        Task<Teachertraininghistory?> GetByIdAsync(int id);
+        Task<Teachertraininghistory> CreateAsync(TeacherTrainingHistoryRequestDto historyDto, IFormFile? file);
 
-        Task<Teachertraininghistory> CreateAsync(Teachertraininghistory history);
+        Task<Teachertraininghistory?> UpdateAsync(int id, TeacherTrainingHistoryRequestDto historyDto, IFormFile? file);
 
-        // Sửa Guid thành int
-        Task<Teachertraininghistory?> UpdateAsync(int id, Teachertraininghistory history);
-
-        // Sửa Guid thành int
         Task<bool> DeleteAsync(int id);
     }
 }

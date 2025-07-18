@@ -2,79 +2,59 @@
 using DuAnThucTap_BE01.Models;
 using Microsoft.AspNetCore.Mvc;
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+
 namespace DuAnThucTap_BE01.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ExamGradersController : ControllerBase
     {
-        private readonly IExamGraderService _examGraderService;
+        private readonly IExamGraderService _service;
 
-        public ExamGradersController(IExamGraderService examGraderService)
+        // Fix for CS0111: Removed duplicate constructor
+        public ExamGradersController(IExamGraderService service)
         {
-            _examGraderService = examGraderService;
+            // Fix for CS8618: Ensuring '_service' is initialized
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        // GET: api/ExamGraders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Examgrader>>> GetAll()
         {
-            var examGraders = await _examGraderService.GetAllAsync();
-            return Ok(examGraders);
+            return Ok(await _service.GetAllAsync());
         }
 
-        // GET: api/ExamGraders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Examgrader>> GetById(int id)
         {
-            var examGrader = await _examGraderService.GetByIdAsync(id);
-            if (examGrader == null)
-            {
-                return NotFound();
-            }
-            return Ok(examGrader);
+            var examGrader = await _service.GetByIdAsync(id);
+            return examGrader == null ? NotFound() : Ok(examGrader);
         }
 
-        // POST: api/ExamGraders
         [HttpPost]
-        public async Task<ActionResult<Examgrader>> Create(Examgrader examGrader)
+        public async Task<ActionResult<Examgrader>> Create([FromBody] Examgrader examGrader)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var createdExamGrader = await _examGraderService.CreateAsync(examGrader);
-            return CreatedAtAction(nameof(GetById), new { id = createdExamGrader.Examgraderid }, createdExamGrader);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var created = await _service.CreateAsync(examGrader);
+            return CreatedAtAction(nameof(GetById), new { id = created.Examgraderid }, created);
         }
 
-        // PUT: api/ExamGraders/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<Examgrader>> Update(int id, Examgrader examGrader)
+        public async Task<IActionResult> Update(int id, [FromBody] Examgrader examGrader)
         {
-            if (!ModelState.IsValid || id != examGrader.Examgraderid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var updatedExamGrader = await _examGraderService.UpdateAsync(id, examGrader);
-            if (updatedExamGrader == null)
-            {
-                return NotFound();
-            }
-            return Ok(updatedExamGrader);
+            if (id != examGrader.Examgraderid) return BadRequest("ID không khớp");
+            var result = await _service.UpdateAsync(id, examGrader);
+            return result == null ? NotFound() : NoContent();
         }
 
-        // DELETE: api/ExamGraders/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _examGraderService.DeleteAsync(id);
-            if (!result)
-            {
-                return NotFound();
-            }
-            return NoContent();
+            var success = await _service.DeleteAsync(id);
+            return !success ? NotFound() : NoContent();
         }
     }
 }

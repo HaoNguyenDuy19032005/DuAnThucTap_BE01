@@ -1,6 +1,9 @@
-﻿using DuAnThucTap_BE01.Interface;
+﻿using DuAnThucTap_BE01.DTO;
+using DuAnThucTap_BE01.Interface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DuAnThucTap_BE01.Controllers
 {
@@ -15,41 +18,86 @@ namespace DuAnThucTap_BE01.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacherworkstatushistory>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await _service.GetAllAsync());
+            var data = await _service.GetAllAsync();
+            return Ok(new ApiResponse<IEnumerable<TeacherWorkStatusHistoryDto>>((int)HttpStatusCode.OK, "Lấy danh sách thành công", data));
         }
 
         [HttpGet("{id}")]
-        // Sửa Guid thành int
-        public async Task<ActionResult<Teacherworkstatushistory>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = await _service.GetByIdAsync(id);
-            return item == null ? NotFound() : Ok(item);
+            var data = await _service.GetByIdAsync(id);
+            if (data == null)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử trạng thái với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.OK, "Lấy dữ liệu thành công", data));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Teacherworkstatushistory>> Create([FromBody] Teacherworkstatushistory history)
+        public async Task<IActionResult> Create([FromBody] TeacherWorkStatusHistoryRequestDto historyDto)
         {
-            var created = await _service.CreateAsync(history);
-            return CreatedAtAction(nameof(GetById), new { id = created.Historyid }, created);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+            try
+            {
+                var createdDto = await _service.CreateAsync(historyDto); 
+                var response = new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.Created, "Tạo mới và cập nhật trạng thái giáo viên thành công", createdDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdDto.Historyid }, response);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
+            catch (Exception ex)
+            {
+                // Lỗi server chung
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
+            }
         }
 
         [HttpPut("{id}")]
-        // Sửa Guid thành int
-        public async Task<IActionResult> Update(int id, [FromBody] Teacherworkstatushistory history)
+        public async Task<IActionResult> Update(int id, [FromBody] TeacherWorkStatusHistoryRequestDto historyDto) // Thay đổi tham số
         {
-            if (id != history.Historyid) return BadRequest();
-            var result = await _service.UpdateAsync(id, history);
-            return result == null ? NotFound() : NoContent();
+            // Không cần kiểm tra id != history.Historyid vì Historyid không có trong Request DTO
+            // id sẽ được lấy từ URL.
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ", ModelState));
+            }
+            try
+            {
+                var result = await _service.UpdateAsync(id, historyDto); // Gọi service với DTO request
+                if (result == null)
+                {
+                    return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử trạng thái với ID = {id}", null));
+                }
+                return Ok(new ApiResponse<TeacherWorkStatusHistoryDto>((int)HttpStatusCode.OK, "Cập nhật thành công", result));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(new ApiResponse<object>((int)HttpStatusCode.BadRequest, ex.Message, null));
+            }
+            catch (Exception ex)
+            {
+                // Lỗi server chung
+                return StatusCode(500, new ApiResponse<object>(500, "Đã có lỗi xảy ra trong quá trình xử lý.", ex.Message));
+            }
         }
 
         [HttpDelete("{id}")]
-        // Sửa Guid thành int
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _service.DeleteAsync(id);
-            return !success ? NotFound() : NoContent();
+            if (!success)
+            {
+                return NotFound(new ApiResponse<object>((int)HttpStatusCode.NotFound, $"Không tìm thấy lịch sử trạng thái với ID = {id}", null));
+            }
+            return Ok(new ApiResponse<object>((int)HttpStatusCode.OK, "Xóa thành công", null));
         }
     }
 }
