@@ -1,0 +1,19 @@
+# IDE folders
+.vs/
+.vscode/
+
+# Build folders
+bin/
+obj/
+TestResults/
+
+# User files
+*.user
+*.suo
+*.db
+*.log
+*.vsidx
+*.DotSettings.user
+
+# Node modules (nếu có frontend)
+node_modules/
