@@ -1,0 +1,2522 @@
+[
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.ClassTransferController",
+    "Method": "GetAll",
+    "RelativePath": "api/ClassTransfer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.ClassTransferController",
+    "Method": "Transfer",
+    "RelativePath": "api/ClassTransfer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fromclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Toclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.ClassTransferController",
+    "Method": "GetById",
+    "RelativePath": "api/ClassTransfer/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.ClassTransferController",
+    "Method": "Update",
+    "RelativePath": "api/ClassTransfer/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fromclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Toclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.ClassTransferController",
+    "Method": "Delete",
+    "RelativePath": "api/ClassTransfer/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.ClassTransferController",
+    "Method": "GetPaged",
+    "RelativePath": "api/ClassTransfer/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.CommendationtypeController",
+    "Method": "GetAll",
+    "RelativePath": "api/Commendationtype",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.CommendationtypeController",
+    "Method": "Create",
+    "RelativePath": "api/Commendationtype",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commendationtype",
+        "Type": "Nhom2ThucTap.Models.Commendationtype",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.CommendationtypeController",
+    "Method": "GetById",
+    "RelativePath": "api/Commendationtype/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.CommendationtypeController",
+    "Method": "Update",
+    "RelativePath": "api/Commendationtype/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "commendationtype",
+        "Type": "Nhom2ThucTap.Models.Commendationtype",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.CommendationtypeController",
+    "Method": "Delete",
+    "RelativePath": "api/Commendationtype/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.CommendationtypeController",
+    "Method": "GetPaged",
+    "RelativePath": "api/Commendationtype/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisciplinetypeController",
+    "Method": "GetAll",
+    "RelativePath": "api/Disciplinetype",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisciplinetypeController",
+    "Method": "Create",
+    "RelativePath": "api/Disciplinetype",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "disciplinetype",
+        "Type": "Nhom2ThucTap.Models.Disciplinetype",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisciplinetypeController",
+    "Method": "GetById",
+    "RelativePath": "api/Disciplinetype/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisciplinetypeController",
+    "Method": "Update",
+    "RelativePath": "api/Disciplinetype/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "disciplinetype",
+        "Type": "Nhom2ThucTap.Models.Disciplinetype",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisciplinetypeController",
+    "Method": "Delete",
+    "RelativePath": "api/Disciplinetype/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "Create",
+    "RelativePath": "api/DisplayedTestList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Nhom2ThucTap.Models.DisplayedTestList",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "GetById",
+    "RelativePath": "api/DisplayedTestList/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "Update",
+    "RelativePath": "api/DisplayedTestList/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "Nhom2ThucTap.Models.DisplayedTestList",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "Delete",
+    "RelativePath": "api/DisplayedTestList/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "GetFinished",
+    "RelativePath": "api/DisplayedTestList/finished",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "GetPaged",
+    "RelativePath": "api/DisplayedTestList/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.DisplayedTestListController",
+    "Method": "GetUpcoming",
+    "RelativePath": "api/DisplayedTestList/upcoming",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SchoolTransferHistoryController",
+    "Method": "GetAll",
+    "RelativePath": "api/SchoolTransferHistory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SchoolTransferHistoryController",
+    "Method": "Create",
+    "RelativePath": "api/SchoolTransferHistory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fromschoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Toschoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fromclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Toclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Transferdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Transfertype",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SchoolTransferHistoryController",
+    "Method": "GetById",
+    "RelativePath": "api/SchoolTransferHistory/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SchoolTransferHistoryController",
+    "Method": "UpdateTransfer",
+    "RelativePath": "api/SchoolTransferHistory/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fromschoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Toschoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fromclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Toclassid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Transferdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Transfertype",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SchoolTransferHistoryController",
+    "Method": "Delete",
+    "RelativePath": "api/SchoolTransferHistory/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SchoolTransferHistoryController",
+    "Method": "GetPaged",
+    "RelativePath": "api/SchoolTransferHistory/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentcommendationController",
+    "Method": "GetAll",
+    "RelativePath": "api/Studentcommendation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentcommendationController",
+    "Method": "CreateWithFile",
+    "RelativePath": "api/Studentcommendation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Schoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commendationtypeid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commendationdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentcommendationController",
+    "Method": "GetById",
+    "RelativePath": "api/Studentcommendation/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentcommendationController",
+    "Method": "UpdateWithFile",
+    "RelativePath": "api/Studentcommendation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Schoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commendationtypeid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commendationdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentcommendationController",
+    "Method": "Delete",
+    "RelativePath": "api/Studentcommendation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentcommendationController",
+    "Method": "GetPaged",
+    "RelativePath": "api/Studentcommendation/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentDisciplineController",
+    "Method": "GetAll",
+    "RelativePath": "api/StudentDiscipline",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentDisciplineController",
+    "Method": "Create",
+    "RelativePath": "api/StudentDiscipline",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Schoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Disciplinetypeid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commendationdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentDisciplineController",
+    "Method": "GetById",
+    "RelativePath": "api/StudentDiscipline/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentDisciplineController",
+    "Method": "Update",
+    "RelativePath": "api/StudentDiscipline/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Schoolinfoid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Disciplinetypeid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Commendationdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentDisciplineController",
+    "Method": "Delete",
+    "RelativePath": "api/StudentDiscipline/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentDisciplineController",
+    "Method": "GetPaged",
+    "RelativePath": "api/StudentDiscipline/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentExemptionController",
+    "Method": "GetAll",
+    "RelativePath": "api/StudentExemption",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentExemptionController",
+    "Method": "Create",
+    "RelativePath": "api/StudentExemption",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "exemption",
+        "Type": "Nhom2ThucTap.Models.Studentexemption",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentExemptionController",
+    "Method": "GetById",
+    "RelativePath": "api/StudentExemption/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentExemptionController",
+    "Method": "Update",
+    "RelativePath": "api/StudentExemption/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "exemption",
+        "Type": "Nhom2ThucTap.Models.Studentexemption",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentExemptionController",
+    "Method": "Delete",
+    "RelativePath": "api/StudentExemption/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentExemptionController",
+    "Method": "GetPaged",
+    "RelativePath": "api/StudentExemption/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentPreservationController",
+    "Method": "GetAll",
+    "RelativePath": "api/StudentPreservation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentPreservationController",
+    "Method": "Create",
+    "RelativePath": "api/StudentPreservation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Classid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Preservationdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Preservationduration",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentPreservationController",
+    "Method": "GetById",
+    "RelativePath": "api/StudentPreservation/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentPreservationController",
+    "Method": "Update",
+    "RelativePath": "api/StudentPreservation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Studentid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Classid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Semesterid",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Preservationdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Preservationduration",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachmentfile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentPreservationController",
+    "Method": "Delete",
+    "RelativePath": "api/StudentPreservation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentPreservationController",
+    "Method": "GetPaged",
+    "RelativePath": "api/StudentPreservation/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Students",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsController",
+    "Method": "Create",
+    "RelativePath": "api/Students",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Fullname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Gender",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Dateofbirth",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Enrollmentdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Studentcode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Birthplace",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Ethnicity",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Admissiontype",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phonenumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fathername",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fatherbirthyear",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fatheroccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phonenumberfather",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mothername",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Motherbirthyear",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Motheroccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Guardianname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Guardianbirthyear",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Guardianoccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phonenumberguardian",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProfileImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsController",
+    "Method": "GetById",
+    "RelativePath": "api/Students/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsController",
+    "Method": "Update",
+    "RelativePath": "api/Students/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Fullname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Gender",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Dateofbirth",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Enrollmentdate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Studentcode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Birthplace",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Ethnicity",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Admissiontype",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phonenumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fathername",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fatherbirthyear",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Fatheroccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phonenumberfather",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mothername",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Motherbirthyear",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Motheroccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Guardianname",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Guardianbirthyear",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Guardianoccupation",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phonenumberguardian",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProfileImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsController",
+    "Method": "Delete",
+    "RelativePath": "api/Students/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsController",
+    "Method": "GetPaged",
+    "RelativePath": "api/Students/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentSemesterSummaryController",
+    "Method": "GetAll",
+    "RelativePath": "api/StudentSemesterSummary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentSemesterSummaryController",
+    "Method": "GetById",
+    "RelativePath": "api/StudentSemesterSummary/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentSemesterSummaryController",
+    "Method": "GetPaged",
+    "RelativePath": "api/StudentSemesterSummary/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsubjectsummaryController",
+    "Method": "GetAll",
+    "RelativePath": "api/Studentsubjectsummary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentsubjectsummaryController",
+    "Method": "GetById",
+    "RelativePath": "api/Studentsubjectsummary/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentTransferReceiptController",
+    "Method": "GetAll",
+    "RelativePath": "api/StudentTransferReceipt",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentTransferReceiptController",
+    "Method": "Create",
+    "RelativePath": "api/StudentTransferReceipt",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "StudentName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TransferDate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SemesterId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Province",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "District",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FromSchool",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AttachmentFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentTransferReceiptController",
+    "Method": "GetById",
+    "RelativePath": "api/StudentTransferReceipt/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentTransferReceiptController",
+    "Method": "Update",
+    "RelativePath": "api/StudentTransferReceipt/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "StudentName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StudentCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TransferDate",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SemesterId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Province",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "District",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FromSchool",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Reason",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AttachmentFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentTransferReceiptController",
+    "Method": "Delete",
+    "RelativePath": "api/StudentTransferReceipt/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentTransferReceiptController",
+    "Method": "GetPaged",
+    "RelativePath": "api/StudentTransferReceipt/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "GetAll",
+    "RelativePath": "api/StudentYearlyStatus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "Create",
+    "RelativePath": "api/StudentYearlyStatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "Nhom2ThucTap.Models.Studentyearlystatus",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "GetById",
+    "RelativePath": "api/StudentYearlyStatus/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "Update",
+    "RelativePath": "api/StudentYearlyStatus/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "status",
+        "Type": "Nhom2ThucTap.Models.Studentyearlystatus",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "Delete",
+    "RelativePath": "api/StudentYearlyStatus/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "GetByStudentId",
+    "RelativePath": "api/StudentYearlyStatus/by-student/{studentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.StudentYearlyStatusController",
+    "Method": "GetPaged",
+    "RelativePath": "api/StudentYearlyStatus/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SubjectsOfExemptionController",
+    "Method": "GetAll",
+    "RelativePath": "api/SubjectsOfExemption",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SubjectsOfExemptionController",
+    "Method": "Create",
+    "RelativePath": "api/SubjectsOfExemption",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "exemption",
+        "Type": "Nhom2ThucTap.Models.Subjectsofexemption",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SubjectsOfExemptionController",
+    "Method": "GetById",
+    "RelativePath": "api/SubjectsOfExemption/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SubjectsOfExemptionController",
+    "Method": "Update",
+    "RelativePath": "api/SubjectsOfExemption/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "exemption",
+        "Type": "Nhom2ThucTap.Models.Subjectsofexemption",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SubjectsOfExemptionController",
+    "Method": "Delete",
+    "RelativePath": "api/SubjectsOfExemption/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.SubjectsOfExemptionController",
+    "Method": "GetPaged",
+    "RelativePath": "api/SubjectsOfExemption/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestHeaderController",
+    "Method": "GetAll",
+    "RelativePath": "api/TestHeader",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestHeaderController",
+    "Method": "Create",
+    "RelativePath": "api/TestHeader",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SubjectId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClassId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TestFormat",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DurationInMinutes",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "StartTime",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "RequireStudentAttachment",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "SubmissionRules",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachment",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestHeaderController",
+    "Method": "GetById",
+    "RelativePath": "api/TestHeader/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestHeaderController",
+    "Method": "Update",
+    "RelativePath": "api/TestHeader/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "SubjectId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ClassId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TestFormat",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DurationInMinutes",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "StartTime",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "RequireStudentAttachment",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "SubmissionRules",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachment",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestHeaderController",
+    "Method": "Delete",
+    "RelativePath": "api/TestHeader/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestQuestionsController",
+    "Method": "GetAll",
+    "RelativePath": "api/TestQuestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestQuestionsController",
+    "Method": "Create",
+    "RelativePath": "api/TestQuestions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Nhom2ThucTap.DTO.TestQuestionItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestQuestionsController",
+    "Method": "GetById",
+    "RelativePath": "api/TestQuestions/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestQuestionsController",
+    "Method": "Update",
+    "RelativePath": "api/TestQuestions/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Nhom2ThucTap.DTO.TestQuestionItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestQuestionsController",
+    "Method": "Delete",
+    "RelativePath": "api/TestQuestions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestStudentAnswerController",
+    "Method": "GetAll",
+    "RelativePath": "api/TestStudentAnswer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestStudentAnswerController",
+    "Method": "Create",
+    "RelativePath": "api/TestStudentAnswer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SubmissionId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "QuestionId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SelectedOption",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AnswerContent",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachment",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestStudentAnswerController",
+    "Method": "GetById",
+    "RelativePath": "api/TestStudentAnswer/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestStudentAnswerController",
+    "Method": "Update",
+    "RelativePath": "api/TestStudentAnswer/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "SubmissionId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "QuestionId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SelectedOption",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AnswerContent",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Attachment",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TestStudentAnswerController",
+    "Method": "Delete",
+    "RelativePath": "api/TestStudentAnswer/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestStudentSubmissionController",
+    "Method": "GetAll",
+    "RelativePath": "api/TestStudentSubmission",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "studentId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "testId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestStudentSubmissionController",
+    "Method": "Create",
+    "RelativePath": "api/TestStudentSubmission",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Nhom2ThucTap.DTOs.TestStudentSubmissionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestStudentSubmissionController",
+    "Method": "GetById",
+    "RelativePath": "api/TestStudentSubmission/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestStudentSubmissionController",
+    "Method": "Update",
+    "RelativePath": "api/TestStudentSubmission/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Nhom2ThucTap.DTOs.TestStudentSubmissionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.TestStudentSubmissionController",
+    "Method": "Delete",
+    "RelativePath": "api/TestStudentSubmission/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Nhom2ThucTap.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Nhom2ThucTap.WeatherForecast, Nhom2ThucTap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

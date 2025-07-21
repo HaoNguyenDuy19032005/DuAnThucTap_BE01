@@ -1,0 +1,4078 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Nhom2ThucTap",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/ClassTransfer": {
+      "get": {
+        "tags": [
+          "ClassTransfer"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ClassTransfer"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fromclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Toclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Fromclassid": {
+                  "style": "form"
+                },
+                "Toclassid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClassTransfer/paged": {
+      "get": {
+        "tags": [
+          "ClassTransfer"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ClassTransfer/{id}": {
+      "get": {
+        "tags": [
+          "ClassTransfer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ClassTransfer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fromclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Toclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Fromclassid": {
+                  "style": "form"
+                },
+                "Toclassid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ClassTransfer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Commendationtype/paging": {
+      "get": {
+        "tags": [
+          "Commendationtype"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Commendationtype": {
+      "get": {
+        "tags": [
+          "Commendationtype"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Commendationtype"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Commendationtype"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Commendationtype"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Commendationtype"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Commendationtype/{id}": {
+      "get": {
+        "tags": [
+          "Commendationtype"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Commendationtype"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Commendationtype"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Commendationtype"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Commendationtype"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Commendationtype"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Disciplinetype": {
+      "get": {
+        "tags": [
+          "Disciplinetype"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Disciplinetype"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Disciplinetype"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Disciplinetype"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Disciplinetype"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Disciplinetype/{id}": {
+      "get": {
+        "tags": [
+          "Disciplinetype"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Disciplinetype"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Disciplinetype"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Disciplinetype"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Disciplinetype"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Disciplinetype"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DisplayedTestList/paged": {
+      "get": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DisplayedTestList/upcoming": {
+      "get": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DisplayedTestList/finished": {
+      "get": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DisplayedTestList/{id}": {
+      "get": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayedTestList"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayedTestList"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayedTestList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/DisplayedTestList": {
+      "post": {
+        "tags": [
+          "DisplayedTestList"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayedTestList"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayedTestList"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayedTestList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SchoolTransferHistory": {
+      "get": {
+        "tags": [
+          "SchoolTransferHistory"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SchoolTransferHistory"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fromschoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Toschoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fromclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Toclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Transferdate": {
+                    "type": "string"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "Transfertype": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Fromschoolinfoid": {
+                  "style": "form"
+                },
+                "Toschoolinfoid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Fromclassid": {
+                  "style": "form"
+                },
+                "Toclassid": {
+                  "style": "form"
+                },
+                "Transferdate": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "Transfertype": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SchoolTransferHistory/paged": {
+      "get": {
+        "tags": [
+          "SchoolTransferHistory"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SchoolTransferHistory/{id}": {
+      "get": {
+        "tags": [
+          "SchoolTransferHistory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SchoolTransferHistory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fromschoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Toschoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fromclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Toclassid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Transferdate": {
+                    "type": "string"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "Transfertype": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Fromschoolinfoid": {
+                  "style": "form"
+                },
+                "Toschoolinfoid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Fromclassid": {
+                  "style": "form"
+                },
+                "Toclassid": {
+                  "style": "form"
+                },
+                "Transferdate": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "Transfertype": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SchoolTransferHistory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Studentcommendation": {
+      "get": {
+        "tags": [
+          "Studentcommendation"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Studentcommendation"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Schoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commendationtypeid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commendationdate": {
+                    "type": "string"
+                  },
+                  "Content": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Schoolinfoid": {
+                  "style": "form"
+                },
+                "Commendationtypeid": {
+                  "style": "form"
+                },
+                "Commendationdate": {
+                  "style": "form"
+                },
+                "Content": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Studentcommendation/paged": {
+      "get": {
+        "tags": [
+          "Studentcommendation"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Studentcommendation/{id}": {
+      "get": {
+        "tags": [
+          "Studentcommendation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Studentcommendation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Schoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commendationtypeid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commendationdate": {
+                    "type": "string"
+                  },
+                  "Content": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Schoolinfoid": {
+                  "style": "form"
+                },
+                "Commendationtypeid": {
+                  "style": "form"
+                },
+                "Commendationdate": {
+                  "style": "form"
+                },
+                "Content": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Studentcommendation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentDiscipline": {
+      "get": {
+        "tags": [
+          "StudentDiscipline"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StudentDiscipline"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Schoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Disciplinetypeid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commendationdate": {
+                    "type": "string"
+                  },
+                  "Content": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Schoolinfoid": {
+                  "style": "form"
+                },
+                "Disciplinetypeid": {
+                  "style": "form"
+                },
+                "Commendationdate": {
+                  "style": "form"
+                },
+                "Content": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentDiscipline/paged": {
+      "get": {
+        "tags": [
+          "StudentDiscipline"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentDiscipline/{id}": {
+      "get": {
+        "tags": [
+          "StudentDiscipline"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StudentDiscipline"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Schoolinfoid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Disciplinetypeid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Commendationdate": {
+                    "type": "string"
+                  },
+                  "Content": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Schoolinfoid": {
+                  "style": "form"
+                },
+                "Disciplinetypeid": {
+                  "style": "form"
+                },
+                "Commendationdate": {
+                  "style": "form"
+                },
+                "Content": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StudentDiscipline"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentExemption": {
+      "get": {
+        "tags": [
+          "StudentExemption"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StudentExemption"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentexemption"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentexemption"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentexemption"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentExemption/paged": {
+      "get": {
+        "tags": [
+          "StudentExemption"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentExemption/{id}": {
+      "get": {
+        "tags": [
+          "StudentExemption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StudentExemption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentexemption"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentexemption"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentexemption"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StudentExemption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentPreservation": {
+      "get": {
+        "tags": [
+          "StudentPreservation"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StudentPreservation"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Classid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Preservationdate": {
+                    "type": "string"
+                  },
+                  "Preservationduration": {
+                    "type": "string"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Classid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Preservationdate": {
+                  "style": "form"
+                },
+                "Preservationduration": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentPreservation/paged": {
+      "get": {
+        "tags": [
+          "StudentPreservation"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentPreservation/{id}": {
+      "get": {
+        "tags": [
+          "StudentPreservation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StudentPreservation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Studentid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Classid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Semesterid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Preservationdate": {
+                    "type": "string"
+                  },
+                  "Preservationduration": {
+                    "type": "string"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "Attachmentfile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Studentid": {
+                  "style": "form"
+                },
+                "Classid": {
+                  "style": "form"
+                },
+                "Semesterid": {
+                  "style": "form"
+                },
+                "Preservationdate": {
+                  "style": "form"
+                },
+                "Preservationduration": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "Attachmentfile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StudentPreservation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Students": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Students"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Fullname": {
+                    "type": "string"
+                  },
+                  "Gender": {
+                    "type": "string"
+                  },
+                  "Dateofbirth": {
+                    "type": "string"
+                  },
+                  "Enrollmentdate": {
+                    "type": "string"
+                  },
+                  "Studentcode": {
+                    "type": "string"
+                  },
+                  "Birthplace": {
+                    "type": "string"
+                  },
+                  "Ethnicity": {
+                    "type": "string"
+                  },
+                  "Admissiontype": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string"
+                  },
+                  "Phonenumber": {
+                    "type": "string"
+                  },
+                  "Fathername": {
+                    "type": "string"
+                  },
+                  "Fatherbirthyear": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fatheroccupation": {
+                    "type": "string"
+                  },
+                  "Phonenumberfather": {
+                    "type": "string"
+                  },
+                  "Mothername": {
+                    "type": "string"
+                  },
+                  "Motherbirthyear": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Motheroccupation": {
+                    "type": "string"
+                  },
+                  "Guardianname": {
+                    "type": "string"
+                  },
+                  "Guardianbirthyear": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Guardianoccupation": {
+                    "type": "string"
+                  },
+                  "Phonenumberguardian": {
+                    "type": "string"
+                  },
+                  "ProfileImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Fullname": {
+                  "style": "form"
+                },
+                "Gender": {
+                  "style": "form"
+                },
+                "Dateofbirth": {
+                  "style": "form"
+                },
+                "Enrollmentdate": {
+                  "style": "form"
+                },
+                "Studentcode": {
+                  "style": "form"
+                },
+                "Birthplace": {
+                  "style": "form"
+                },
+                "Ethnicity": {
+                  "style": "form"
+                },
+                "Admissiontype": {
+                  "style": "form"
+                },
+                "Email": {
+                  "style": "form"
+                },
+                "Phonenumber": {
+                  "style": "form"
+                },
+                "Fathername": {
+                  "style": "form"
+                },
+                "Fatherbirthyear": {
+                  "style": "form"
+                },
+                "Fatheroccupation": {
+                  "style": "form"
+                },
+                "Phonenumberfather": {
+                  "style": "form"
+                },
+                "Mothername": {
+                  "style": "form"
+                },
+                "Motherbirthyear": {
+                  "style": "form"
+                },
+                "Motheroccupation": {
+                  "style": "form"
+                },
+                "Guardianname": {
+                  "style": "form"
+                },
+                "Guardianbirthyear": {
+                  "style": "form"
+                },
+                "Guardianoccupation": {
+                  "style": "form"
+                },
+                "Phonenumberguardian": {
+                  "style": "form"
+                },
+                "ProfileImage": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Students/paged": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Students/{id}": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Fullname": {
+                    "type": "string"
+                  },
+                  "Gender": {
+                    "type": "string"
+                  },
+                  "Dateofbirth": {
+                    "type": "string"
+                  },
+                  "Enrollmentdate": {
+                    "type": "string"
+                  },
+                  "Studentcode": {
+                    "type": "string"
+                  },
+                  "Birthplace": {
+                    "type": "string"
+                  },
+                  "Ethnicity": {
+                    "type": "string"
+                  },
+                  "Admissiontype": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string"
+                  },
+                  "Phonenumber": {
+                    "type": "string"
+                  },
+                  "Fathername": {
+                    "type": "string"
+                  },
+                  "Fatherbirthyear": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Fatheroccupation": {
+                    "type": "string"
+                  },
+                  "Phonenumberfather": {
+                    "type": "string"
+                  },
+                  "Mothername": {
+                    "type": "string"
+                  },
+                  "Motherbirthyear": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Motheroccupation": {
+                    "type": "string"
+                  },
+                  "Guardianname": {
+                    "type": "string"
+                  },
+                  "Guardianbirthyear": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Guardianoccupation": {
+                    "type": "string"
+                  },
+                  "Phonenumberguardian": {
+                    "type": "string"
+                  },
+                  "ProfileImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Fullname": {
+                  "style": "form"
+                },
+                "Gender": {
+                  "style": "form"
+                },
+                "Dateofbirth": {
+                  "style": "form"
+                },
+                "Enrollmentdate": {
+                  "style": "form"
+                },
+                "Studentcode": {
+                  "style": "form"
+                },
+                "Birthplace": {
+                  "style": "form"
+                },
+                "Ethnicity": {
+                  "style": "form"
+                },
+                "Admissiontype": {
+                  "style": "form"
+                },
+                "Email": {
+                  "style": "form"
+                },
+                "Phonenumber": {
+                  "style": "form"
+                },
+                "Fathername": {
+                  "style": "form"
+                },
+                "Fatherbirthyear": {
+                  "style": "form"
+                },
+                "Fatheroccupation": {
+                  "style": "form"
+                },
+                "Phonenumberfather": {
+                  "style": "form"
+                },
+                "Mothername": {
+                  "style": "form"
+                },
+                "Motherbirthyear": {
+                  "style": "form"
+                },
+                "Motheroccupation": {
+                  "style": "form"
+                },
+                "Guardianname": {
+                  "style": "form"
+                },
+                "Guardianbirthyear": {
+                  "style": "form"
+                },
+                "Guardianoccupation": {
+                  "style": "form"
+                },
+                "Phonenumberguardian": {
+                  "style": "form"
+                },
+                "ProfileImage": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentSemesterSummary": {
+      "get": {
+        "tags": [
+          "StudentSemesterSummary"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentSemesterSummary/{id}": {
+      "get": {
+        "tags": [
+          "StudentSemesterSummary"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentSemesterSummary/paged": {
+      "get": {
+        "tags": [
+          "StudentSemesterSummary"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Studentsubjectsummary": {
+      "get": {
+        "tags": [
+          "Studentsubjectsummary"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Studentsubjectsummary/{id}": {
+      "get": {
+        "tags": [
+          "Studentsubjectsummary"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentTransferReceipt": {
+      "get": {
+        "tags": [
+          "StudentTransferReceipt"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StudentTransferReceipt"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "StudentName": {
+                    "type": "string"
+                  },
+                  "StudentCode": {
+                    "type": "string"
+                  },
+                  "TransferDate": {
+                    "type": "string"
+                  },
+                  "SemesterId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Province": {
+                    "type": "string"
+                  },
+                  "District": {
+                    "type": "string"
+                  },
+                  "FromSchool": {
+                    "type": "string"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "AttachmentFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "StudentName": {
+                  "style": "form"
+                },
+                "StudentCode": {
+                  "style": "form"
+                },
+                "TransferDate": {
+                  "style": "form"
+                },
+                "SemesterId": {
+                  "style": "form"
+                },
+                "Province": {
+                  "style": "form"
+                },
+                "District": {
+                  "style": "form"
+                },
+                "FromSchool": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "AttachmentFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentTransferReceipt/paging": {
+      "get": {
+        "tags": [
+          "StudentTransferReceipt"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentTransferReceipt/{id}": {
+      "get": {
+        "tags": [
+          "StudentTransferReceipt"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StudentTransferReceipt"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "StudentName": {
+                    "type": "string"
+                  },
+                  "StudentCode": {
+                    "type": "string"
+                  },
+                  "TransferDate": {
+                    "type": "string"
+                  },
+                  "SemesterId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Province": {
+                    "type": "string"
+                  },
+                  "District": {
+                    "type": "string"
+                  },
+                  "FromSchool": {
+                    "type": "string"
+                  },
+                  "Reason": {
+                    "type": "string"
+                  },
+                  "AttachmentFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "StudentName": {
+                  "style": "form"
+                },
+                "StudentCode": {
+                  "style": "form"
+                },
+                "TransferDate": {
+                  "style": "form"
+                },
+                "SemesterId": {
+                  "style": "form"
+                },
+                "Province": {
+                  "style": "form"
+                },
+                "District": {
+                  "style": "form"
+                },
+                "FromSchool": {
+                  "style": "form"
+                },
+                "Reason": {
+                  "style": "form"
+                },
+                "AttachmentFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StudentTransferReceipt"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentYearlyStatus": {
+      "get": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentyearlystatus"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentyearlystatus"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentyearlystatus"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentYearlyStatus/paging": {
+      "get": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentYearlyStatus/{id}": {
+      "get": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentyearlystatus"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentyearlystatus"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Studentyearlystatus"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/StudentYearlyStatus/by-student/{studentId}": {
+      "get": {
+        "tags": [
+          "StudentYearlyStatus"
+        ],
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SubjectsOfExemption": {
+      "get": {
+        "tags": [
+          "SubjectsOfExemption"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SubjectsOfExemption"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subjectsofexemption"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subjectsofexemption"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subjectsofexemption"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SubjectsOfExemption/paging": {
+      "get": {
+        "tags": [
+          "SubjectsOfExemption"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/SubjectsOfExemption/{id}": {
+      "get": {
+        "tags": [
+          "SubjectsOfExemption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SubjectsOfExemption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subjectsofexemption"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subjectsofexemption"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Subjectsofexemption"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SubjectsOfExemption"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestHeader": {
+      "get": {
+        "tags": [
+          "TestHeader"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TestHeader"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "SubjectId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ClassId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Title": {
+                    "type": "string"
+                  },
+                  "TestFormat": {
+                    "type": "string"
+                  },
+                  "DurationInMinutes": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "StartTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "RequireStudentAttachment": {
+                    "type": "boolean"
+                  },
+                  "SubmissionRules": {
+                    "type": "string"
+                  },
+                  "Attachment": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "SubjectId": {
+                  "style": "form"
+                },
+                "ClassId": {
+                  "style": "form"
+                },
+                "Title": {
+                  "style": "form"
+                },
+                "TestFormat": {
+                  "style": "form"
+                },
+                "DurationInMinutes": {
+                  "style": "form"
+                },
+                "StartTime": {
+                  "style": "form"
+                },
+                "RequireStudentAttachment": {
+                  "style": "form"
+                },
+                "SubmissionRules": {
+                  "style": "form"
+                },
+                "Attachment": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestHeader/{id}": {
+      "get": {
+        "tags": [
+          "TestHeader"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TestHeader"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "SubjectId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "ClassId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Title": {
+                    "type": "string"
+                  },
+                  "TestFormat": {
+                    "type": "string"
+                  },
+                  "DurationInMinutes": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "StartTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "RequireStudentAttachment": {
+                    "type": "boolean"
+                  },
+                  "SubmissionRules": {
+                    "type": "string"
+                  },
+                  "Attachment": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "SubjectId": {
+                  "style": "form"
+                },
+                "ClassId": {
+                  "style": "form"
+                },
+                "Title": {
+                  "style": "form"
+                },
+                "TestFormat": {
+                  "style": "form"
+                },
+                "DurationInMinutes": {
+                  "style": "form"
+                },
+                "StartTime": {
+                  "style": "form"
+                },
+                "RequireStudentAttachment": {
+                  "style": "form"
+                },
+                "SubmissionRules": {
+                  "style": "form"
+                },
+                "Attachment": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TestHeader"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestQuestions": {
+      "get": {
+        "tags": [
+          "TestQuestions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TestQuestions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestQuestionItemDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestQuestionItemDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestQuestionItemDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestQuestions/{id}": {
+      "get": {
+        "tags": [
+          "TestQuestions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TestQuestions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestQuestionItemDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestQuestionItemDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestQuestionItemDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TestQuestions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestStudentAnswer": {
+      "get": {
+        "tags": [
+          "TestStudentAnswer"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TestStudentAnswer"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "SubmissionId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "QuestionId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "SelectedOption": {
+                    "type": "string"
+                  },
+                  "AnswerContent": {
+                    "type": "string"
+                  },
+                  "Attachment": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "SubmissionId": {
+                  "style": "form"
+                },
+                "QuestionId": {
+                  "style": "form"
+                },
+                "SelectedOption": {
+                  "style": "form"
+                },
+                "AnswerContent": {
+                  "style": "form"
+                },
+                "Attachment": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestStudentAnswer/{id}": {
+      "get": {
+        "tags": [
+          "TestStudentAnswer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TestStudentAnswer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "SubmissionId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "QuestionId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "SelectedOption": {
+                    "type": "string"
+                  },
+                  "AnswerContent": {
+                    "type": "string"
+                  },
+                  "Attachment": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "SubmissionId": {
+                  "style": "form"
+                },
+                "QuestionId": {
+                  "style": "form"
+                },
+                "SelectedOption": {
+                  "style": "form"
+                },
+                "AnswerContent": {
+                  "style": "form"
+                },
+                "Attachment": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TestStudentAnswer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestStudentSubmission": {
+      "get": {
+        "tags": [
+          "TestStudentSubmission"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "testId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TestStudentSubmission"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestStudentSubmissionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestStudentSubmissionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestStudentSubmissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/TestStudentSubmission/{id}": {
+      "get": {
+        "tags": [
+          "TestStudentSubmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TestStudentSubmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestStudentSubmissionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestStudentSubmissionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestStudentSubmissionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TestStudentSubmission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Commendationtype": {
+        "required": [
+          "typename"
+        ],
+        "type": "object",
+        "properties": {
+          "commendationtypeid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Disciplinetype": {
+        "required": [
+          "severity",
+          "typename"
+        ],
+        "type": "object",
+        "properties": {
+          "disciplinetypeid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "typename": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string"
+          },
+          "severity": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DisplayedTestList": {
+        "required": [
+          "durationInMinutes",
+          "startTime",
+          "subjectID",
+          "teacherID",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "displayItemID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subjectID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "teacherID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "durationInMinutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "statusDisplay": {
+            "type": "string",
+            "nullable": true
+          },
+          "actionDisplay": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentexemption": {
+        "required": [
+          "formofexemption",
+          "objectid",
+          "studentid"
+        ],
+        "type": "object",
+        "properties": {
+          "studentexemptionid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "objectid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "formofexemption": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Studentyearlystatus": {
+        "required": [
+          "classid",
+          "enrollmentstatus",
+          "gradelevelid",
+          "schoolyearid",
+          "studentid"
+        ],
+        "type": "object",
+        "properties": {
+          "studentyearlystatusid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "schoolyearid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "classid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gradelevelid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "enrollmentstatus": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "enrollmentdate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "graduationdate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subjectsofexemption": {
+        "required": [
+          "exemptionname",
+          "isactive"
+        ],
+        "type": "object",
+        "properties": {
+          "objectid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exemptionname": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isactive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestQuestionItemDto": {
+        "type": "object",
+        "properties": {
+          "testId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionA": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionB": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionC": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionD": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestStudentSubmissionDto": {
+        "type": "object",
+        "properties": {
+          "testId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "studentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "submissionTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
