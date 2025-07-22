@@ -1,13 +1,10 @@
 ﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Services
 {
@@ -20,100 +17,78 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<RolePermissionDto>> GetAllAsync(string? searchQuery, int page, int pageSize)
+        public async Task<PagedResponse<RolePermissionDto>> GetAllAssignmentsAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            if (page < 1 || pageSize < 1)
-            {
-                throw new ArgumentException("Trang hoặc kích thước trang không hợp lệ.");
-            }
-
-            var query = _context.RolePermissions
+            // Sửa: Rolepermission -> Rolepermissions
+            var query = _context.Rolepermissions
                 .Include(rp => rp.Role)
                 .Include(rp => rp.Permission)
-                .Select(rp => new RolePermissionDto
-                {
-                    RoleId = rp.RoleId,
-                    RoleName = rp.Role != null ? rp.Role.RoleName : null,
-                    PermissionId = rp.PermissionId,
-                    PermissionCode = rp.Permission != null ? rp.Permission.PermissionCode : null
-                });
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                searchQuery = searchQuery.ToLower();
-                query = query.Where(rp => (rp.RoleName != null && rp.RoleName.ToLower().Contains(searchQuery)) ||
-                                         (rp.PermissionCode != null && rp.PermissionCode.ToLower().Contains(searchQuery)));
+                var lowerCaseQuery = searchQuery.ToLower().Trim();
+                query = query.Where(rp =>
+                    (rp.Role.Rolename != null && rp.Role.Rolename.ToLower().Contains(lowerCaseQuery)) ||
+                    (rp.Permission.Permissioncode != null && rp.Permission.Permissioncode.ToLower().Contains(lowerCaseQuery))
+                );
             }
 
-            query = query.OrderBy(rp => rp.RoleId).ThenBy(rp => rp.PermissionId).Skip((page - 1) * pageSize).Take(pageSize);
-            return await query.ToListAsync();
-        }
+            var totalRecords = await query.CountAsync();
 
-        public async Task<RolePermissionDto?> GetByIdAsync(int roleId, int permissionId)
-        {
-            return await _context.RolePermissions
-                .Include(rp => rp.Role)
-                .Include(rp => rp.Permission)
-                .Where(rp => rp.RoleId == roleId && rp.PermissionId == permissionId)
+            var data = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(rp => new RolePermissionDto
                 {
-                    RoleId = rp.RoleId,
-                    RoleName = rp.Role != null ? rp.Role.RoleName : null,
-                    PermissionId = rp.PermissionId,
-                    PermissionCode = rp.Permission != null ? rp.Permission.PermissionCode : null
+                    RoleId = rp.Roleid,
+                    RoleName = rp.Role.Rolename,
+                    PermissionId = rp.Permissionid,
+                    PermissionCode = rp.Permission.Permissioncode,
+                    PermissionModule = rp.Permission.Module
                 })
-                .FirstOrDefaultAsync();
+                .ToListAsync();
+
+            return new PagedResponse<RolePermissionDto>(data, pageNumber, pageSize, totalRecords);
         }
 
-        public async Task<RolePermissionDto> CreateAsync(RolePermissionRequestDto rolePermission)
+        public async Task<(bool Succeeded, string? ErrorMessage, RolePermission? Assignment)> AssignPermissionToRoleAsync(RolePermissionRequestDto request)
         {
-            var role = await _context.Roles.FindAsync(rolePermission.RoleId);
-            if (role == null)
+            // Sửa: Rolepermission -> Rolepermissions
+            var assignmentExists = await _context.Rolepermissions.AnyAsync(rp =>
+                rp.Roleid == request.RoleId && rp.Permissionid == request.PermissionId);
+
+            if (assignmentExists)
             {
-                throw new ArgumentException("Vai trò không tồn tại.");
+                return (false, "Quyền này đã được gán cho vai trò.", null);
             }
 
-            var permission = await _context.Permissions.FindAsync(rolePermission.PermissionId);
-            if (permission == null)
+            var assignment = new RolePermission
             {
-                throw new ArgumentException("Quyền không tồn tại.");
-            }
-
-            var existing = await _context.RolePermissions
-                .AnyAsync(rp => rp.RoleId == rolePermission.RoleId && rp.PermissionId == rolePermission.PermissionId);
-            if (existing)
-            {
-                throw new ArgumentException("Quan hệ giữa vai trò và quyền đã tồn tại.");
-            }
-
-            var newRolePermission = new RolePermission
-            {
-                RoleId = rolePermission.RoleId,
-                PermissionId = rolePermission.PermissionId
+                Roleid = request.RoleId,
+                Permissionid = request.PermissionId
             };
 
-            _context.RolePermissions.Add(newRolePermission);
+            // Sửa: Rolepermission -> Rolepermissions
+            await _context.Rolepermissions.AddAsync(assignment);
             await _context.SaveChangesAsync();
 
-            return new RolePermissionDto
-            {
-                RoleId = newRolePermission.RoleId,
-                RoleName = role.RoleName,
-                PermissionId = newRolePermission.PermissionId,
-                PermissionCode = permission.PermissionCode
-            };
+            return (true, null, assignment);
         }
 
-        public async Task<bool> DeleteAsync(int roleId, int permissionId)
+        public async Task<bool> RemovePermissionFromRoleAsync(int roleId, int permissionId)
         {
-            var rolePermission = await _context.RolePermissions
-                .FirstOrDefaultAsync(rp => rp.RoleId == roleId && rp.PermissionId == permissionId);
-            if (rolePermission == null)
+            // Sửa: Rolepermission -> Rolepermissions
+            var assignment = await _context.Rolepermissions
+                .FirstOrDefaultAsync(rp => rp.Roleid == roleId && rp.Permissionid == permissionId);
+
+            if (assignment == null)
             {
                 return false;
             }
 
-            _context.RolePermissions.Remove(rolePermission);
+            // Sửa: Rolepermission -> Rolepermissions
+            _context.Rolepermissions.Remove(assignment);
             await _context.SaveChangesAsync();
             return true;
         }

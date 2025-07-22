@@ -1,16 +1,15 @@
 ﻿using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 
-namespace DuAnThucTap_BE01.Interface
+namespace DuAnThucTap_BE01.Iterface
 {
     public interface IPermissionService
     {
-        Task<IEnumerable<PermissionDto>> GetAllAsync(string? searchQuery, int page, int pageSize);
-        Task<PermissionDto?> GetByIdAsync(int id);
-        Task<PermissionDto> CreateAsync(PermissionRequestDto permission);
-        Task<PermissionDto?> UpdateAsync(int id, PermissionRequestDto permission);
-        Task<bool> DeleteAsync(int id);
+        Task<PagedResponse<PermissionDto>> GetAllPermissionsAsync(string? searchQuery, int pageNumber, int pageSize);
+        Task<PermissionDto?> GetPermissionByIdAsync(int id);
+        Task<Permission> CreatePermissionAsync(PermissionRequestDto permissionDto);
+        Task<Permission?> UpdatePermissionAsync(int id, PermissionRequestDto permissionDto);
+        Task<bool> DeletePermissionAsync(int id);
     }
 }

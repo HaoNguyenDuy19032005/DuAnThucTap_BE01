@@ -1,13 +1,10 @@
 ﻿using DuAnThucTap_BE01.Data;
 using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DuAnThucTap_BE01.Services
 {
@@ -20,108 +17,95 @@ namespace DuAnThucTap_BE01.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<PermissionDto>> GetAllAsync(string? searchQuery, int page, int pageSize)
+        public async Task<PagedResponse<PermissionDto>> GetAllPermissionsAsync(string? searchQuery, int pageNumber, int pageSize)
         {
-            if (page < 1 || pageSize < 1)
-            {
-                throw new ArgumentException("Trang hoặc kích thước trang không hợp lệ.");
-            }
+            var query = _context.Permissions.AsQueryable();
 
-            var query = _context.Permissions
-                .Select(p => new PermissionDto
-                {
-                    PermissionId = p.PermissionId,
-                    Module = p.Module,
-                    PermissionCode = p.PermissionCode,
-                    Description = p.Description
-                });
-
+            // Logic tìm kiếm
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                searchQuery = searchQuery.ToLower();
-                query = query.Where(p => (p.Module != null && p.Module.ToLower().Contains(searchQuery)) ||
-                                         p.PermissionCode.ToLower().Contains(searchQuery));
+                var lowerCaseQuery = searchQuery.ToLower().Trim();
+                query = query.Where(p =>
+                    (p.Module != null && p.Module.ToLower().Contains(lowerCaseQuery)) ||
+                    p.Permissioncode.ToLower().Contains(lowerCaseQuery) ||
+                    (p.Description != null && p.Description.ToLower().Contains(lowerCaseQuery))
+                );
             }
 
-            query = query.OrderBy(p => p.PermissionId).Skip((page - 1) * pageSize).Take(pageSize);
-            return await query.ToListAsync();
-        }
+            var totalRecords = await query.CountAsync();
 
-        public async Task<PermissionDto?> GetByIdAsync(int id)
-        {
-            return await _context.Permissions
-                .Where(p => p.PermissionId == id)
+            var pagedData = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(p => new PermissionDto
                 {
-                    PermissionId = p.PermissionId,
+                    Permissionid = p.Permissionid,
                     Module = p.Module,
-                    PermissionCode = p.PermissionCode,
+                    Permissioncode = p.Permissioncode,
+                    Description = p.Description
+                })
+                .ToListAsync();
+
+            return new PagedResponse<PermissionDto>(pagedData, pageNumber, pageSize, totalRecords);
+        }
+
+        public async Task<PermissionDto?> GetPermissionByIdAsync(int id)
+        {
+            return await _context.Permissions
+                .Where(p => p.Permissionid == id)
+                .Select(p => new PermissionDto
+                {
+                    Permissionid = p.Permissionid,
+                    Module = p.Module,
+                    Permissioncode = p.Permissioncode,
                     Description = p.Description
                 })
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<PermissionDto> CreateAsync(PermissionRequestDto permission)
+        public async Task<Permission> CreatePermissionAsync(PermissionRequestDto permissionDto)
         {
-            if (await _context.Permissions.AnyAsync(p => p.PermissionCode == permission.PermissionCode))
+            var isDuplicateCode = await _context.Permissions.AnyAsync(p => p.Permissioncode == permissionDto.Permissioncode);
+            if (isDuplicateCode)
             {
-                throw new ArgumentException("Mã quyền đã tồn tại.");
+                throw new InvalidOperationException($"Mã quyền '{permissionDto.Permissioncode}' đã tồn tại.");
             }
 
-            var newPermission = new Permission
+            var permission = new Permission
             {
-                Module = permission.Module,
-                PermissionCode = permission.PermissionCode,
-                Description = permission.Description
+                Module = permissionDto.Module,
+                Permissioncode = permissionDto.Permissioncode,
+                Description = permissionDto.Description
             };
 
-            _context.Permissions.Add(newPermission);
+            _context.Permissions.Add(permission);
             await _context.SaveChangesAsync();
-
-            return new PermissionDto
-            {
-                PermissionId = newPermission.PermissionId,
-                Module = newPermission.Module,
-                PermissionCode = newPermission.PermissionCode,
-                Description = newPermission.Description
-            };
+            return permission;
         }
 
-        public async Task<PermissionDto?> UpdateAsync(int id, PermissionRequestDto permission)
-        {
-            var existing = await _context.Permissions.FindAsync(id);
-            if (existing == null)
-            {
-                return null;
-            }
-
-            if (await _context.Permissions.AnyAsync(p => p.PermissionCode == permission.PermissionCode && p.PermissionId != id))
-            {
-                throw new ArgumentException("Mã quyền đã tồn tại.");
-            }
-
-            existing.Module = permission.Module;
-            existing.PermissionCode = permission.PermissionCode;
-            existing.Description = permission.Description;
-
-            await _context.SaveChangesAsync();
-
-            return new PermissionDto
-            {
-                PermissionId = existing.PermissionId,
-                Module = existing.Module,
-                PermissionCode = existing.PermissionCode,
-                Description = existing.Description
-            };
-        }
-
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<Permission?> UpdatePermissionAsync(int id, PermissionRequestDto permissionDto)
         {
             var permission = await _context.Permissions.FindAsync(id);
-            if (permission == null)
+            if (permission == null) return null;
+
+            var isDuplicateCode = await _context.Permissions.AnyAsync(p => p.Permissioncode == permissionDto.Permissioncode && p.Permissionid != id);
+            if (isDuplicateCode)
             {
-                return false;
+                throw new InvalidOperationException($"Mã quyền '{permissionDto.Permissioncode}' đã được sử dụng bởi một quyền khác.");
             }
+
+            permission.Module = permissionDto.Module;
+            permission.Permissioncode = permissionDto.Permissioncode;
+            permission.Description = permissionDto.Description;
+
+            await _context.SaveChangesAsync();
+            return permission;
+        }
+
+        public async Task<bool> DeletePermissionAsync(int id)
+        {
+            var permission = await _context.Permissions.FindAsync(id);
+            if (permission == null) return false;
 
             _context.Permissions.Remove(permission);
             await _context.SaveChangesAsync();

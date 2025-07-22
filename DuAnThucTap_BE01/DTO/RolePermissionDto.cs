@@ -1,19 +1,11 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-namespace DuAnThucTap_BE01.DTO
+﻿namespace DuAnThucTap_BE01.DTO
 {
     public class RolePermissionDto
     {
-        [DisplayName("ID Quyền")]
+        public int RoleId { get; set; }
+        public string? RoleName { get; set; }
         public int PermissionId { get; set; }
-
-        [DisplayName("Module")]
-        public string? Module { get; set; }
-
-        [DisplayName("Mã Quyền")]
-        public string PermissionCode { get; set; } = null!;
-
-        [DisplayName("Mô tả")]
-        public string? Description { get; set; }
+        public string? PermissionCode { get; set; }
+        public string? PermissionModule { get; set; }
     }
 }

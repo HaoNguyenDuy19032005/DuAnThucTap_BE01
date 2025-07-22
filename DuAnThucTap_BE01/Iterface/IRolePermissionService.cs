@@ -1,15 +1,13 @@
 ﻿using DuAnThucTap_BE01.DTO;
-using DuAnThucTap_BE01.Dtos;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using DuAnThucTap_BE01.Models;
+using DuAnThucTap_BE01.Response;
 
-namespace DuAnThucTap_BE01.Interface
+namespace DuAnThucTap_BE01.Iterface
 {
     public interface IRolePermissionService
     {
-        Task<IEnumerable<RolePermissionDto>> GetAllAsync(string? searchQuery, int page, int pageSize);
-        Task<RolePermissionDto?> GetByIdAsync(int roleId, int permissionId);
-        Task<RolePermissionDto> CreateAsync(RolePermissionRequestDto rolePermission);
-        Task<bool> DeleteAsync(int roleId, int permissionId);
+        Task<PagedResponse<RolePermissionDto>> GetAllAssignmentsAsync(string? searchQuery, int pageNumber, int pageSize);
+        Task<(bool Succeeded, string? ErrorMessage, RolePermission? Assignment)> AssignPermissionToRoleAsync(RolePermissionRequestDto request);
+        Task<bool> RemovePermissionFromRoleAsync(int roleId, int permissionId);
     }
 }
