@@ -42,9 +42,9 @@ builder.Services.AddScoped<ITestStudentSubmissionService, TestStudentSubmissionS
 builder.Services.AddScoped<ITestStudentAnswerService, TestStudentAnswerService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserNotificationService, UserNotificationService>();
-builder.Services.AddScoped<IUserThreadReadStatusService, UserThreadReadStatusService>();
-
+//builder.Services.AddScoped<IUserNotificationService, UserNotificationService>();
+//builder.Services.AddScoped<IUserThreadReadStatusService, UserThreadReadStatusService>();
+//builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
 
 // ✅ Cấu hình Controllers với JSON và tắt validation tự động
 builder.Services.AddControllers()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Nhom2ThucTap.Models
@@ -30,9 +31,11 @@ namespace Nhom2ThucTap.Models
         [Column("createdat", TypeName = "timestamp without time zone")]
         public DateTime? Createdat { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("Creatorid")]
         [InverseProperty("Announcements")]
         public virtual User Creator { get; set; } = null!;
+        [JsonIgnore]
         [InverseProperty("Announcement")]
         public virtual ICollection<Usernotification> Usernotifications { get; set; }
     }

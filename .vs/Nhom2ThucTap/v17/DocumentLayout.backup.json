@@ -3,52 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\models\\userthreadreadstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\models\\userthreadreadstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\models\\usernotification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\models\\usernotification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\models\\displayedtestlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\models\\displayedtestlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\controllers\\userthreadreadstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\controllers\\userthreadreadstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\service\\userthreadreadstatusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\service\\userthreadreadstatusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\interface\\iuserthreadreadstatusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\interface\\iuserthreadreadstatusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\controllers\\usernotificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\controllers\\usernotificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\service\\usernotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\service\\usernotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|c:\\users\\admin\\source\\repos\\nhom2thuctap\\nhom2thuctap\\interface\\iusernotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99E32C7-5A84-48AA-A07C-061D4751C15F}|Nhom2ThucTap\\Nhom2ThucTap.csproj|solutionrelative:nhom2thuctap\\interface\\iusernotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,164 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Role.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\Role.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Models\\Role.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\Role.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Models\\Role.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAAABwAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T18:04:20.886Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\User.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Models\\User.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAAAEUAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T18:03:01.147Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DisplayedTestList.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\DisplayedTestList.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Models\\DisplayedTestList.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\DisplayedTestList.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Models\\DisplayedTestList.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAAAGAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T18:02:50.168Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserThreadReadStatusController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Controllers\\UserThreadReadStatusController.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Controllers\\UserThreadReadStatusController.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Controllers\\UserThreadReadStatusController.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Controllers\\UserThreadReadStatusController.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAA3wEEAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T18:00:17.35Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UserThreadReadStatusService.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Service\\UserThreadReadStatusService.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Service\\UserThreadReadStatusService.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Service\\UserThreadReadStatusService.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Service\\UserThreadReadStatusService.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAgwEwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:59:56.839Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IUserThreadReadStatusService.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Interface\\IUserThreadReadStatusService.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Interface\\IUserThreadReadStatusService.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Interface\\IUserThreadReadStatusService.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Interface\\IUserThreadReadStatusService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:59:35.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Userthreadreadstatus.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\Userthreadreadstatus.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Models\\Userthreadreadstatus.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\Userthreadreadstatus.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Models\\Userthreadreadstatus.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAABgAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:57:40.714Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Program.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Program.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Program.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Program.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAAC4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:57:23.681Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UserNotificationController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Controllers\\UserNotificationController.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Controllers\\UserNotificationController.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Controllers\\UserNotificationController.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Controllers\\UserNotificationController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAA3wFUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:57:11.229Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "UserNotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Service\\UserNotificationService.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Service\\UserNotificationService.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Service\\UserNotificationService.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Service\\UserNotificationService.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAgwFQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:56:44.562Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IUserNotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Interface\\IUserNotificationService.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Interface\\IUserNotificationService.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Interface\\IUserNotificationService.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Interface\\IUserNotificationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:56:26.573Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Usernotification.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\Usernotification.cs",
-              "RelativeDocumentMoniker": "Nhom2ThucTap\\Models\\Usernotification.cs",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\Usernotification.cs",
-              "RelativeToolTip": "Nhom2ThucTap\\Models\\Usernotification.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAiwBwAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T17:50:00.086Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
@@ -227,6 +31,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Nhom2ThucTap\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Nhom2ThucTap\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAYwLIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T05:52:11.99Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Nhom2ThucTap\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Nhom2ThucTap\\Nhom2ThucTap\\Models\\User.cs",
+              "RelativeToolTip": "Nhom2ThucTap\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T05:51:58.681Z",
+              "EditorCaption": ""
             }
           ]
         }
