@@ -1,4 +1,4 @@
-namespace DuAnThucTap_BE01
+namespace DuAnThucTap
 {
     public class WeatherForecast
     {

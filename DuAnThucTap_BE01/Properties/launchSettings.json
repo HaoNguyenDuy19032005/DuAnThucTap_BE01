@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:58386",
-      "sslPort": 44332
+      "applicationUrl": "http://localhost:11116",
+      "sslPort": 44339
     }
   },
   "profiles": {
-    "DuAnThucTap_BE01": {
+    "DuAnThucTap": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7156;http://localhost:5175",
+      "applicationUrl": "https://localhost:7176;http://localhost:5085",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
