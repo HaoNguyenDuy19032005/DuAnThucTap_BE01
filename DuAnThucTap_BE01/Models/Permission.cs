@@ -1,34 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuAnThucTap_BE01.Models
 {
-    [Table("permissions")]
-    [Index("Permissioncode", Name = "permissions_permissioncode_key", IsUnique = true)]
-    public partial class Permission
+    [Table("Permissions")]
+    public class Permission
     {
-        public Permission()
-        {
-            Roles = new HashSet<Role>();
-        }
-
         [Key]
-        [Column("permissionid")]
-        public int Permissionid { get; set; }
-        [Column("module")]
+        [Column("PermissionID")]
+        public int PermissionID { get; set; }
+
+        [Column("Module")]
         [StringLength(100)]
         public string? Module { get; set; }
-        [Column("permissioncode")]
+
+        [Column("PermissionCode")]
         [StringLength(100)]
-        public string Permissioncode { get; set; } = null!;
-        [Column("description")]
+        [Required]
+        public string PermissionCode { get; set; } = null!;
+
+        [Column("Description")]
         public string? Description { get; set; }
 
-        [ForeignKey("Permissionid")]
         [InverseProperty("Permissions")]
-        public virtual ICollection<Role> Roles { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Role> Roles { get; set; } = new HashSet<Role>();
     }
 }
