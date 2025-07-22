@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace Nhom2ThucTap.Models
 {
@@ -25,9 +26,11 @@ namespace Nhom2ThucTap.Models
         [Column("description")]
         public string? Description { get; set; }
 
+        [JsonIgnore]
         [InverseProperty("Role")]
         public virtual ICollection<User> Users { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("Roleid")]
         [InverseProperty("Roles")]
         public virtual ICollection<Permission> Permissions { get; set; }

@@ -47,3 +47,4 @@ C:\Users\Admin\source\repos\Nhom2ThucTap\Nhom2ThucTap\obj\Debug\net6.0\Nhom2Thuc
 C:\Users\Admin\source\repos\Nhom2ThucTap\Nhom2ThucTap\obj\Debug\net6.0\Nhom2ThucTap.genruntimeconfig.cache
 C:\Users\Admin\source\repos\Nhom2ThucTap\Nhom2ThucTap\obj\Debug\net6.0\ref\Nhom2ThucTap.dll
 C:\Users\Admin\source\repos\Nhom2ThucTap\Nhom2ThucTap\bin\Debug\net6.0\Nhom2ThucTap.staticwebassets.runtime.json
+C:\Users\Admin\source\repos\Nhom2ThucTap\Nhom2ThucTap\obj\Debug\net6.0\Nhom2ThucTap.sourcelink.json

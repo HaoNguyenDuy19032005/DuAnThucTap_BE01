@@ -40,6 +40,10 @@ builder.Services.AddScoped<ITestHeaderService, TestHeaderService>();
 builder.Services.AddScoped<ITestQuestionService, TestQuestionService>();
 builder.Services.AddScoped<ITestStudentSubmissionService, TestStudentSubmissionService>();
 builder.Services.AddScoped<ITestStudentAnswerService, TestStudentAnswerService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserNotificationService, UserNotificationService>();
+builder.Services.AddScoped<IUserThreadReadStatusService, UserThreadReadStatusService>();
 
 
 // ✅ Cấu hình Controllers với JSON và tắt validation tự động

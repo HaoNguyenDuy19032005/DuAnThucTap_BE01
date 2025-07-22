@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace Nhom2ThucTap.Models
 {
@@ -42,23 +43,31 @@ namespace Nhom2ThucTap.Models
         [Column("studentid")]
         public int? Studentid { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("Roleid")]
         [InverseProperty("Users")]
         public virtual Role Role { get; set; } = null!;
+        [JsonIgnore]
         [ForeignKey("Studentid")]
         [InverseProperty("User")]
         public virtual Student? Student { get; set; }
+        [JsonIgnore]
         [ForeignKey("Teacherid")]
         [InverseProperty("User")]
         public virtual Teacher? Teacher { get; set; }
+        [JsonIgnore]
         [InverseProperty("Creator")]
         public virtual ICollection<Announcement> Announcements { get; set; }
+        [JsonIgnore]
         [InverseProperty("User")]
         public virtual ICollection<Qnaparticipant> Qnaparticipants { get; set; }
+        [JsonIgnore]
         [InverseProperty("Creator")]
         public virtual ICollection<Qnathread> Qnathreads { get; set; }
+        [JsonIgnore]
         [InverseProperty("User")]
         public virtual ICollection<Usernotification> Usernotifications { get; set; }
+        [JsonIgnore]
         [InverseProperty("User")]
         public virtual ICollection<Userthreadreadstatus> Userthreadreadstatuses { get; set; }
     }
