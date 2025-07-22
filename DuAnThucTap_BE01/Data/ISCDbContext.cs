@@ -72,6 +72,8 @@ namespace DuAnThucTap_BE01.Data
         public virtual DbSet<Topiclist> Topiclists { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Usernotification> Usernotifications { get; set; } = null!;
+
+        public virtual DbSet<RolePermission> Rolepermissions { get; set; } = null!;
         public virtual DbSet<Userthreadreadstatus> Userthreadreadstatuses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -79,7 +81,7 @@ namespace DuAnThucTap_BE01.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=admin123");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=iscschool1;Username=postgres;Password=123456");
             }
         }
 
@@ -428,24 +430,21 @@ namespace DuAnThucTap_BE01.Data
                     .HasConstraintName("fk_creator");
             });
 
-            modelBuilder.Entity<Role>(entity =>
+            modelBuilder.Entity<RolePermission>(entity =>
             {
-                entity.HasMany(d => d.Permissions)
-                    .WithMany(p => p.Roles)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "Rolepermission",
-                        l => l.HasOne<Permission>().WithMany().HasForeignKey("Permissionid").HasConstraintName("fk_permission"),
-                        r => r.HasOne<Role>().WithMany().HasForeignKey("Roleid").HasConstraintName("fk_role"),
-                        j =>
-                        {
-                            j.HasKey("Roleid", "Permissionid").HasName("rolepermissions_pkey");
+                entity.HasKey(e => new { e.Roleid, e.Permissionid });
 
-                            j.ToTable("rolepermissions");
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(d => d.Roleid)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_role");
 
-                            j.IndexerProperty<int>("Roleid").HasColumnName("roleid");
-
-                            j.IndexerProperty<int>("Permissionid").HasColumnName("permissionid");
-                        });
+                entity.HasOne(d => d.Permission)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(d => d.Permissionid)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_permission");
             });
 
             modelBuilder.Entity<Schoolinformation>(entity =>
