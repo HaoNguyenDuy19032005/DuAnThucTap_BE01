@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DuAnThucTapNhom3.Iterface;
-using DuAnThucTapNhom3.Models;
+using DuAnThucTap.Model;
 
 namespace DuAnThucTap_BE01.Controllers
 {

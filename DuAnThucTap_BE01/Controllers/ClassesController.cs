@@ -1,5 +1,4 @@
 ﻿using DuAnThucTap.Model;
-using DuAnThucTap.Model;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
