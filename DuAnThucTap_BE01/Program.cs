@@ -1,35 +1,68 @@
 ﻿using DuAnThucTap_BE01.Data;
+using DuAnThucTap_BE01.Helpers;
 using DuAnThucTap_BE01.Interface;
+using DuAnThucTap_BE01.Iterface;
 using DuAnThucTap_BE01.Services;
-using DuAnThucTap_BE01.Converters;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Models;
+using System.Globalization;
+
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-        options.JsonSerializerOptions.Converters.Add(new NullableDateOnlyJsonConverter());
-    });
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.Converters.Add(new NewtonsoftDateOnlyConverter());
+});
 
-// Đăng ký Dependency Injection cho DbContext
-builder.Services.AddDbContext<DemoBuoi2DbContext>(options =>
+
+builder.Services.AddDbContext<ISCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Đăng ký Dependency Injection cho các service
+builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IExamGraderService, ExamGraderService>();
+builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<ITeacherConcurrentSubjectService, TeacherConcurrentSubjectService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ITeacherTrainingHistoryService, TeacherTrainingHistoryService>();
+builder.Services.AddScoped<ITeacherWorkHistoryService, TeacherWorkHistoryService>();
+builder.Services.AddScoped<ITeacherWorkStatusHistoryService, TeacherWorkStatusHistoryService>();
 builder.Services.AddScoped<ITeachingAssignmentService, TeachingAssignmentService>();
+builder.Services.AddScoped<ITestAssignment, TestAssignmentService>();
+builder.Services.AddScoped<ITests, TestsService>();
 builder.Services.AddScoped<ITopicListService, TopicListService>();
+builder.Services.AddScoped<IExamScheduleService, ExamScheduleService>();
+builder.Services.AddSingleton<IFirebaseStorageService, FirebaseStorageService>();
 
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.UseDateOnlyTimeOnlyStringConverters();
+});
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<FileUploadOperationFilter>();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+});
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,9 +70,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

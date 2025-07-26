@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DuAnThucTap_BE01.Models
 {
@@ -11,22 +12,32 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("teacherid")]
-        public Guid Teacherid { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "ID Giáo viên không hợp lệ.")]
+        public int Teacherid { get; set; }
+
         [Key]
         [Column("subjectid")]
-        public Guid Subjectid { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "ID Môn học không hợp lệ.")]
+        public int Subjectid { get; set; }
+
         [Key]
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "ID Năm học không hợp lệ.")]
+        public int Schoolyearid { get; set; }
 
         [ForeignKey("Schoolyearid")]
         [InverseProperty("Teacherconcurrentsubjects")]
-        public virtual Schoolyear Schoolyear { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Schoolyear? Schoolyear { get; set; }
+
         [ForeignKey("Subjectid")]
         [InverseProperty("Teacherconcurrentsubjects")]
-        public virtual Subject Subject { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Subject? Subject { get; set; }
+
         [ForeignKey("Teacherid")]
         [InverseProperty("Teacherconcurrentsubjects")]
-        public virtual Teacher Teacher { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Teacher? Teacher { get; set; }
     }
 }

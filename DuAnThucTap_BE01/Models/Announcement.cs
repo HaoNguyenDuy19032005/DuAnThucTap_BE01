@@ -16,9 +16,9 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("announcementid")]
-        public Guid Announcementid { get; set; }
+        public int Announcementid { get; set; }
         [Column("creatorid")]
-        public Guid Creatorid { get; set; }
+        public int Creatorid { get; set; }
         [Column("title")]
         [StringLength(255)]
         public string Title { get; set; } = null!;

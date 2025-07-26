@@ -11,17 +11,17 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("schooltransferid")]
-        public Guid Schooltransferid { get; set; }
+        public int Schooltransferid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("fromschoolid")]
-        public Guid? Fromschoolid { get; set; }
+        public int? Fromschoolid { get; set; }
         [Column("fromclassid")]
-        public Guid? Fromclassid { get; set; }
+        public int? Fromclassid { get; set; }
         [Column("toschoolid")]
-        public Guid Toschoolid { get; set; }
+        public int Toschoolid { get; set; }
         [Column("toclassid")]
-        public Guid Toclassid { get; set; }
+        public int Toclassid { get; set; }
         [Column("transfertype")]
         [StringLength(100)]
         public string? Transfertype { get; set; }

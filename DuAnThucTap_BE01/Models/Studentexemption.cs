@@ -11,11 +11,11 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("studentexemptionid")]
-        public Guid Studentexemptionid { get; set; }
+        public int Studentexemptionid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("objectid")]
-        public Guid Objectid { get; set; }
+        public int Objectid { get; set; }
         [Column("formofexemption")]
         [StringLength(255)]
         public string? Formofexemption { get; set; }

@@ -23,7 +23,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("subjectid")]
-        public Guid Subjectid { get; set; }
+        public int Subjectid { get; set; }
         [Column("subjectname")]
         [StringLength(255)]
         public string Subjectname { get; set; } = null!;
@@ -35,11 +35,11 @@ namespace DuAnThucTap_BE01.Models
         [Column("defaultperiodssem2")]
         public int? Defaultperiodssem2 { get; set; }
         [Column("departmentid")]
-        public Guid? Departmentid { get; set; }
+        public int? Departmentid { get; set; }
         [Column("subjecttypeid")]
-        public Guid? Subjecttypeid { get; set; }
+        public int? Subjecttypeid { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("createdat")]
         public DateTime? Createdat { get; set; }
         [Column("updatedat")]

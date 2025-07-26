@@ -17,7 +17,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("permissionid")]
-        public Guid Permissionid { get; set; }
+        public int Permissionid { get; set; }
         [Column("module")]
         [StringLength(100)]
         public string? Module { get; set; }

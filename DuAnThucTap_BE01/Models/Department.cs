@@ -19,7 +19,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("departmentid")]
-        public Guid Departmentid { get; set; }
+        public int Departmentid { get; set; }
         [Column("departmentname")]
         [StringLength(255)]
         public string Departmentname { get; set; } = null!;

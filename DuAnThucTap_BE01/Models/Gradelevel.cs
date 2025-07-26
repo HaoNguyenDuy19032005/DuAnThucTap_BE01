@@ -20,7 +20,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("gradelevelid")]
-        public Guid Gradelevelid { get; set; }
+        public int Gradelevelid { get; set; }
         [Column("gradelevelname")]
         [StringLength(100)]
         public string Gradelevelname { get; set; } = null!;
@@ -28,7 +28,7 @@ namespace DuAnThucTap_BE01.Models
         [StringLength(20)]
         public string? Codegradelevel { get; set; }
         [Column("teacherid")]
-        public Guid? Teacherid { get; set; }
+        public int? Teacherid { get; set; }
         [Column("createdat")]
         public DateTime? Createdat { get; set; }
         [Column("updatedat")]

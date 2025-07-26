@@ -12,11 +12,11 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("answerid")]
-        public Guid Answerid { get; set; }
+        public int Answerid { get; set; }
         [Column("submissionid")]
-        public Guid Submissionid { get; set; }
+        public int Submissionid { get; set; }
         [Column("questionid")]
-        public Guid Questionid { get; set; }
+        public int Questionid { get; set; }
         [Column("answercontent")]
         public string? Answercontent { get; set; }
         [Column("selectedoption")]

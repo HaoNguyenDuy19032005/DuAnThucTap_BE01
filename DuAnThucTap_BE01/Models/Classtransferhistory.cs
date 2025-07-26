@@ -11,15 +11,15 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("transferid")]
-        public Guid Transferid { get; set; }
+        public int Transferid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("fromclassid")]
-        public Guid? Fromclassid { get; set; }
+        public int? Fromclassid { get; set; }
         [Column("toclassid")]
-        public Guid Toclassid { get; set; }
+        public int Toclassid { get; set; }
         [Column("semesterid")]
-        public Guid Semesterid { get; set; }
+        public int Semesterid { get; set; }
         [Column("transferdate")]
         public DateOnly Transferdate { get; set; }
         [Column("reason")]

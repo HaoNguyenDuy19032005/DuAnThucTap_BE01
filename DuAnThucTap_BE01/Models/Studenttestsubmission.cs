@@ -18,11 +18,11 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("submissionid")]
-        public Guid Submissionid { get; set; }
+        public int Submissionid { get; set; }
         [Column("assignmentid")]
-        public Guid Assignmentid { get; set; }
+        public int Assignmentid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("starttime")]
         public DateTime? Starttime { get; set; }
         [Column("submissiontime")]

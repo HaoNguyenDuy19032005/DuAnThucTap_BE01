@@ -24,7 +24,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("classid")]
-        public Guid Classid { get; set; }
+        public int Classid { get; set; }
         [Column("classname")]
         [StringLength(100)]
         public string Classname { get; set; } = null!;
@@ -33,15 +33,15 @@ namespace DuAnThucTap_BE01.Models
         [Column("description")]
         public string? Description { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("gradelevelid")]
-        public Guid Gradelevelid { get; set; }
+        public int Gradelevelid { get; set; }
         [Column("classtypeid")]
-        public Guid? Classtypeid { get; set; }
+        public int? Classtypeid { get; set; }
         [Column("teacherid")]
-        public Guid? Teacherid { get; set; }
+        public int? Teacherid { get; set; }
         [Column("subjectid")]
-        public Guid? Subjectid { get; set; }
+        public int? Subjectid { get; set; }
         [Column("createdat")]
         public DateTime? Createdat { get; set; }
         [Column("updatedat")]

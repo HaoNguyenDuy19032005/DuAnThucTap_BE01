@@ -12,11 +12,11 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("usernotificationid")]
-        public Guid Usernotificationid { get; set; }
+        public int Usernotificationid { get; set; }
         [Column("userid")]
-        public Guid Userid { get; set; }
+        public int Userid { get; set; }
         [Column("announcementid")]
-        public Guid Announcementid { get; set; }
+        public int Announcementid { get; set; }
         [Column("isread")]
         public bool Isread { get; set; }
         [Column("readat")]

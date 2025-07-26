@@ -22,9 +22,9 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("semesterid")]
-        public Guid Semesterid { get; set; }
+        public int Semesterid { get; set; }
         [Column("schoolyearid")]
-        public Guid Schoolyearid { get; set; }
+        public int Schoolyearid { get; set; }
         [Column("semestername")]
         [StringLength(100)]
         public string Semestername { get; set; } = null!;

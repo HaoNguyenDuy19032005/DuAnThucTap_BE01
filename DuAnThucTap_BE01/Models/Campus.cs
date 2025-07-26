@@ -11,9 +11,9 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("campusid")]
-        public Guid Campusid { get; set; }
+        public int Campusid { get; set; }
         [Column("schoolinfoid")]
-        public Guid Schoolinfoid { get; set; }
+        public int Schoolinfoid { get; set; }
         [Column("campusname")]
         [StringLength(255)]
         public string Campusname { get; set; } = null!;

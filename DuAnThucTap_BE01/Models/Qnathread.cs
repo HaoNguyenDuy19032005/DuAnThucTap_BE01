@@ -17,11 +17,11 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("threadid")]
-        public Guid Threadid { get; set; }
+        public int Threadid { get; set; }
         [Column("classid")]
-        public Guid Classid { get; set; }
+        public int Classid { get; set; }
         [Column("creatorid")]
-        public Guid Creatorid { get; set; }
+        public int Creatorid { get; set; }
         [Column("title")]
         [StringLength(255)]
         public string Title { get; set; } = null!;

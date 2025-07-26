@@ -11,17 +11,17 @@ namespace DuAnThucTap_BE01.Models
     {
         [Key]
         [Column("gradeid")]
-        public Guid Gradeid { get; set; }
+        public int Gradeid { get; set; }
         [Column("studentid")]
-        public Guid Studentid { get; set; }
+        public int Studentid { get; set; }
         [Column("subjectid")]
-        public Guid Subjectid { get; set; }
+        public int Subjectid { get; set; }
         [Column("semesterid")]
-        public Guid Semesterid { get; set; }
+        public int Semesterid { get; set; }
         [Column("gradetypeid")]
-        public Guid Gradetypeid { get; set; }
+        public int Gradetypeid { get; set; }
         [Column("schoolid")]
-        public Guid Schoolid { get; set; }
+        public int Schoolid { get; set; }
         [Column("score")]
         [Precision(4, 2)]
         public decimal Score { get; set; }

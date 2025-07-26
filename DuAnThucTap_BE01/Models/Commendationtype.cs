@@ -16,7 +16,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("commendationtypeid")]
-        public Guid Commendationtypeid { get; set; }
+        public int Commendationtypeid { get; set; }
         [Column("typename")]
         [StringLength(255)]
         public string Typename { get; set; } = null!;

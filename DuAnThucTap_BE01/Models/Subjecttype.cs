@@ -16,7 +16,7 @@ namespace DuAnThucTap_BE01.Models
 
         [Key]
         [Column("subjecttypeid")]
-        public Guid Subjecttypeid { get; set; }
+        public int Subjecttypeid { get; set; }
         [Column("subjecttypename")]
         [StringLength(255)]
         public string Subjecttypename { get; set; } = null!;
